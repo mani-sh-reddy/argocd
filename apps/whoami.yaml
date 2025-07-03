@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: whoami
     server: https://kubernetes.default.svc
-  project: default
+  project: custom
   source:
     path: whoami/
     repoURL: https://github.com/mani-sh-reddy/argocd.git
