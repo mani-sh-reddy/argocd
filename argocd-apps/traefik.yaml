@@ -9,9 +9,9 @@ spec:
     repoURL: https://traefik.github.io/charts
     chart: traefik
     targetRevision: 36.3.0
-    helm:
-      valueFiles:
-        - ../traefik/traefik-values.yaml  # Relative to this YAML file
+    # helm:
+    #   valueFiles:
+    #     - ../traefik/traefik-values.yaml  # Relative to this YAML file
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: traefik # Where traefik components live
