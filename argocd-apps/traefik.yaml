@@ -1,23 +1,23 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: traefik
-  namespace: argocd # This manifest's namespace
-spec:
-  project: default
-  source:
-    repoURL: https://traefik.github.io/charts
-    chart: traefik
-    targetRevision: 36.3.0
-    # helm:
-    #   valueFiles:
-    #     - ../traefik/traefik-values.yaml  # Relative to this YAML file
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: traefik # Where traefik components live
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
-    syncOptions:
-      - CreateNamespace=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: traefik
+#   namespace: argocd # This manifest's namespace
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://traefik.github.io/charts
+#     chart: traefik
+#     targetRevision: 36.3.0
+#     # helm:
+#     #   valueFiles:
+#     #     - ../traefik/traefik-values.yaml  # Relative to this YAML file
+#   destination:
+#     server: 'https://kubernetes.default.svc'
+#     namespace: traefik # Where traefik components live
+#   syncPolicy:
+#     automated:
+#       selfHeal: true
+#       prune: true
+#     syncOptions:
+#       - CreateNamespace=true
