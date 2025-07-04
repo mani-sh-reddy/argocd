@@ -196,9 +196,9 @@ global:
 # # -- Environment variables to be passed to Traefik's binary from configMaps or secrets
 # envFrom: []
 
-# ports:
-#   traefik:
-#     port: 8080
+ports:
+  # traefik:
+    # port: 8080
 #     # -- Use hostPort if set.
 #     hostPort:  # @schema type:[integer, null]; minimum:0
 #     # -- Use hostIP if set. If not set, Kubernetes will default to 0.0.0.0, which
@@ -219,27 +219,31 @@ global:
 #     exposedPort: 8080
 #     # -- The port protocol (TCP/UDP)
 #     protocol: TCP
-#   web:
-#     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
-#     # asDefault: true
-#     port: 8000
-#     # hostPort: 8000
-#     # containerPort: 8000
-#     expose:
-#       default: true
-#     exposedPort: 80
-#     ## -- Different target traefik port on the cluster, useful for IP type LB
-#     targetPort:  # @schema type:[string, integer, null]; minimum:0
-#     # The port protocol (TCP/UDP)
-#     protocol: TCP
-#     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
+
+  web:
+    ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
+    # asDefault: true
+    port: 80
+    # hostPort: 8000
+    # containerPort: 8000
+    expose:
+      default: true
+    exposedPort: 80
+    # ## -- Different target traefik port on the cluster, useful for IP type LB
+    # targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: TCP
+    # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
 #     nodePort:  # @schema type:[integer, null]; minimum:0
-#     redirections:
-#       # -- Port Redirections
-#       # Added in 2.2, one can make permanent redirects via entrypoints.
-#       # Same sets of parameters: to, scheme, permanent and priority.
-#       # https://docs.traefik.io/routing/entrypoints/#redirection
-#       entryPoint: {}
+    redirections:
+      # -- Port Redirections
+      # Added in 2.2, one can make permanent redirects via entrypoints.
+      # Same sets of parameters: to, scheme, permanent and priority.
+      # https://docs.traefik.io/routing/entrypoints/#redirection
+      entryPoint:
+        to: websecure
+        scheme: https
+        permanent: true
 #     forwardedHeaders:
 #       # -- Trust forwarded headers information (X-Forwarded-*).
 #       trustedIPs: []
@@ -260,15 +264,15 @@ global:
 #         graceTimeOut:               # @schema type:[string, integer, null]
 #       keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
 #       keepAliveMaxTime:             # @schema type:[string, integer, null]
-#   websecure:
-#     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
-#     # asDefault: true
-#     port: 8443
-#     hostPort:  # @schema type:[integer, null]; minimum:0
-#     containerPort:  # @schema type:[integer, null]; minimum:0
-#     expose:
-#       default: true
-#     exposedPort: 443
+  websecure:
+    ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
+    # asDefault: true
+    port: 443
+    hostPort:  # @schema type:[integer, null]; minimum:0
+    containerPort:  # @schema type:[integer, null]; minimum:0
+    expose:
+      default: true
+    exposedPort: 443
 #     ## -- Different target traefik port on the cluster, useful for IP type LB
 #     targetPort:  # @schema type:[string, integer, null]; minimum:0
 #     ## -- The port protocol (TCP/UDP)
