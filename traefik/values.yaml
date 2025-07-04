@@ -347,14 +347,15 @@ ports:
 # # -- TLS Store are created as [TLSStore CRDs](https://doc.traefik.io/traefik/https/tls/#default-certificate). This is useful if you want to set a default certificate. See EXAMPLE.md for details.
 # tlsStore: {}
 
-# service:
+service:
 #   enabled: true
 #   ## -- Single service is using `MixedProtocolLBService` feature gate.
 #   ## -- When set to false, it will create two Service, one for TCP and one for UDP.
 #   single: true
 #   type: LoadBalancer
 #   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
-#   annotations: {}
+  annotations:
+    metallb.io/address-pool: traefik-ipaddresspool # 10.10.10.10/32
 #   # -- Additional annotations for TCP service only
 #   annotationsTCP: {}
 #   # -- Additional annotations for UDP service only
