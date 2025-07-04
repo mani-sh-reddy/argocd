@@ -1,23 +1,30 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: traefik
-#   namespace: argocd # This manifest's namespace
-# spec:
-#   project: default
-#   source:
-#     repoURL: https://traefik.github.io/charts
-#     chart: traefik
-#     targetRevision: 36.3.0
-#     # helm:
-#     #   valueFiles:
-#     #     - ../traefik/traefik-values.yaml  # Relative to this YAML file
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: traefik # Where traefik components live
-#   syncPolicy:
-#     automated:
-#       selfHeal: true
-#       prune: true
-#     syncOptions:
-#       - CreateNamespace=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd # This manifest's namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+  labels:
+    app.kubernetes.io/managed-by: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://traefik.github.io/charts"
+      chart: traefik
+      targetRevision: 36.3.0
+      helm:
+        valueFiles:
+          - $values/traefik/values.yaml # Path to values file in this repo
+    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+      targetRevision: main
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: traefik # Where components live
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
