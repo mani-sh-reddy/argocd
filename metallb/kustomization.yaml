@@ -3,6 +3,8 @@ kind: Kustomization
 
 resources:
   - metallb-native.yaml
+  - traefik-ipaddresspool.yaml
+  - traefik-l2advertisement.yaml
 
 patchesStrategicMerge:
   - patch-metallb-speaker-talos.yaml
