@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl apply -n argocd -f ../argocd-apps/whoami.yaml
+kubectl apply -n argocd -f "$(git rev-parse --show-toplevel)/argocd.yaml"
