@@ -5,4 +5,5 @@ resources:
   - metallb-native.yaml
 
 patchesStrategicMerge:
-  - metallb-speaker-talos-patch.yaml
+  - patch-metallb-speaker-talos.yaml
+  - patch-metallb-namespace.yaml
