@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infisical-secrets-operator
+  name: infisical-operator
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -15,7 +15,7 @@ spec:
       targetRevision: 0.*.*
       helm:
         valueFiles:
-          - $values/infisical/values.yaml # Path to values file in this repo
+          - $values/infisical-operator/values.yaml # Path to values file in this repo
     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
       targetRevision: main
       ref: values
