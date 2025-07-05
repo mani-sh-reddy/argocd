@@ -356,6 +356,7 @@ service:
 #   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
   annotations:
     metallb.io/address-pool: traefik-ipaddresspool
+    tailscale.com/expose: "true"
   # # -- Additional annotations for TCP service only
   # annotationsTCP: {}
   # # -- Additional annotations for UDP service only
