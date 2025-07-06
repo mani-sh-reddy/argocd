@@ -463,16 +463,16 @@ limiter:
   volumeRestoresPerAction: 3
   workloadSnapshotsPerAction: 5
 
-gateway:
-  service:
-    externalPort: 1111
-  resources:
-    requests:
-      memory: 300Mi
-      cpu: 200m
-    limits:
-      memory: 1Gi
-      cpu: 1000m
+# gateway:
+#   service:
+#     externalPort: 80
+#   resources:
+#     requests:
+#       memory: 300Mi
+#       cpu: 200m
+#     limits:
+#       memory: 1Gi
+#       cpu: 1000m
 
 # kanister:
 #   # Deprecated. Use 'timeout.blueprintBackup' parameter instead.
