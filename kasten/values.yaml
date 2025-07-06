@@ -143,6 +143,7 @@ kanisterToolsImage:
 
 eula:
   accept: true #true value if EULA accepted
+  company: "na"
 
 # license: "" #base64 encoded string provided by Kasten
 
