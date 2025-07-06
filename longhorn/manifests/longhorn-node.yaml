@@ -1,0 +1,25 @@
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  finalizers:
+    - longhorn.io
+  name: talos-m0u-9b2
+  namespace: longhorn-system
+spec:
+  name: talos-m0u-9b2
+  allowScheduling: true
+  disks:
+    default-disk-1030900000000:
+      allowScheduling: false
+      diskDriver: ""
+      diskType: filesystem
+      evictionRequested: false
+      path: /var/lib/longhorn/
+      storageReserved: 76402293964
+    data-disk-1tb:
+      allowScheduling: true
+      diskDriver: ""
+      diskType: filesystem
+      evictionRequested: false
+      path: /var/mnt/longhorn/
+      storageReserved: 0
