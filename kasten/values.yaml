@@ -465,7 +465,7 @@ limiter:
 
 gateway:
   service:
-    externalPort: 443
+    externalPort: 1111
   resources:
     requests:
       memory: 300Mi
