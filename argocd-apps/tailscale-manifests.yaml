@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
   project: custom
   source:
-    path: tailscale-manifests/
+    path: tailscale-operator/manifests/
     repoURL: https://github.com/mani-sh-reddy/argocd.git
     targetRevision: HEAD
   syncPolicy:

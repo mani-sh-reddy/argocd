@@ -7,10 +7,10 @@ ingressRoute:
   dashboard:
     # -- Create an IngressRoute for the dashboard
     enabled: true
-#     # -- Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
-#     annotations: {}
-#     # -- Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
-#     labels: {}
+    #     # -- Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
+    #     annotations: {}
+    #     # -- Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
+    #     labels: {}
     # -- The router match rule used for the dashboard ingressRoute
     matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
     # -- The internal service used for the dashboard ingressRoute
@@ -46,12 +46,12 @@ ingressRoute:
 #     # -- TLS options (e.g. secret containing certificate)
 #     tls: {}
 
-updateStrategy:  # @schema additionalProperties: false
+updateStrategy: # @schema additionalProperties: false
   # -- Customize updateStrategy of Deployment or DaemonSet
   type: RollingUpdate
   rollingUpdate:
-    maxUnavailable: 1  # @schema type:[integer, string, null]
-    maxSurge: 2        # @schema type:[integer, string, null]
+    maxUnavailable: 0 # @schema type:[integer, string, null]
+    maxSurge: 2 # @schema type:[integer, string, null]
 
 # providers:  # @schema additionalProperties: false
 #   file:
@@ -182,12 +182,13 @@ global:
   # -- Required for Azure Marketplace integration.
   # See https://learn.microsoft.com/en-us/partner-center/marketplace-offers/azure-container-technical-assets-kubernetes?tabs=linux,linux2#update-the-helm-chart
 
-# # -- Additional arguments to be passed at Traefik's binary
-# # See [CLI Reference](https://docs.traefik.io/reference/static-configuration/cli/)
-# # Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
-# additionalArguments: []
-# #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
-# #  - "--log.level=DEBUG"
+# -- Additional arguments to be passed at Traefik's binary
+# See [CLI Reference](https://docs.traefik.io/reference/static-configuration/cli/)
+# Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
+additionalArguments:
+  - "--certificatesresolvers.cloudflare.acme.email=${ACME_EMAIL}"
+  - "--certificatesresolvers.cloudflare.acme.storage=/data/acme.json"
+  - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
 
 # # -- Additional Environment variables to be passed to Traefik's binary
 # # @default -- See _values.yaml_
@@ -198,27 +199,27 @@ global:
 
 ports:
   # traefik:
-    # port: 8080
-#     # -- Use hostPort if set.
-#     hostPort:  # @schema type:[integer, null]; minimum:0
-#     # -- Use hostIP if set. If not set, Kubernetes will default to 0.0.0.0, which
-#     # means it's listening on all your interfaces and all your IPs. You may want
-#     # to set this value if you need traefik to listen on specific interface
-#     # only.
-#     hostIP:  # @schema type:[string, null]
+  # port: 8080
+  #     # -- Use hostPort if set.
+  #     hostPort:  # @schema type:[integer, null]; minimum:0
+  #     # -- Use hostIP if set. If not set, Kubernetes will default to 0.0.0.0, which
+  #     # means it's listening on all your interfaces and all your IPs. You may want
+  #     # to set this value if you need traefik to listen on specific interface
+  #     # only.
+  #     hostIP:  # @schema type:[string, null]
 
-#     # Defines whether the port is exposed if service.type is LoadBalancer or
-#     # NodePort.
-#     #
-#     # -- You SHOULD NOT expose the traefik port on production deployments.
-#     # If you want to access it from outside your cluster,
-#     # use `kubectl port-forward` or create a secure ingress
-#     expose:
-#       default: false
-#     # -- The exposed port for this service
-#     exposedPort: 8080
-#     # -- The port protocol (TCP/UDP)
-#     protocol: TCP
+  #     # Defines whether the port is exposed if service.type is LoadBalancer or
+  #     # NodePort.
+  #     #
+  #     # -- You SHOULD NOT expose the traefik port on production deployments.
+  #     # If you want to access it from outside your cluster,
+  #     # use `kubectl port-forward` or create a secure ingress
+  #     expose:
+  #       default: false
+  #     # -- The exposed port for this service
+  #     exposedPort: 8080
+  #     # -- The port protocol (TCP/UDP)
+  #     protocol: TCP
 
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
@@ -234,7 +235,7 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-#     nodePort:  # @schema type:[integer, null]; minimum:0
+    #     nodePort:  # @schema type:[integer, null]; minimum:0
     redirections:
       # -- Port Redirections
       # Added in 2.2, one can make permanent redirects via entrypoints.
@@ -244,32 +245,32 @@ ports:
         to: websecure
         scheme: https
         permanent: true
-#     forwardedHeaders:
-#       # -- Trust forwarded headers information (X-Forwarded-*).
-#       trustedIPs: []
-#       insecure: false
-#     proxyProtocol:
-#       # -- Enable the Proxy Protocol header parsing for the entry point
-#       trustedIPs: []
-#       insecure: false
-#     # -- Set transport settings for the entrypoint; see also
-#     # https://doc.traefik.io/traefik/routing/entrypoints/#transport
-#     transport:
-#       respondingTimeouts:
-#         readTimeout:   # @schema type:[string, integer, null]
-#         writeTimeout:  # @schema type:[string, integer, null]
-#         idleTimeout:   # @schema type:[string, integer, null]
-#       lifeCycle:
-#         requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
-#         graceTimeOut:               # @schema type:[string, integer, null]
-#       keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
-#       keepAliveMaxTime:             # @schema type:[string, integer, null]
+  #     forwardedHeaders:
+  #       # -- Trust forwarded headers information (X-Forwarded-*).
+  #       trustedIPs: []
+  #       insecure: false
+  #     proxyProtocol:
+  #       # -- Enable the Proxy Protocol header parsing for the entry point
+  #       trustedIPs: []
+  #       insecure: false
+  #     # -- Set transport settings for the entrypoint; see also
+  #     # https://doc.traefik.io/traefik/routing/entrypoints/#transport
+  #     transport:
+  #       respondingTimeouts:
+  #         readTimeout:   # @schema type:[string, integer, null]
+  #         writeTimeout:  # @schema type:[string, integer, null]
+  #         idleTimeout:   # @schema type:[string, integer, null]
+  #       lifeCycle:
+  #         requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
+  #         graceTimeOut:               # @schema type:[string, integer, null]
+  #       keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
+  #       keepAliveMaxTime:             # @schema type:[string, integer, null]
   websecure:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
     port: 443
-    hostPort:  # @schema type:[integer, null]; minimum:0
-    containerPort:  # @schema type:[integer, null]; minimum:0
+    hostPort: # @schema type:[integer, null]; minimum:0
+    containerPort: # @schema type:[integer, null]; minimum:0
     expose:
       default: true
     exposedPort: 443
@@ -348,12 +349,12 @@ ports:
 # tlsStore: {}
 
 service:
-#   enabled: true
-#   ## -- Single service is using `MixedProtocolLBService` feature gate.
-#   ## -- When set to false, it will create two Service, one for TCP and one for UDP.
-#   single: true
-#   type: LoadBalancer
-#   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
+  enabled: true
+  #   ## -- Single service is using `MixedProtocolLBService` feature gate.
+  #   ## -- When set to false, it will create two Service, one for TCP and one for UDP.
+  single: true
+  type: LoadBalancer
+  #   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
   annotations:
     metallb.io/address-pool: traefik-ipaddresspool
     tailscale.com/expose: "true"
@@ -419,22 +420,35 @@ service:
 #   # -- Enable persistence using Persistent Volume Claims
 #   # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/.
 #   # It can be used to store TLS certificates along with `certificatesResolvers.<name>.acme.storage`  option
-#   enabled: false
-#   name: data
+#   enabled: true
+#   name: traefik-data
 #   existingClaim: ""
 #   accessMode: ReadWriteOnce
 #   size: 128Mi
 #   storageClass: ""
 #   volumeName: ""
 #   path: /data
-#   annotations: {}
-#   # -- Only mount a subpath of the Volume into the pod
-#   subPath: ""
+#   # annotations: {}
+#   # # -- Only mount a subpath of the Volume into the pod
+#   # subPath: ""
 
 # # -- Certificates resolvers configuration.
 # # Ref: https://doc.traefik.io/traefik/https/acme/#certificate-resolvers
 # # See EXAMPLES.md for more details.
-# certificatesResolvers: {}
+certificatesResolvers:
+  cloudflare:
+    acme:
+      storage: /data/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 0
+        resolvers:
+          - "9.9.9.9:53"
+          - "1.1.1.1:53"
+      envFrom:
+        - secretRef:
+            name: traefik-dns-acme-secret
+
 
 # # -- If hostNetwork is true, runs traefik in the host network namespace
 # # To prevent unschedulable pods due to port collisions, if hostNetwork=true
