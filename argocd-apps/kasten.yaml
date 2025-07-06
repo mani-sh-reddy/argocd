@@ -21,7 +21,7 @@ spec:
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: kasten # Where components live
+    namespace: kasten-io # Where components live
   syncPolicy:
     automated:
       selfHeal: true

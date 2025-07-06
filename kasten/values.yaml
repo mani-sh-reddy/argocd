@@ -106,16 +106,16 @@ global:
 #     # Where this TLS configuration should terminate
 #     termination: "edge"
 
-dexImage:
-  registry: ghcr.io
-  repository: dexidp
-  image: dex
+# dexImage:
+#   registry: ghcr.io
+#   repository: dexidp
+#   image: dex
 
-kanisterToolsImage:
-  registry: ghcr.io
-  repository: kanisterio
-  image: kanister-tools
-  pullPolicy: Always
+# kanisterToolsImage:
+#   registry: ghcr.io
+#   repository: kanisterio
+#   image: kanister-tools
+#   pullPolicy: Always
 
 # ingress:
 #   create: false
@@ -158,7 +158,9 @@ multicluster:
     name: ""
     ingressURL: ""
 
-# prometheus:
+prometheus:
+  server:
+    enabled: false
 #   rbac:
 #     create: false
 #   server:
@@ -446,34 +448,20 @@ logLevel: info
 #       awsS3:
 #         enabled: true
 
-# limiter:
-#   # Deprecated. Use 'limiter.snapshotExportsPerAction' parameter instead.
-#   concurrentSnapConversions: -1
-#   snapshotExportsPerAction: 3
-#   # Deprecated. Use 'limiter.genericVolumeBackupsPerCluster' parameter instead.
-#   genericVolumeSnapshots: -1
-#   genericVolumeBackupsPerCluster: 10
-#   # Deprecated. Use 'limiter.snapshotExportsPerCluster' parameter instead.
-#   genericVolumeCopies: -1
-#   snapshotExportsPerCluster: 10
-#   # Deprecated. Use 'limiter.volumeRestoresPerCluster' parameter instead.
-#   genericVolumeRestores: -1
-#   volumeRestoresPerCluster: 10
-#   # Deprecated. Use 'limiter.csiSnapshotsPerCluster' parameter instead.
-#   csiSnapshots: -1
-#   csiSnapshotsPerCluster: 10
-#   # Deprecated. Use 'limiter.directSnapshotsPerCluster' parameter instead.
-#   providerSnapshots: -1
-#   directSnapshotsPerCluster: 10
-#   # Deprecated. Use 'limiter.imageCopiesPerCluster' parameter instead.
-#   imageCopies: -1
-#   imageCopiesPerCluster: 10
-#   executorReplicas: 3
-#   executorThreads: 8
-#   workloadRestoresPerAction: 3
-#   csiSnapshotRestoresPerAction: 3
-#   volumeRestoresPerAction: 3
-#   workloadSnapshotsPerAction: 5
+limiter:
+  snapshotExportsPerAction: 3
+  genericVolumeBackupsPerCluster: 10
+  snapshotExportsPerCluster: 10
+  volumeRestoresPerCluster: 10
+  csiSnapshotsPerCluster: 10
+  directSnapshotsPerCluster: 10
+  imageCopiesPerCluster: 10
+  executorReplicas: 1
+  executorThreads: 8
+  workloadRestoresPerAction: 3
+  csiSnapshotRestoresPerAction: 3
+  volumeRestoresPerAction: 3
+  workloadSnapshotsPerAction: 5
 
 gateway:
   service:
