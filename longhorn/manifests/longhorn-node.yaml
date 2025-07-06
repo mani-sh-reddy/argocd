@@ -16,7 +16,7 @@ spec:
       evictionRequested: false
       path: /var/lib/longhorn/
       storageReserved: 76402293964
-    data-disk-1tb:
+    data-disk:
       allowScheduling: true
       diskDriver: ""
       diskType: filesystem
