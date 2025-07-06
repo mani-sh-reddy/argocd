@@ -195,7 +195,9 @@ additionalArguments:
 # env: []
 
 # # -- Environment variables to be passed to Traefik's binary from configMaps or secrets
-# envFrom: []
+envFrom:
+  - secretRef:
+      name: traefik-dns-acme-secret
 
 ports:
   # traefik:
@@ -445,10 +447,6 @@ certificatesResolvers:
         resolvers:
           - "9.9.9.9:53"
           - "1.1.1.1:53"
-      envFrom:
-        - secretRef:
-            name: traefik-dns-acme-secret
-
 
 # # -- If hostNetwork is true, runs traefik in the host network namespace
 # # To prevent unschedulable pods due to port collisions, if hostNetwork=true
