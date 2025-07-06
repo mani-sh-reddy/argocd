@@ -418,21 +418,18 @@ service:
 #     kind: Deployment
 #     name: "{{ template \"traefik.fullname\" . }}"
 
-# persistence:
-#   # -- Enable persistence using Persistent Volume Claims
-#   # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/.
-#   # It can be used to store TLS certificates along with `certificatesResolvers.<name>.acme.storage`  option
-#   enabled: true
-#   name: traefik-data
-#   existingClaim: ""
-#   accessMode: ReadWriteOnce
-#   size: 128Mi
-#   storageClass: ""
-#   volumeName: ""
-#   path: /data
-#   # annotations: {}
-#   # # -- Only mount a subpath of the Volume into the pod
-#   # subPath: ""
+persistence:
+  # -- Enable persistence using Persistent Volume Claims
+  # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/.
+  # It can be used to store TLS certificates along with `certificatesResolvers.<name>.acme.storage`  option
+  enabled: true
+  existingClaim: traefik-data
+  accessMode: ReadWriteOnce
+  size: 128Mi
+  path: /data
+  # annotations: {}
+  # # -- Only mount a subpath of the Volume into the pod
+  # subPath: ""
 
 # # -- Certificates resolvers configuration.
 # # Ref: https://doc.traefik.io/traefik/https/acme/#certificate-resolvers
