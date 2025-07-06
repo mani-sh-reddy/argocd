@@ -2,6 +2,18 @@ preUpgradeChecker:
   jobEnabled: false
 defaultSettings:
   defaultReplicaCount: 1
+  defaultDataPath: /var/mnt/longhorn
+  storageOverProvisioningPercentage: 200
+  storageMinimalAvailablePercentage: 5
+  allowRecurringJobWhileVolumeDetached: true
+  replicaSoftAntiAffinity: true
+  autoSalvage: true
+  concurrentReplicaRebuildPerNodeLimit: 2
+  disableRevisionCounter: true
 persistence:
   reclaimPolicy: Retain
   defaultClassReplicaCount: 1
+  defaultDataLocality: best-effort
+  disableRevisionCounter: true
+  recurringJobSelector:
+    enable: true
