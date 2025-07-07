@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/tailnet-fqdn: apollo.typhon-neon.ts.net
-  name: tailscale-apollo   # service name
+  name: expose-apollo   # service name
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
