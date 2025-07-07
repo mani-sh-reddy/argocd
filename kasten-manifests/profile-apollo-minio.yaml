@@ -14,6 +14,8 @@ spec:
       secretType: AwsAccessKey
     objectStore:
       endpoint: http://expose-apollo.kasten-io.svc.cluster.local:9090
+      skipSSLVerify: false
+      protectionPeriod: 336h
       name: talos
       objectStoreType: S3
       path: k10/50560019-36cc-47ae-a7d1-70b2c0fe9e70/migration
