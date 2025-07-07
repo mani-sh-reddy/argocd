@@ -1,0 +1,32 @@
+kind: Profile
+apiVersion: config.kio.kasten.io/v1alpha1
+metadata:
+  name: apollo
+  namespace: kasten-io
+  uid: 8a747cf7-3230-451b-8297-1c106389ae12
+  resourceVersion: "740710"
+  generation: 3
+  creationTimestamp: 2025-07-07T22:32:59Z
+  annotations:
+    k10.kasten.io/revalidated-at: 2025-07-07T22:33:13Z
+spec:
+  locationSpec:
+    type: ObjectStore
+    objectStore:
+      endpoint: http://expose-apollo.kasten-io.svc.cluster.local:9090
+      name: talos
+      objectStoreType: S3
+      path: k10/50560019-36cc-47ae-a7d1-70b2c0fe9e70/migration
+      pathType: Directory
+      region: synology
+    credential:
+      secretType: AwsAccessKey
+      secret:
+        apiVersion: v1
+        kind: secret
+        name: k10secret-nfmtz
+        namespace: kasten-io
+  type: Location
+status:
+  validation: Success
+  hash: 637109358

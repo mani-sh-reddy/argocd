@@ -1,0 +1,23 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Profile
+metadata:
+  name: apollo
+  namespace: kasten-io
+spec:
+  locationSpec:
+    credential:
+      secret:
+        apiVersion: v1
+        kind: secret
+        name: kasten-apollo-minio-accesskey
+        namespace: kasten-io
+      secretType: AwsAccessKey
+    objectStore:
+      endpoint: http://expose-apollo.kasten-io.svc.cluster.local:9090
+      name: talos
+      objectStoreType: S3
+      path: k10/50560019-36cc-47ae-a7d1-70b2c0fe9e70/migration
+      pathType: Directory
+      region: synology
+    type: ObjectStore
+  type: Location
