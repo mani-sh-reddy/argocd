@@ -1,9 +1,0 @@
-# ===== Defined as an infisical secret and stored in infisical cloud =====
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: operator-oauth
-#   namespace: tailscale
-# stringData:
-#   client_id: "" # SET CLIENT ID HERE
-#   client_secret: "" # SET CLIENT SECRET HERE
