@@ -13,7 +13,7 @@ spec:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
   source:
-    path: longhorn/manifests/
+    path: longhorn-manifests/
     repoURL: https://github.com/mani-sh-reddy/argocd.git
     targetRevision: HEAD
   syncPolicy:
