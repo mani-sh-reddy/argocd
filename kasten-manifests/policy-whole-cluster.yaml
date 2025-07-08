@@ -17,13 +17,13 @@ spec:
   presetRef:
     name: hourly-snapshots-daily-export
     namespace: kasten-io
-  selector:
-    matchExpressions:
-      - key: k10.kasten.io/appNamespace
-        operator: In
-        values:
-          - default
-          - metallb-system
-          - tailscale
-          - whoami
-          - kasten-io-cluster
+  # selector: // ALL
+  #   matchExpressions:
+  #     - key: k10.kasten.io/appNamespace
+  #       operator: In
+  #       values:
+  #         - default
+  #         - metallb-system
+  #         - tailscale
+  #         - whoami
+  #         - kasten-io-cluster
