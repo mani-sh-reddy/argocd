@@ -19,18 +19,17 @@ spec:
     namespace: kasten-io
   selector:
     matchExpressions:
-      # This first expression ensures the resource is managed by Kasten
-      - key: k10.kasten.io/appNamespace
-        operator: Exists
-      # This second expression excludes the specified system namespaces
-      - key: k10.kasten.io/appNamespace
-        operator: NotIn
-        values:
-          - kube-system
-          - kube-public
-          - kube-node-lease
-      # Backup all cluster scoped
       - key: k10.kasten.io/appNamespace
         operator: In
         values:
           - kasten-io-cluster
+          - argocd
+          - default
+          - infisical
+          - kubelet-serving-cert-approver
+          - longhorn-system
+          - metallb-system
+          - podcleaner
+          - tailscale
+          - traefik
+          - whoami
