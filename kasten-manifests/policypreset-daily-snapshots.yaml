@@ -7,7 +7,7 @@ spec:
   backup:
     frequency: '@daily'
     profile:
-      name: apollo
+      name: apollo-minio-s3
       namespace: kasten-io
     retention:
       daily: 7
