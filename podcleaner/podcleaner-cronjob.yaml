@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: podcleaner-cronjob
+spec:
+  schedule: "0 * * * *" 
+  concurrencyPolicy: Forbid
+  suspend: true
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - kubectl delete pod --field-selector=status.phase==Succeeded,status.phase==Failed
+          restartPolicy: OnFailure
