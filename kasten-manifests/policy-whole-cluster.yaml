@@ -1,7 +1,7 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Policy
 metadata:
-  name: whole-cluster-migration
+  name: whole-cluster
   namespace: kasten-io
 spec:
   actions:
