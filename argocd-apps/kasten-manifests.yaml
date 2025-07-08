@@ -29,4 +29,4 @@ spec:
       name: expose-apollo
       namespace: kasten-io
       jsonPointers:
-        - /spec/externalName/value
+        - /spec/externalName
