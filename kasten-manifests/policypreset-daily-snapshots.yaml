@@ -1,15 +1,16 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: PolicyPreset
 metadata:
-  name: daily-snapshots
+  name: hourly-snapshots-daily-export
   namespace: kasten-io
 spec:
   backup:
-    frequency: '@daily'
+    frequency: '@hourly'
     profile:
       name: apollo-minio-s3
       namespace: kasten-io
     retention:
+      hourly: 12
       daily: 7
       monthly: 12
       weekly: 4
@@ -29,7 +30,7 @@ spec:
   export:
     exportData:
       enabled: true
-    frequency: '@weekly'
+    frequency: '@daily'
     profile:
       name: apollo-minio-s3
       namespace: kasten-io

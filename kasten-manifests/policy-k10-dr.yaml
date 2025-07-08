@@ -18,12 +18,10 @@ spec:
         profile:
           name: apollo-minio-s3
           namespace: kasten-io
-  createdBy: k10-admin
   frequency: '@hourly'
   kdrSnapshotConfiguration:
     exportCatalogSnapshot: true
     takeLocalCatalogSnapshot: true
-  modifiedBy: k10-admin
   retention:
     daily: 7
     hourly: 12

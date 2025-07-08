@@ -15,7 +15,7 @@ spec:
           namespace: kasten-io
   comment: Whole Cluster Backup
   presetRef:
-    name: daily-snapshots
+    name: hourly-snapshots-daily-export
     namespace: kasten-io
   selector:
     matchExpressions:
