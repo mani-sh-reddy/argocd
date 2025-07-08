@@ -17,13 +17,20 @@ spec:
   presetRef:
     name: hourly-snapshots-daily-export
     namespace: kasten-io
-  # selector: // ALL
-  #   matchExpressions:
-  #     - key: k10.kasten.io/appNamespace
-  #       operator: In
-  #       values:
-  #         - default
-  #         - metallb-system
-  #         - tailscale
-  #         - whoami
-  #         - kasten-io-cluster
+  selector:
+    matchExpressions:
+      # This first expression ensures the resource is managed by Kasten
+      - key: k10.kasten.io/appNamespace
+        operator: Exists
+      # This second expression excludes the specified system namespaces
+      - key: k10.kasten.io/appNamespace
+        operator: NotIn
+        values:
+          - kube-system
+          - kube-public
+          - kube-node-lease
+      # Backup all cluster scoped
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - kasten-io-cluster
