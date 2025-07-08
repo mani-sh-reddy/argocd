@@ -6,6 +6,8 @@ metadata:
 spec:
   actions:
     - action: backup
+      backupParameters:
+        ignoreExceptions: true
     - action: export
       exportParameters:
         migrationToken:
