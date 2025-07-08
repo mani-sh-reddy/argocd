@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kasten-dashboard
+  namespace: kasten-io
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`kasten-talos.manishreddy.uk`)
+      kind: Rule
+      middlewares:
+        - name: kasten-dashboard-redirect
+      services:
+        - name: gateway
+          port: 80

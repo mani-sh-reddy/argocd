@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: kasten-dashboard-redirect
+  namespace: kasten-io
+spec:
+  redirectRegex:
+    regex: ^https?://kasten-talos\.manishreddy\.uk/?$
+    replacement: https://kasten-talos.manishreddy.uk/k10/
+    permanent: true
