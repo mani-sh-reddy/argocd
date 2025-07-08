@@ -29,3 +29,46 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
+  ignoreDifferences:
+    - name: volumes.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - name: settings.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - name: replicas.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - name: nodes.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - name: instancemanagers.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - name: engines.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
+    - name: engineimages.longhorn.io
+      group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/preserveUnknownFields
