@@ -18,8 +18,15 @@ spec:
     targetRevision: HEAD
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
       allowEmpty: true
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      name: expose-apollo
+      namespace: kasten-io
+      jsonPointers:
+        - /spec/externalName/value
