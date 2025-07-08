@@ -1,0 +1,38 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Policy
+metadata:
+  name: k10-disaster-recovery-policy
+  namespace: kasten-io
+spec:
+  actions:
+    - action: backup
+      backupParameters:
+        profile:
+          name: apollo-minio-s3
+          namespace: kasten-io
+    - action: export
+      exportParameters:
+        exportData:
+          enabled: true
+        frequency: '@hourly'
+        profile:
+          name: apollo-minio-s3
+          namespace: kasten-io
+  createdBy: k10-admin
+  frequency: '@hourly'
+  kdrSnapshotConfiguration:
+    exportCatalogSnapshot: true
+    takeLocalCatalogSnapshot: true
+  modifiedBy: k10-admin
+  retention:
+    daily: 7
+    hourly: 12
+    monthly: 12
+    weekly: 10
+    yearly: 2
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - kasten-io

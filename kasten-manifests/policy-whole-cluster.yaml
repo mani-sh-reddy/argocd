@@ -1,0 +1,27 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: Policy
+metadata:
+  name: whole-cluster-migration
+  namespace: kasten-io
+spec:
+  actions:
+    - action: backup
+    - action: export
+      exportParameters:
+        migrationToken:
+          name: whole-cluster-migration-token
+          namespace: kasten-io
+  comment: Whole Cluster Backup
+  presetRef:
+    name: daily-snapshots
+    namespace: kasten-io
+  selector:
+    matchExpressions:
+      - key: k10.kasten.io/appNamespace
+        operator: In
+        values:
+          - default
+          - metallb-system
+          - tailscale
+          - whoami
+          - kasten-io-cluster

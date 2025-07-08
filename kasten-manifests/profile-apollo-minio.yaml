@@ -1,7 +1,7 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Profile
 metadata:
-  name: apollo
+  name: apollo-minio-s3
   namespace: kasten-io
 spec:
   locationSpec:
