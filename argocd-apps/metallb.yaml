@@ -1,25 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: metallb
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-  labels:
-    app.kubernetes.io/managed-by: argocd
-spec:
-  project: default
-  sources:
-    - repoURL: https://github.com/mani-sh-reddy/argocd.git
-      targetRevision: HEAD
-      path: metallb/
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: metallb-system
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: metallb
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io
+#   labels:
+#     app.kubernetes.io/managed-by: argocd
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: https://github.com/mani-sh-reddy/argocd.git
+#       targetRevision: HEAD
+#       path: metallb/
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: metallb-system
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#       allowEmpty: true
+#     syncOptions:
+#       - CreateNamespace=true

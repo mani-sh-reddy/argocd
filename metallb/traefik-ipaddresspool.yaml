@@ -1,8 +1,8 @@
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: traefik-ipaddresspool
-  namespace: metallb-system
-spec:
-  addresses:
-    - 10.0.0.111/32
+# apiVersion: metallb.io/v1beta1
+# kind: IPAddressPool
+# metadata:
+#   name: traefik-ipaddresspool
+#   namespace: metallb-system
+# spec:
+#   addresses:
+#     - 10.0.0.111/32
