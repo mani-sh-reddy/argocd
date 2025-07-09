@@ -549,7 +549,6 @@ podSecurityContext:
   runAsGroup: 65532
   runAsNonRoot: true
   runAsUser: 65532
-  fsGroup: 65532
 
 #
 # -- Extra objects to deploy (value evaluated as a template)
