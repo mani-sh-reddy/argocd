@@ -355,7 +355,7 @@ service:
   #   ## -- Single service is using `MixedProtocolLBService` feature gate.
   #   ## -- When set to false, it will create two Service, one for TCP and one for UDP.
   single: true
-  type: LoadBalancer
+  type: ClusterIP
   #   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
   annotations:
     # metallb.io/address-pool: traefik-ipaddresspool # Not exposing local IP address anymore in favour of tailscale
