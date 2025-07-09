@@ -159,25 +159,23 @@ multicluster:
     ingressURL: ""
 
 prometheus:
+  rbac:
+    create: true
   server:
-    enabled: false
-#   rbac:
-#     create: false
-#   server:
-#     # UID and groupid are from prometheus helm chart
-#     enabled: true
-#     securityContext:
-#       runAsUser: 65534
-#       runAsNonRoot: true
-#       runAsGroup: 65534
-#       fsGroup: 65534
-#     retention: 30d
-#     persistentVolume:
-#       storageClass: ""
-#       size: 8Gi
-#     fullnameOverride: prometheus-server
-#     baseURL: /k10/prometheus/
-#     prefixURL: /k10/prometheus
+    # UID and groupid are from prometheus helm chart
+    enabled: true
+    securityContext:
+      runAsUser: 65534
+      runAsNonRoot: true
+      runAsGroup: 65534
+      fsGroup: 65534
+    retention: 30d
+    persistentVolume:
+      storageClass: "longhorn"
+      size: 8Gi
+    fullnameOverride: prometheus-server
+    baseURL: /k10/prometheus/
+    prefixURL: /k10/prometheus
 
 # jaeger:
 #   enabled: false
@@ -508,7 +506,7 @@ limiter:
 #   assumeRoleDuration: ""
 #   efsBackupVaultName: "k10vault"
 
-# excludedApps: ["kube-system", "kube-ingress", "kube-node-lease", "kube-public", "kube-rook-ceph"]
+excludedApps: ["kube-system", "kube-ingress", "kube-node-lease", "kube-public", "kube-rook-ceph"]
 
 # grafana:
 #   external:
@@ -545,8 +543,8 @@ limiter:
 #   snapshot:
 #     unfreezeTimeout: "5m"
 
-# logging:
-#   internal: true
+logging:
+  internal: true
 #   # Used to set an external fluentbit endpoint. 'logging.internal' must be set to false.
 #   fluentbit_endpoint: ""
 
@@ -567,9 +565,9 @@ limiter:
 #   estimationType: adaptive
 #   adaptiveEstimationThreshold: 300000
 
-# kastenDisasterRecovery:
-#   quickMode:
-#     enabled: true
+kastenDisasterRecovery:
+  quickMode:
+    enabled: true
 
 # fips:
 #   enabled: false
