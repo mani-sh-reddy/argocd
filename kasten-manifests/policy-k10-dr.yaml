@@ -14,19 +14,19 @@ spec:
       exportParameters:
         exportData:
           enabled: true
-        frequency: '@weekly'
+        frequency: '@hourly'
         profile:
           name: apollo-minio-s3
           namespace: kasten-io
-  frequency: '@daily'
+  frequency: '@hourly'
   kdrSnapshotConfiguration:
     exportCatalogSnapshot: true
     takeLocalCatalogSnapshot: true
   retention:
-    hourly: 2
-    daily: 8
-    monthly: 2
-    weekly: 2
+    daily: 7
+    hourly: 12
+    monthly: 12
+    weekly: 10
     yearly: 2
   selector:
     matchExpressions:
