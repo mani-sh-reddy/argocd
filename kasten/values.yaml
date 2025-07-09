@@ -152,11 +152,11 @@ eula:
 #   domainName: ""
 
 multicluster:
-  enabled: false
-  primary:
-    create: false
-    name: ""
-    ingressURL: ""
+  enabled: true
+  # primary:
+  #   create: false
+  #   name: ""
+  #   ingressURL: ""
 
 prometheus:
   rbac:
