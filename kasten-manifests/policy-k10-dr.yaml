@@ -23,10 +23,10 @@ spec:
     exportCatalogSnapshot: true
     takeLocalCatalogSnapshot: true
   retention:
-    daily: 7
-    hourly: 12
-    monthly: 12
-    weekly: 10
+    daily: 2
+    hourly: 2
+    monthly: 2
+    weekly: 2
     yearly: 2
   selector:
     matchExpressions:
