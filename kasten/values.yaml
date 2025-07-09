@@ -153,10 +153,10 @@ eula:
 
 multicluster:
   enabled: true
-  # primary:
-  #   create: false
-  #   name: ""
-  #   ingressURL: ""
+  primary:
+    create: true
+    name: "talos"
+    ingressURL: "http://localhost:2222/k10/"
 
 prometheus:
   rbac:
