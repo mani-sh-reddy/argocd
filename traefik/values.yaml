@@ -452,14 +452,19 @@ deployment:
   initContainers:
     - name: acme-volume-permissions
       image: busybox:latest
-      command: 
+      command:
         - "sh"
         - "-c"
         - "touch /data/acme.json"
         - "chmod -v 600 /data/acme.json"
+        - "chown 65532:65532 /data/acme.json"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
       volumeMounts:
-      - mountPath: /data
-        name: data
+        - mountPath: /data
+          name: data
 
 # # -- If hostNetwork is true, runs traefik in the host network namespace
 # # To prevent unschedulable pods due to port collisions, if hostNetwork=true
