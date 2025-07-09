@@ -360,6 +360,8 @@ service:
   annotations:
     metallb.io/address-pool: traefik-ipaddresspool
     tailscale.com/expose: "true"
+    tailscale.com/tailnet-ip: "100.100.99.99"
+    tailscale.com/hostname: "traefik"
   # # -- Additional annotations for TCP service only
   # annotationsTCP: {}
   # # -- Additional annotations for UDP service only
