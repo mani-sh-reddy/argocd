@@ -31,5 +31,5 @@ ingressRoutes:
 
   - id: hubble
     namespace: kube-system
-    serviceName: hubbleui
+    serviceName: hubble-ui
     servicePort: 80
