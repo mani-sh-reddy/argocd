@@ -6,4 +6,4 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["persistentvolumes"]
-  verbs: ["get", "list", "delete"]
+  verbs: ["get", "list", "delete", "watch"]
