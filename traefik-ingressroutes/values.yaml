@@ -19,10 +19,10 @@ ingressRoutes:
     namespace: kasten-io
     serviceName: gateway
     servicePort: 80
-    redirectPath: k10/
+    redirectPath: "k10/"
 
   - id: longhorn
     namespace: longhorn-system
     serviceName: longhorn-frontend
     servicePort: 80
-    redirectPath: "/#/dashboard"
+    redirectPath: "#/dashboard"

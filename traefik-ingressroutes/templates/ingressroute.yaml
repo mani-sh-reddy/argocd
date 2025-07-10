@@ -18,9 +18,9 @@ spec:
       services:
         - name: {{ .serviceName }}
           port: {{ .servicePort }}
-            {{- if .serversTransport }}
-            serversTransport: {{ .serversTransport }}
-                {{- end }}    
+          {{- if .serversTransport }}
+          serversTransport: {{ .serversTransport }}
+          {{- end }}    
   tls:
     certResolver: cloudflare
 ---
