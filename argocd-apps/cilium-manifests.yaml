@@ -1,25 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cilium-manifests
-  namespace: argocd # This manifest's namespace
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
-  labels:
-    app.kubernetes.io/managed-by: argocd
-spec:
-  project: default
-  destination:
-    namespace: kube-system
-    server: https://kubernetes.default.svc
-  source:
-    path: cilium-manifests/
-    repoURL: https://github.com/mani-sh-reddy/argocd.git
-    targetRevision: HEAD
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      selfHeal: true
-      prune: true
-      allowEmpty: true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: cilium-manifests
+#   namespace: argocd # This manifest's namespace
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+#   labels:
+#     app.kubernetes.io/managed-by: argocd
+# spec:
+#   project: default
+#   destination:
+#     namespace: kube-system
+#     server: https://kubernetes.default.svc
+#   source:
+#     path: cilium-manifests/
+#     repoURL: https://github.com/mani-sh-reddy/argocd.git
+#     targetRevision: HEAD
+#   syncPolicy:
+#     syncOptions:
+#       - CreateNamespace=true
+#     automated:
+#       selfHeal: true
+#       prune: true
+#       allowEmpty: true
