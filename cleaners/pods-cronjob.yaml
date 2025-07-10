@@ -1,15 +1,15 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: podcleaner-cronjob
-  namespace: podcleaner
+  name: cleaner-pod-cronjob
+  namespace: cleaners
 spec:
   schedule: "0 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
-          serviceAccountName: podcleaner-serviceaccount
+          serviceAccountName: cleaner-pod-serviceaccount
           containers:
             - name: kubectl
               image: bitnami/kubectl:latest

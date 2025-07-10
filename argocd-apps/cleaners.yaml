@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: podcleaner
+  name: cleaners
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -10,10 +10,10 @@ metadata:
 spec:
   project: default
   destination:
-    namespace: podcleaner
+    namespace: cleaners
     server: https://kubernetes.default.svc
   source:
-    path: podcleaner/
+    path: cleaners/
     repoURL: https://github.com/mani-sh-reddy/argocd.git
     targetRevision: HEAD
   syncPolicy:
