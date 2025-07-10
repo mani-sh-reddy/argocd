@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-dashboard
+  namespace: argocd
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`argocd.talos.manishreddy.uk`)
+      kind: Rule
+      # middlewares:
+        # - name: kasten-dashboard-redirect
+      services:
+        - name: argocd-server
+          port: 443
