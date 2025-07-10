@@ -21,7 +21,7 @@ spec:
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: cilium-system # Where components live
+    namespace: kube-system # Where components live
   syncPolicy:
     automated:
       selfHeal: true

@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   destination:
-    namespace: cilium-system
+    namespace: kube-system
     server: https://kubernetes.default.svc
   source:
     path: cilium-manifests/
