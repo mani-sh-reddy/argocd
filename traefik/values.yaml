@@ -83,13 +83,13 @@ updateStrategy: # @schema additionalProperties: false
 # # - name: traefik-logs
 # #   mountPath: /var/log/traefik
 
-logs:
+# logs:
 #   general:
 #     # -- Set [logs format](https://doc.traefik.io/traefik/observability/logs/#format)
 #     format:  # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
 #     # By default, the level is set to INFO.
 #     # -- Alternative logging levels are TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC.
-    level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
+    # level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
 #     # -- To write the logs into a log file, use the filePath option.
 #     filePath: ""
 #     # -- When set to true and format is common, it disables the colorized output.
@@ -441,6 +441,7 @@ persistence:
 certificatesResolvers:
   cloudflare:
     acme:
+      email: "rg-mani@outlook.com"
       storage: /data/acme.json
       dnsChallenge:
         provider: cloudflare
@@ -449,23 +450,23 @@ certificatesResolvers:
           - "9.9.9.9:53"
           - "1.1.1.1:53"
 
-# deployment:
-#   initContainers:
-#     - name: acme-volume-permissions
-#       image: busybox:latest
-#       command:
-#         - "sh"
-#         - "-c"
-#         - "touch /data/acme.json"
-#         - "chmod -v 600 /data/acme.json"
-#         - "chown 65532:65532 /data/acme.json"
-#       securityContext:
-#         runAsNonRoot: true
-#         runAsUser: 65532
-#         runAsGroup: 65532
-#       volumeMounts:
-#         - mountPath: /data
-#           name: data
+deployment:
+  initContainers:
+    - name: acme-volume-permissions
+      image: busybox:latest
+      command:
+        - "sh"
+        - "-c"
+        - "touch /data/acme.json"
+        - "chmod -v 600 /data/acme.json"
+        - "chown 65532:65532 /data/acme.json"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+      volumeMounts:
+        - mountPath: /data
+          name: data
 
 # # -- If hostNetwork is true, runs traefik in the host network namespace
 # # To prevent unschedulable pods due to port collisions, if hostNetwork=true

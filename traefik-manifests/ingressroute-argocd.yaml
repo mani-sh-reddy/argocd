@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - match: Host(`argocd.talos.manishreddy.uk`)
@@ -13,7 +14,7 @@ spec:
         # - name: kasten-dashboard-redirect
       services:
         - name: argocd-server
-          port: 443
+          port: 80
           serversTransport: servertransport-argocd
   tls:
     certResolver: cloudflare
