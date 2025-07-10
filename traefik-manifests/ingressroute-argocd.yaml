@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   entryPoints:
-    - web
+    # - web
     - websecure
   routes:
     - match: Host(`argocd.talos.manishreddy.uk`)
@@ -15,6 +15,6 @@ spec:
       services:
         - name: argocd-server
           port: 80
-          serversTransport: servertransport-argocd
+          # serversTransport: servertransport-argocd
   tls:
     certResolver: cloudflare
