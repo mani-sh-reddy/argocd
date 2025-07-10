@@ -4,4 +4,4 @@ metadata:
   name: servertransport-argocd
   namespace: argocd
 spec:
-  insecureSkipVerify: true
+  serverName: argocd-server.argocd.svc.cluster.local

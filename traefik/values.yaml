@@ -185,10 +185,11 @@ global:
 # -- Additional arguments to be passed at Traefik's binary
 # See [CLI Reference](https://docs.traefik.io/reference/static-configuration/cli/)
 # Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
-additionalArguments:
-  - "--certificatesresolvers.cloudflare.acme.email=${ACME_EMAIL}"
-  - "--certificatesresolvers.cloudflare.acme.storage=/data/acme.json"
-  - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+additionalArguments: {}
+  # - "--certificatesresolvers.cloudflare.acme.email=${ACME_EMAIL}"
+  # - "--certificatesresolvers.cloudflare.acme.storage=/data/acme.json"
+  # - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+  # - "--certificatesresolvers.cloudflare.acme.dnschallenge.delaybeforecheck=0"
 
 # # -- Additional Environment variables to be passed to Traefik's binary
 # # @default -- See _values.yaml_
@@ -440,6 +441,7 @@ persistence:
 certificatesResolvers:
   cloudflare:
     acme:
+      email: example@example4.com
       storage: /data/acme.json
       dnsChallenge:
         provider: cloudflare

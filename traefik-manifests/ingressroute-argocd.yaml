@@ -15,3 +15,5 @@ spec:
         - name: argocd-server
           port: 443
           serversTransport: servertransport-argocd
+  tls:
+    certResolver: cloudflare
