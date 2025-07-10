@@ -34,7 +34,7 @@ global:
   persistence:
     enabled: true
     storageClass: "longhorn" 
-    size: 5Gi
+    size: 20Gi
 
   # podLabels: {}
   # podAnnotations: {}
