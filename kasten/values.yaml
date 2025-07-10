@@ -34,7 +34,7 @@ global:
   persistence:
     enabled: true
     storageClass: "longhorn" 
-    size: 20Gi
+    size: 2Gi
 
   # podLabels: {}
   # podAnnotations: {}
@@ -506,7 +506,7 @@ limiter:
 #   assumeRoleDuration: ""
 #   efsBackupVaultName: "k10vault"
 
-excludedApps: ["kube-system", "kube-ingress", "kube-node-lease", "kube-public", "kube-rook-ceph"]
+excludedApps: ["kube-ingress", "kube-node-lease", "kube-public", "kube-rook-ceph"]
 
 # grafana:
 #   external:

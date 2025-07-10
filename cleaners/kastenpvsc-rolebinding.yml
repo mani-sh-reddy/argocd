@@ -1,13 +1,13 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: cleaner-kastenpvcs-rolebinding
-  namespace: cleaners
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cleaner-kastenpvcs-clusterrole
-subjects:
-- kind: ServiceAccount
-  name: cleaner-kastenpvcs-serviceaccount
-  namespace: cleaners
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: cleaner-kastenpvcs-rolebinding
+#   namespace: cleaners
+# roleRef:
+#   apiGroup: rbac.authorization.k8s.io
+#   kind: ClusterRole
+#   name: cleaner-kastenpvcs-clusterrole
+# subjects:
+# - kind: ServiceAccount
+#   name: cleaner-kastenpvcs-serviceaccount
+#   namespace: cleaners
