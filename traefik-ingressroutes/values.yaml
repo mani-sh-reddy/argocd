@@ -1,0 +1,28 @@
+# ingressRoutes:
+# - id: argocd
+#   namespace: argocd
+#   serviceName: argocd-server
+#   servicePort: 80
+#   serversTransport: true|false
+#   middleware:
+#     type: redirect|auth|ipallowlist
+#     redirectPath: k10/
+---
+ingressRoutes:
+  - id: argocd
+    namespace: argocd
+    serviceName: argocd-server
+    servicePort: 80
+    serversTransport: true
+
+  - id: kasten
+    namespace: kasten-io
+    serviceName: gateway
+    servicePort: 80
+    redirectPath: k10/
+
+  - id: longhorn
+    namespace: longhorn-system
+    serviceName: longhorn-frontend
+    servicePort: 80
+    redirectPath: "/#/dashboard"

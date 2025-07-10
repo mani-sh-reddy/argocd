@@ -1,0 +1,13 @@
+{{- range .Values.ingressRoutes }}
+{{- if .serversTransport }}
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: "servertransport-{{ .id }}"
+  namespace: {{ .namespace }}
+spec:
+  serverName: "{{ .serviceName }}.{{ .namespace }}.svc.cluster.local"
+  insecureSkipVerify: true
+---
+{{- end }}
+{{- end }}

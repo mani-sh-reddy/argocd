@@ -1,0 +1,22 @@
+{{- range .Values.ingressRoutes }}
+{{- if .redirectPath }}
+
+{{- $path := .redirectPath }}
+{{- if hasPrefix $path "/" }}
+  {{- $path = trimPrefix "/" $path }}
+{{- end }}
+{{- $sanitisedRedirectPath := $path }}
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .id }}-redirect
+  namespace: {{ .namespace }}
+spec:
+  redirectRegex:
+    regex: "^https?://{{ .id }}.talos\.manishreddy\.uk/?$"
+    replacement: "https://{{ .id }}.talos.manishreddy.uk/{{ .sanitisedRedirectPath }}"
+    permanent: true
+---
+{{- end }}
+{{- end }}
