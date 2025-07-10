@@ -14,7 +14,7 @@ spec:
         # - name: kasten-dashboard-redirect
       services:
         - name: argocd-server
-          port: 80
+          port: 443
           serversTransport: servertransport-argocd
-  # tls:
-  #   certResolver: cloudflare
+  tls:
+    certResolver: cloudflare
