@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.talos.manishreddy.uk`)
+    - match: Host(`argocd.manishreddy.uk`)
       kind: Rule
       # middlewares:
         # - name: kasten-dashboard-redirect
