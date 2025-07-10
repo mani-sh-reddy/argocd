@@ -11,7 +11,7 @@ spec:
     - match: Host(`longhorn.talos.manishreddy.uk`)
       kind: Rule
       middlewares:
-        - name: kasten-dashboard-redirect
+        - name: longhorn-dashboard-redirect
       services:
         - name: longhorn-frontend
           port: 80

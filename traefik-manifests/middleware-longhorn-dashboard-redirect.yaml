@@ -6,5 +6,5 @@ metadata:
 spec:
   redirectRegex:
     regex: ^https?://longhorn.talos\.manishreddy\.uk/?$
-    replacement: https://longhorn.talos.manishreddy.uk/k10/
+    replacement: https://longhorn.talos.manishreddy.uk/#/dashboard
     permanent: true
