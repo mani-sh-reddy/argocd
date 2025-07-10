@@ -9,7 +9,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: "Host(`{{ .name }}.talos.manishreddy.uk`)"
+    - match: {{ printf "Host(`%s.talos.manishreddy.uk`)" .name | quote }}
       kind: Rule
       {{- if .redirectPath }}
       middlewares:
