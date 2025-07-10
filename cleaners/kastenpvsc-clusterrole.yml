@@ -4,6 +4,6 @@ metadata:
   name: cleaner-kastenpvcs-clusterrole
   namespace: cleaners
 rules:
-- apiGroups: [""]
-  resources: ["persistentvolumes"]
-  verbs: ["get", "list", "delete", "watch"]
+  - apiGroups: ["longhorn.io"]
+    resources: ["volumes", "engines", "snapshots", "volumeattachments"]
+    verbs: ["get", "list", "delete"]

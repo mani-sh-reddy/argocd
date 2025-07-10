@@ -16,16 +16,7 @@ spec:
               command:
                 - /bin/bash
                 - -c
-                - |
-                  echo "Finding Released PVs with claimRef in kasten-io namespace and PVC starting kanister-pvc..."
-                  PV_NAMES=$(kubectl get pv --no-headers | awk '$5=="Released" && $6 ~ /^kasten-io\/kanister-pvc/ {print $1}')
-                  if [ -z "$PV_NAMES" ]; then
-                    echo "No matching PVs found."
-                  else
-                    echo "Deleting PVs:"
-                    echo "$PV_NAMES"
-                    for pv in $PV_NAMES; do
-                      kubectl delete pv "$pv"
-                    done
-                  fi
+                - longhorn volume list --filter "name=<volume-name-or-pattern>"
+                - longhorn volume rm $PVC_ID
           restartPolicy: OnFailure
+          

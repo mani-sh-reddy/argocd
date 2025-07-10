@@ -28,8 +28,9 @@ spec:
           - infisical
           - kubelet-serving-cert-approver
           - longhorn-system
-          - metallb-system
-          - podcleaner
           - tailscale
           - traefik
           - whoami
+          - cilium-secrets
+          - kube-system
+          - cleaners
