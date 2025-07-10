@@ -441,7 +441,6 @@ persistence:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: example@example4.com
       storage: /data/acme.json
       dnsChallenge:
         provider: cloudflare
@@ -450,23 +449,23 @@ certificatesResolvers:
           - "9.9.9.9:53"
           - "1.1.1.1:53"
 
-deployment:
-  initContainers:
-    - name: acme-volume-permissions
-      image: busybox:latest
-      command:
-        - "sh"
-        - "-c"
-        - "touch /data/acme.json"
-        - "chmod -v 600 /data/acme.json"
-        - "chown 65532:65532 /data/acme.json"
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65532
-        runAsGroup: 65532
-      volumeMounts:
-        - mountPath: /data
-          name: data
+# deployment:
+#   initContainers:
+#     - name: acme-volume-permissions
+#       image: busybox:latest
+#       command:
+#         - "sh"
+#         - "-c"
+#         - "touch /data/acme.json"
+#         - "chmod -v 600 /data/acme.json"
+#         - "chown 65532:65532 /data/acme.json"
+#       securityContext:
+#         runAsNonRoot: true
+#         runAsUser: 65532
+#         runAsGroup: 65532
+#       volumeMounts:
+#         - mountPath: /data
+#           name: data
 
 # # -- If hostNetwork is true, runs traefik in the host network namespace
 # # To prevent unschedulable pods due to port collisions, if hostNetwork=true
