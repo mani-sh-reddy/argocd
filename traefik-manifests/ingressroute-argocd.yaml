@@ -10,8 +10,6 @@ spec:
   routes:
     - match: Host(`argocd.talos.manishreddy.uk`)
       kind: Rule
-      # middlewares:
-        # - name: kasten-dashboard-redirect
       services:
         - name: argocd-server
           port: 443
