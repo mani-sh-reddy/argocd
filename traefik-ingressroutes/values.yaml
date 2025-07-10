@@ -12,7 +12,7 @@ ingressRoutes:
   - id: argocd
     namespace: argocd
     serviceName: argocd-server
-    servicePort: 80
+    servicePort: 443
     serversTransport: true
 
   - id: kasten
