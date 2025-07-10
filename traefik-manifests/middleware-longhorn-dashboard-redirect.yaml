@@ -1,0 +1,10 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn-dashboard-redirect
+  namespace: longhorn-system
+spec:
+  redirectRegex:
+    regex: ^https?://longhorn.talos\.manishreddy\.uk/?$
+    replacement: https://longhorn.talos.manishreddy.uk/k10/
+    permanent: true
