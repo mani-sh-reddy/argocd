@@ -1,1 +1,4 @@
 namespaceOverride: "cilium-system"
+kubeProxyReplacement: false
+k8sServiceHost: "auto"
+k8sServicePort: "6443"
