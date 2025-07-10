@@ -26,3 +26,5 @@ ingressRoutes:
     serviceName: longhorn-frontend
     servicePort: 80
     redirectPath: "#/dashboard"
+    headers: 
+      - X-Forwarded-Proto: "https"

@@ -11,10 +11,17 @@ spec:
   routes:
     - match: {{ printf "Host(`%s.talos.manishreddy.uk`)" .id | quote }}
       kind: Rule
+
       {{- if .redirectPath }}
       middlewares:
         - name: {{ .id }}-redirect
       {{- end }}
+
+      {{- if .headers }}
+      middlewares:
+        - name: {{ .id }}-headers
+      {{- end }}
+      
       services:
         - name: {{ .serviceName }}
           port: {{ .servicePort }}
