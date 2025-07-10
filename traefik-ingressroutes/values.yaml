@@ -28,3 +28,8 @@ ingressRoutes:
     redirectPath: "#/dashboard"
     headers: 
       - X-Forwarded-Proto: "https"
+
+  - id: hubble
+    namespace: kube-system
+    serviceName: hubbleui
+    servicePort: 80
