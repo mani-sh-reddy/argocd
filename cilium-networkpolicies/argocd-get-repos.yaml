@@ -1,15 +1,15 @@
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: argocd-get-repos
-  namespace: argocd
-spec:
-  endpointSelector:
-    matchLabels:
-      name: argocd-repo-server
-  egress:
-    - toEntities:
-        - world
-      toPorts:
-        - ports:
-            - port: "443"
+# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: argocd-get-repos
+#   namespace: argocd
+# spec:
+#   endpointSelector:
+#     matchLabels:
+#       name: argocd-repo-server
+#   egress:
+#     - toEntities:
+#         - world
+#       toPorts:
+#         - ports:
+#             - port: "443"

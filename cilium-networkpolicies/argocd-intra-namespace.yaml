@@ -1,24 +1,24 @@
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: argocd-intra-namespace
-  namespace: argocd
-spec:
-  endpointSelector: {}
-  ingress:
-    - fromEndpoints:
-        - {}
-  egress:
-    - toEndpoints:
-        - {}
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
-            k8s-app: kube-dns
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-          rules:
-            dns:
-              - matchPattern: "*"
+# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: argocd-intra-namespace
+#   namespace: argocd
+# spec:
+#   endpointSelector: {}
+#   ingress:
+#     - fromEndpoints:
+#         - {}
+#   egress:
+#     - toEndpoints:
+#         - {}
+#     - toEndpoints:
+#         - matchLabels:
+#             io.kubernetes.pod.namespace: kube-system
+#             k8s-app: kube-dns
+#       toPorts:
+#         - ports:
+#             - port: "53"
+#               protocol: UDP
+#           rules:
+#             dns:
+#               - matchPattern: "*"
