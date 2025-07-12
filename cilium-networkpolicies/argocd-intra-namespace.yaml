@@ -1,7 +1,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: allow-intra-namespaces
+  name: argocd-intra-namespace
+  namespace: argocd
 spec:
   endpointSelector: {}
   ingress:
