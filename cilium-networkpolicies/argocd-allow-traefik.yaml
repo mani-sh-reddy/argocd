@@ -2,6 +2,7 @@
 # kind: CiliumNetworkPolicy
 # metadata:
 #   name: argocd-allow-traefik
+#   namespace: argocd
 # spec:
 #   endpointSelector:
 #     matchLabels:
@@ -10,3 +11,9 @@
 #     - fromEndpoints:
 #         - matchLabels:
 #             app.kubernetes.io/name: traefik
+#             k8s:io.kubernetes.pod.namespace: traefik
+#             io.cilium.k8s.namespace.labels.kubernetes.io/metadata.name: traefik
+#       toPorts:
+#         - ports:
+#             - port: "8080"
+#               protocol: TCP
