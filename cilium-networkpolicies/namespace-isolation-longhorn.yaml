@@ -1,0 +1,20 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: namespace-isolation-longhorn
+  namespace: longhorn-system
+spec:
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+  - fromEndpoints:
+    - matchLabels: {}
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
+  - toEntities:
+    - host  # Allow to host (includes API server)
+    toPorts:
+    - ports:
+      - port: "6443"
+        protocol: TCP
