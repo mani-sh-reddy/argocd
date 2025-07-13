@@ -32,7 +32,7 @@ spec:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ .podName }}-dashboard-ingress
+  name: traefik-ingress-{{ .podName }}
   namespace: {{ .namespace }}
 spec:
   endpointSelector:
