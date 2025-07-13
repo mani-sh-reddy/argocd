@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: tailscale-traefik-egress
+  namespace: tailscale
+spec:
+  endpointSelector:
+    matchLabels:
+      tailscale.com/parent-resource: traefik
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "34384"
+              protocol: UDP

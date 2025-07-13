@@ -1,0 +1,24 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: tailscale-egress
+  namespace: tailscale
+spec:
+  endpointSelector:
+    matchLabels: {}
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "443" # Connections to the control server and other backend systems and data connections to the DERP relays
+              protocol: TCP
+        - ports:
+            - port: "80" # For captive portal detection and notifications
+              protocol: TCP
+        - ports:
+            - port: "41641" # Direct WireGuard tunnels
+              protocol: UDP
+        - ports:
+            - port: "3478" # The STUN protocol
+              protocol: UDP
