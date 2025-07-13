@@ -22,6 +22,6 @@ spec:
         app.kubernetes.io/name: {{ .podName }}
     toPorts:
     - ports:
-      - port: {{ .podPort | quote }}
+      - port: {{ .podIngressPort | quote }}
         protocol: TCP
   {{- end }}
