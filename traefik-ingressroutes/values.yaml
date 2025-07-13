@@ -14,7 +14,8 @@ ingressRoutes:
     serviceName: argocd-server
     servicePort: 443
     serversTransport: true
-    podName: argocd-server
+    selector: 
+      app.kubernetes.io/name: argocd-server
     podIngressPort: 8080
 
   - id: kasten
@@ -22,7 +23,8 @@ ingressRoutes:
     serviceName: gateway
     servicePort: 80
     redirectPath: "k10/"
-    podName: k10
+    selector: 
+      app.kubernetes.io/name: k10
     podIngressPort: 8000
 
   - id: longhorn
@@ -32,12 +34,14 @@ ingressRoutes:
     redirectPath: "#/dashboard"
     headers: 
       - X-Forwarded-Proto: "https"
-    podName: longhorn
+    selector: 
+      app.kubernetes.io/name: longhorn
     podIngressPort: 8000
 
   - id: hubble
     namespace: kube-system
     serviceName: hubble-ui
     servicePort: 80
-    podName: hubble-ui
+    selector: 
+      app.kubernetes.io/name: hubble-ui
     podIngressPort: 8081

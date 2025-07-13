@@ -19,7 +19,7 @@ spec:
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: {{ .namespace }}
-        app.kubernetes.io/name: {{ .podName }}
+        {{- toYaml .selector | nindent 8 }}
     toPorts:
     - ports:
       - port: {{ .podIngressPort | quote }}
