@@ -26,7 +26,7 @@ ingressRoutes:
     redirectPath: "k10/"
     podName: k10
     selector: 
-      app.kubernetes.io/name: k10
+      component: gateway
     podIngressPort: 8000
 
   - id: longhorn
@@ -38,7 +38,7 @@ ingressRoutes:
       - X-Forwarded-Proto: "https"
     podName: longhorn
     selector: 
-      app.kubernetes.io/name: longhorn
+      app: longhorn-ui 
     podIngressPort: 8000
 
   - id: hubble
