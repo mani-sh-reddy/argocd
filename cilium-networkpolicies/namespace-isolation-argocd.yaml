@@ -1,8 +1,8 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: podcleaner-namespace-and-host
-  namespace: cleaners
+  name: namespace-isolation-argocd
+  namespace: argocd
 spec:
   endpointSelector:
     matchLabels: {}
@@ -12,14 +12,14 @@ spec:
   egress:
   - toEndpoints:
     - matchLabels: {}
-  - toEndpoints:
-    - matchLabels:
-        k8s:io.kubernetes.pod.namespace: kube-system
-        k8s:k8s-app: kube-dns
-    toPorts:
-    - ports:
-      - port: "53"
-        protocol: UDP
+  # - toEndpoints:
+  #   - matchLabels:
+  #       k8s:io.kubernetes.pod.namespace: kube-system
+  #       k8s:k8s-app: kube-dns
+  #   toPorts:
+  #   - ports:
+  #     - port: "53"
+  #       protocol: UDP
   - toEntities:
     - host  # Allow to host (includes API server)
     toPorts:

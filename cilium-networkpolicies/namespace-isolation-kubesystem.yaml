@@ -1,28 +1,30 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: argocd-namespace-isolation
-  namespace: argocd
+  name: namespace-isolation-kubesystem
+  namespace: kube-system
 spec:
   endpointSelector:
     matchLabels: {}
   ingress:
   - fromEndpoints:
     - matchLabels: {}
-  egress:
-  - toEndpoints:
-    - matchLabels: {}
-  - toEndpoints:
-    - matchLabels:
-        k8s:io.kubernetes.pod.namespace: kube-system
-        k8s:k8s-app: kube-dns
+  - fromEntities:
+    - cluster  # Allows ingress from all endpoints in the cluster
     toPorts:
     - ports:
       - port: "53"
-        protocol: UDP
+        protocol: UDP  # Standard DNS port
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
   - toEntities:
     - host  # Allow to host (includes API server)
     toPorts:
     - ports:
       - port: "6443"
+        protocol: TCP
+      - port: "10250"
+        protocol: TCP
+      - port: "4244"
         protocol: TCP

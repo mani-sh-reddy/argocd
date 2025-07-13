@@ -22,7 +22,7 @@ spec:
       - port: "53"
         protocol: UDP
 
-        # ************* APP RULES MOVED TO TEMPLATES IN traefik-ingressroutes ****************
+# ************* APP RULES MOVED TO TEMPLATES IN traefik-ingressroutes ****************
   # - toEndpoints:
   #   - matchLabels:
   #       k8s:io.kubernetes.pod.namespace: kube-system
@@ -39,6 +39,7 @@ spec:
   #   - ports:
   #     - port: "8080"
   #       protocol: TCP
+# ************* ************************************************** ****************
   - toEntities:
     - host  # Allow to host (includes API server)
     toPorts:

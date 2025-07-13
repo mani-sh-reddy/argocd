@@ -1,8 +1,8 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: cilium-namespace-isolation
-  namespace: cilium
+  name: namespace-isolation-podcleaner
+  namespace: cleaners
 spec:
   endpointSelector:
     matchLabels: {}
@@ -20,9 +20,9 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
-  # - toEntities:
-  #   - host  # Allow to host (includes API server)
-  #   toPorts:
-  #   - ports:
-  #     - port: "6443"
-  #       protocol: TCP
+  - toEntities:
+    - host  # Allow to host (includes API server)
+    toPorts:
+    - ports:
+      - port: "6443"
+        protocol: TCP
