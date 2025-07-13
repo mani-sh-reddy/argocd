@@ -21,28 +21,47 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
-
-# ************* APP RULES MOVED TO TEMPLATES IN traefik-ingressroutes ****************
-  # - toEndpoints:
-  #   - matchLabels:
-  #       k8s:io.kubernetes.pod.namespace: kube-system
-  #       app.kubernetes.io/name: hubble-ui
-  #   toPorts:
-  #   - ports:
-  #     - port: "8081"
-  #       protocol: TCP
-  # - toEndpoints:
-  #   - matchLabels:
-  #       k8s:io.kubernetes.pod.namespace: argocd
-  #       app.kubernetes.io/name: argocd-server
-  #   toPorts:
-  #   - ports:
-  #     - port: "8080"
-  #       protocol: TCP
-# ************* ************************************************** ****************
   - toEntities:
     - host  # Allow to host (includes API server)
     toPorts:
     - ports:
       - port: "6443"
         protocol: TCP
+# ======================
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        app.kubernetes.io/name: hubble-ui
+    toPorts:
+    - ports:
+      - port: "8081"
+        protocol: TCP
+# ======================
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: argocd
+        app.kubernetes.io/name: argocd-server
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+# ======================
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: longhorn-system
+        app: longhorn-ui
+    toPorts:
+    - ports:
+      - port: "8000"
+        protocol: TCP
+# ======================
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kasten-io
+        app.kubernetes.io/name: k10
+        component: gateway
+    toPorts:
+    - ports:
+      - port: "8000"
+        protocol: TCP
+  

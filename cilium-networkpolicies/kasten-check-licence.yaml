@@ -13,6 +13,7 @@ spec:
   egress:
     - toFQDNs:
         - matchName: gcr.io
+        - matchName: oauth2.googleapis.com
       toPorts:
         - ports:
             - port: "443"
