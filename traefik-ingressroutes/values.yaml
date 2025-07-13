@@ -38,7 +38,7 @@ ingressRoutes:
       - X-Forwarded-Proto: "https"
     podName: longhorn
     selector: 
-      app: longhorn-ui 
+      app.kubernetes.io/name: longhorn
     podIngressPort: 8000
 
   - id: hubble
