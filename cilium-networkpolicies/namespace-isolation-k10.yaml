@@ -1,8 +1,8 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: namespace-isolation-tailscale
-  namespace: tailscale
+  name: namespace-isolation-k10
+  namespace: kasten-io
 spec:
   endpointSelector:
     matchLabels: {}
@@ -12,3 +12,9 @@ spec:
   egress:
   - toEndpoints:
     - matchLabels: {}
+  - toEntities:
+    - host  # Allow to host (includes API server)
+    toPorts:
+    - ports:
+      - port: "6443"
+        protocol: TCP
