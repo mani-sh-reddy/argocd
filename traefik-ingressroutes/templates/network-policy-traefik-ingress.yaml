@@ -1,0 +1,25 @@
+ {{- range .Values.ingressRoutes }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "traefik-ingress-{{ .podName }}"
+  namespace: {{ .namespace }}
+spec:
+  endpointSelector:
+    matchLabels: 
+      app.kubernetes.io/name: {{ .podName }}
+  ingress:
+  - fromEndpoints:
+    - matchLabels: {}
+  - fromEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: traefik
+        app.kubernetes.io/name: traefik
+    toPorts:
+    - ports:
+      - port: {{ .podIngressPort | quote }}
+        protocol: TCP
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
+{{- end }}
