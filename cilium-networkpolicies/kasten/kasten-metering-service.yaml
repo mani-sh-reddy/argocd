@@ -1,19 +1,19 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: kasten-check-licence
+  name: kasten-metering-service
   namespace: kasten-io
 spec:
   endpointSelector:
     matchLabels:
-      component: dashboardbff
+      component: metering
   ingress:
     - fromEndpoints:
         - matchLabels: {}
   egress:
-    - toFQDNs:
-        - matchName: gcr.io
-        - matchName: oauth2.googleapis.com
+    - toEntities:
+        - world
       toPorts:
         - ports:
             - port: "443"
+              protocol: TCP

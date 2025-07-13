@@ -1,16 +1,16 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: tailscale-traefik-egress
+  name: tailscale-kasten-to-host
   namespace: tailscale
 spec:
   endpointSelector:
     matchLabels:
-      tailscale.com/parent-resource: traefik
+      tailscale.com/parent-resource: expose-apollo
   egress:
     - toEntities:
-        - world
+        - host
       toPorts:
         - ports:
-            - port: "34384"
-              protocol: UDP
+            - port: "6443"
+              protocol: TCP
