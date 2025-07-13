@@ -1,12 +1,12 @@
 # apiVersion: "cilium.io/v2"
 # kind: CiliumNetworkPolicy
 # metadata:
-#   name: hubble-ui-ingress
-#   namespace: kube-system
+#   name: ui-ingress-k10
+#   namespace: kasten-io
 # spec:
 #   endpointSelector:
 #     matchLabels: 
-#       app.kubernetes.io/name: hubble-ui
+#       app.kubernetes.io/name: longhorn
 #   ingress:
 #   - fromEndpoints:
 #     - matchLabels: {}
@@ -16,7 +16,7 @@
 #         app.kubernetes.io/name: traefik
 #     toPorts:
 #     - ports:
-#       - port: "8081"
+#       - port: "8000"
 #         protocol: TCP
 #   egress:
 #   - toEndpoints:

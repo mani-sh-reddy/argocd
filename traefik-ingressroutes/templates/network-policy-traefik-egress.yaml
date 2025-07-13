@@ -1,7 +1,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: traefik-egress
+  name: traefik-egress-webuis
   namespace: traefik
 spec:
   endpointSelector:
