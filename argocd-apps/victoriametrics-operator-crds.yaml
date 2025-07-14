@@ -11,7 +11,7 @@ spec:
   project: default
   sources:
     - repoURL: "https://victoriametrics.github.io/helm-charts/"
-      chart: ictoria-metrics-operator-crds
+      chart: victoria-metrics-operator-crds
       targetRevision: 0.*.*
   destination:
     server: "https://kubernetes.default.svc"
