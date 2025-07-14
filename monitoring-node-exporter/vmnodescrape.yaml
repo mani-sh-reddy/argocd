@@ -2,7 +2,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMNodeScrape
 metadata:
   name: x
-  namespace: monitoring-system
+  namespace: monitoring-node-exporter
 spec:
   selector:
     matchLabels:
