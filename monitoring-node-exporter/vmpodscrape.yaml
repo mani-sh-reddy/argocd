@@ -1,12 +1,13 @@
 apiVersion: operator.victoriametrics.com/v1beta1
-kind: VMNodeScrape
+kind: VMPodScrape
 metadata:
-  name: x
+  name: node-exporter
   namespace: monitoring-node-exporter
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: node-exporter
       app.kubernetes.io/component: exporter
-  port: metrics
-  interval: 10s
+  podMetricsEndpoints:
+    - port: metrics
+      interval: 10s
