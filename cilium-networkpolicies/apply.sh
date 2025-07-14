@@ -1,0 +1,1 @@
+find . -name '*.yaml' -print0 | xargs -0 -n1 echo -f | xargs kubectl apply
