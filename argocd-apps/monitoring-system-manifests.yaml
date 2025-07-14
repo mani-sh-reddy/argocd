@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitoring-manifests
+  name: monitoring-system-manifests
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
