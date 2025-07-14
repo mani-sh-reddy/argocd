@@ -29,6 +29,9 @@ spec:
     # otherwise it ll silently override changes and cause a problem
     - RespectIgnoreDifferences=true
     - CreateNamespace=true
+    automated:
+      prune: true
+      allowEmpty: true
   ignoreDifferences:
     - group: ""
       kind: Secret
