@@ -7,4 +7,4 @@ spec:
   replicaCount: 1
   selectAllByDefault: true
   remoteWrite:
-    - url: "http://vmsingle-x.monitoring.svc.cluster.local:8428/api/v1/write"
+    - url: "http://vmsingle-x.monitoring-system.svc.cluster.local:8428/api/v1/write"
