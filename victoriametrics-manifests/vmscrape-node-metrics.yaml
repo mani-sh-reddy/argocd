@@ -1,0 +1,14 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMScrape
+metadata:
+  name: node-metrics
+  namespace: victoria-metrics
+spec:
+  jobName: node-exporter
+  scrapeInterval: 15s
+  staticTargets:
+    - targets:
+        - "kubernetes.default.svc.cluster.local:443"
+  params:
+    module:
+      - http_2xx
