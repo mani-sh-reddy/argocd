@@ -1,0 +1,28 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: namespace-isolation-netdata
+  namespace: netdata
+spec:
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+  - fromEndpoints:
+    - matchLabels: {}
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
+  # - toEntities:
+  #   - host  # Allow to host (includes API server)
+  #   toPorts:
+  #   - ports:
+  #     - port: "6443"
+  #       protocol: TCP
+  - toEntities:
+    - world
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "443"
+        protocol: TCP
