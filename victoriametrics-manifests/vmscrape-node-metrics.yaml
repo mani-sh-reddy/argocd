@@ -1,7 +1,7 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMScrape
 metadata:
-  name: node-metrics
+  name: scrape-node-metrics
   namespace: victoria-metrics
 spec:
   jobName: node-exporter
