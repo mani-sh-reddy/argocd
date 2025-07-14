@@ -1,0 +1,14 @@
+networkPolicy:
+  enabled: true
+  flavor: cilium
+  cilium:
+    kubeApiServerSelector:
+      - toEntities:
+        - kube-apiserver
+  egress:
+  - {}
+  ingress:
+  - {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kube-state-metrics
