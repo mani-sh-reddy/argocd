@@ -15,7 +15,7 @@ spec:
       targetRevision: *.*.*
       helm:
         valueFiles:
-          - $values/victoriametrics/values.yaml # Path to values file in this repo
+          - $values/victoriametrics-operator/values.yaml # Path to values file in this repo
     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
       targetRevision: main
       ref: values
