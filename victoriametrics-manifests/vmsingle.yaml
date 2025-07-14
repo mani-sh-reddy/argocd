@@ -1,10 +1,10 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMSingle
 metadata:
-  name: vmsingle-f
+  name: x
   namespace: monitoring-system
 spec:
-  retentionPeriod: "2"
+  retentionPeriod: "5y"
   removePvcAfterDelete: true
   securityContext:
       runAsUser: 1000
