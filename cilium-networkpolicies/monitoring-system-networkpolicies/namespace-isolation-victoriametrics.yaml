@@ -1,8 +1,8 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: namespace-isolation-victoriametrics
-  namespace: victoriametrics
+  name: namespace-isolation-monitoring-system
+  namespace: monitoring-system
 spec:
   endpointSelector:
     matchLabels: {}
