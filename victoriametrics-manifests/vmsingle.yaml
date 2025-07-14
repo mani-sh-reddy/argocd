@@ -1,0 +1,27 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMSingle
+metadata:
+  name: vmsingle-f
+  namespace: monitoring-system
+spec:
+  retentionPeriod: "2"
+  removePvcAfterDelete: true
+  securityContext:
+      runAsUser: 1000
+      fsGroup: 1000
+      runAsGroup: 1000
+  extraArgs:
+    dedup.minScrapeInterval: 10s
+  storage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
+  resources:
+    requests:
+      cpu: "0.5"
+      memory: "512Mi"
+    limits:
+      cpu: "1"
+      memory: "1512Mi"
