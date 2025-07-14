@@ -2,7 +2,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMScrape
 metadata:
   name: scrape-node-metrics
-  namespace: victoria-metrics
+  namespace: monitoring-system
 spec:
   jobName: node-exporter
   scrapeInterval: 15s
