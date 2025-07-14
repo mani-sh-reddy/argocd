@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: victoriametrics
+  name: victoriametrics-operator
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -12,7 +12,7 @@ spec:
   sources:
     - repoURL: "https://victoriametrics.github.io/helm-charts/"
       chart: victoria-metrics-operator
-      targetRevision: *.*.*
+      targetRevision: 0.*.*
       helm:
         valueFiles:
           - $values/victoriametrics-operator/values.yaml # Path to values file in this repo
@@ -23,15 +23,15 @@ spec:
     server: "https://kubernetes.default.svc"
     namespace: victoriametrics # Where components live
   syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
     syncOptions:
     # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#respect-ignore-difference-configs
     # argocd must also ignore difference during apply stage
     # otherwise it ll silently override changes and cause a problem
     - RespectIgnoreDifferences=true
     - CreateNamespace=true
-    automated:
-      prune: true
-      allowEmpty: true
   ignoreDifferences:
     - group: ""
       kind: Secret

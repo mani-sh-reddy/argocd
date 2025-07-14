@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: victoriametrics-operator-crds
+  namespace: argocd # This manifest's namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+  labels:
+    app.kubernetes.io/managed-by: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://victoriametrics.github.io/helm-charts/"
+      chart: ictoria-metrics-operator-crds
+      targetRevision: 0.*.*
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: victoriametrics # Where components live
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
