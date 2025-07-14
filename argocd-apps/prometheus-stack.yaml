@@ -21,7 +21,7 @@ spec:
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: prometheus-stack # Where components live
+    namespace: monitoring-system # Where components live
   syncPolicy:
     automated:
       selfHeal: true
