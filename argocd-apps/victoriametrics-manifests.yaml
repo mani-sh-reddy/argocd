@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   destination:
-    namespace: victoriametrics
+    namespace: monitoring-system
     server: https://kubernetes.default.svc
   source:
     path: victoriametrics-manifests/

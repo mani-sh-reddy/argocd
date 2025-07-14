@@ -15,7 +15,7 @@ spec:
       targetRevision: 0.*.*
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: victoriametrics # Where components live
+    namespace: monitoring-system # Where components live
   syncPolicy:
     automated:
       selfHeal: true
