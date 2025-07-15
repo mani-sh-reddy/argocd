@@ -1,0 +1,35 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: traefik-egress-helm
+  namespace: traefik
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  ingress:
+  - fromEndpoints:
+    - matchLabels: {}
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
+# ======================
+{{- range .Values.ingressRoutes }}
+- toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: {{ .namespace }}
+      {{- if .appName }}
+        app.kubernetes.io/name: {{ .appName }}
+      {{- else if .k8sAppName }}
+        k8s:k8s-app: {{ .k8sAppName }}
+      {{- else }}
+        app: {{ .app }}
+      {{- end }}
+      {{- if .component }}
+        component: {{ .component }}
+      {{ - end}}
+  toPorts:
+    - ports:
+        - port: "{{ .podPort }}"
+          protocol: {{ .podProtocol }}
+{{- end }}
