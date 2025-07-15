@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "ui-ingress-{{ .id}}"
+  name: "ui-ingress-{{ .id }}"
   namespace: monitoring-system
 spec:
   endpointSelector:
