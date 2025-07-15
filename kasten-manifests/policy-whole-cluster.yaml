@@ -20,17 +20,4 @@ spec:
   selector:
     matchExpressions:
       - key: k10.kasten.io/appNamespace
-        operator: In
-        values:
-          - kasten-io-cluster
-          - argocd
-          - default
-          - infisical
-          - kubelet-serving-cert-approver
-          - longhorn-system
-          - tailscale
-          - traefik
-          - whoami
-          - cilium-secrets
-          - kube-system
-          - cleaners
+        operator: Exists

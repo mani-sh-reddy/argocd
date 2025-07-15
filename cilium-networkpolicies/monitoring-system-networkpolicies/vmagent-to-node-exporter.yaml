@@ -1,39 +1,39 @@
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
-  name: vmagent-to-node-exporter-ingress
-  namespace: monitoring-node-exporter
-spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/name: node-exporter
-  ingress:
-    - fromEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: monitoring-system
-            app.kubernetes.io/name: vmagent
-            app.kubernetes.io/instance: x
-      toPorts:
-        - ports:
-            - port: "9100"
-              protocol: TCP
----
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
-  name: vmagent-egress-to-node-exporter
-  namespace: monitoring-system
-spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/name: vmagent
-      app.kubernetes.io/instance: x
-  egress:
-    - toEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: monitoring-node-exporter
-            app.kubernetes.io/name: node-exporter
-      toPorts:
-        - ports:
-            - port: "9100"
-              protocol: TCP
+# apiVersion: "cilium.io/v2"
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: vmagent-to-node-exporter-ingress
+#   namespace: monitoring-node-exporter
+# spec:
+#   endpointSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: node-exporter
+#   ingress:
+#     - fromEndpoints:
+#         - matchLabels:
+#             k8s:io.kubernetes.pod.namespace: monitoring-system
+#             app.kubernetes.io/name: vmagent
+#             app.kubernetes.io/instance: x
+#       toPorts:
+#         - ports:
+#             - port: "9100"
+#               protocol: TCP
+# ---
+# apiVersion: "cilium.io/v2"
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: vmagent-egress-to-node-exporter
+#   namespace: monitoring-system
+# spec:
+#   endpointSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: vmagent
+#       app.kubernetes.io/instance: x
+#   egress:
+#     - toEndpoints:
+#         - matchLabels:
+#             k8s:io.kubernetes.pod.namespace: monitoring-node-exporter
+#             app.kubernetes.io/name: node-exporter
+#       toPorts:
+#         - ports:
+#             - port: "9100"
+#               protocol: TCP
