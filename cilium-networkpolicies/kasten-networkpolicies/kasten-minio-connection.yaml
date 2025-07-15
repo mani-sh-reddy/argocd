@@ -8,13 +8,11 @@ spec:
     matchLabels:
       app.kubernetes.io/name: k10
   egress:
-    - toEndpoints: 
+    - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: tailscale
             k8s:tailscale.com/parent-resource: expose-apollo
-      toPorts:
-        - ports:
-            - port: "9090"
+
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -24,12 +22,12 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      k8s:tailscale.com/parent-resource: expose-apollo
+      tailscale.com/parent-resource: expose-apollo
   ingress:
-    - fromEndpoints: 
+    - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kasten-io
             app.kubernetes.io/name: k10
-      toPorts:
-        - ports:
-            - port: "9090"
+      # toPorts:
+      #   - ports:
+      #       - port: "9090"
