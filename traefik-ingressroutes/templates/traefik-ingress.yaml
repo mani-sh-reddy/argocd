@@ -27,6 +27,6 @@ spec:
         app.kubernetes.io/name: traefik
     toPorts:
     - ports:
-      - port: {{ .podPort }}
+      - port: {{ .podPort | quote }}
         protocol: {{ .podProtocol }}
 {{- end }}

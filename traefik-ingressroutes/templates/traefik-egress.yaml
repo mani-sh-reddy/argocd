@@ -30,6 +30,6 @@ spec:
           {{- end }}
     toPorts:
       - ports:
-          - port: {{ .podPort }}
+          - port: {{ .podPort | quote }}
             protocol: {{ .podProtocol }}
 {{- end }}
