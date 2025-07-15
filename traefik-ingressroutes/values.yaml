@@ -1,3 +1,5 @@
+# namespaceIsolation:
+  # - 
 ingressRoutes:
   - id: argocd
     namespace: argocd
