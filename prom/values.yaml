@@ -1,0 +1,13 @@
+namespaceOverride: monitor
+
+alertmanager:
+  namespaceOverride: monitor
+
+grafana:
+  namespaceOverride: monitor
+
+kube-state-metrics:
+  namespaceOverride: monitor
+
+prometheus-node-exporter:
+  namespaceOverride: monitoring-node-exporter

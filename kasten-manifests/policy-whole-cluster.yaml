@@ -32,7 +32,7 @@ spec:
           - kubelet-serving-cert-approver
           - longhorn-system
           - monitoring-node-exporter
-          - monitoring-system
+          - monitor
           - tailscale
           - traefik
           - whoami
