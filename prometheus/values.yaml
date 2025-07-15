@@ -7,7 +7,18 @@ prometheus-node-exporter:
   namespaceOverride: monitoring-node-exporter
 
 prometheusSpec:
-  retention: 1y
+  retention: 5y
+  volumeClaimTemplate:
+   spec:
+     storageClassName: longhorn
+     accessModes: 
+      - ReadWriteOnce
+     resources:
+       requests:
+         storage: 50Gi
+  podMonitorSelectorNilUsesHelmValues: false
+  ruleSelectorNilUsesHelmValues: false
+  serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
   namespaceOverride: monitoring-system
@@ -17,9 +28,18 @@ grafana:
     dashboardsConfigMapRefEnabled: true
   persistence:
     enabled: true
-    storageClassName: "longhorn"
+    storageClassName: longhorn
     accessModes:
       - ReadWriteOnce
     size: 20Gi
     finalizers:
       - kubernetes.io/pvc-protection
+
+# kubeControllerManager:
+#   enabled: false
+
+# kubeScheduler:
+#   enabled: false
+
+# kubeEtcd:
+#   enabled: false
