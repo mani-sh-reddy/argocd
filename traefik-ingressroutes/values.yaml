@@ -49,3 +49,13 @@ ingressRoutes:
     # selector: 
     #   app.kubernetes.io/name: hubble-ui
     # podIngressPort: 8081
+
+  - id: grafana
+    namespace: monitoring-system
+    serviceName: prometheus-grafana
+    servicePort: 80
+
+  - id: prometheus
+    namespace: monitoring-system
+    serviceName: prometheus-kube-prometheus-prometheus
+    servicePort: 9090
