@@ -2,5 +2,5 @@ apiVersion: v2
 name: traefik-ingressroutes
 description: A Helm chart for managing Traefik IngressRoutes
 type: application
-version: 0.0.2
-appVersion: "0.0.2"
+version: 0.0.3
+appVersion: "0.0.3"
