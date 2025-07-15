@@ -8,16 +8,16 @@ spec:
   endpointSelector:
     matchLabels:
         k8s:io.kubernetes.pod.namespace: {{ .namespace }}
-      {{- if .appName }}
+        {{- if .appName }}
         app.kubernetes.io/name: {{ .appName }}
-      {{- else if .k8sAppName }}
+        {{- else if .k8sAppName }}
         k8s:k8s-app: {{ .k8sAppName }}
-      {{- else }}
+        {{- else }}
         app: {{ .app }}
-      {{- end }}
-      {{- if .component }}
+        {{- end }}
+        {{- if .component }}
         component: {{ .component }}
-      {{ - end}}
+        {{- end }}
   ingress:
   - fromEndpoints:
     - matchLabels: {}
@@ -27,6 +27,6 @@ spec:
         app.kubernetes.io/name: traefik
     toPorts:
     - ports:
-      - port: "{{ .podPort }}"
+      - port: {{ .podPort }}
         protocol: {{ .podProtocol }}
 {{- end }}
