@@ -1,0 +1,19 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus-to-kubedns-9153
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      io.kubernetes.pod.namespace: kube-system
+      k8s-app: kube-dns
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring-system
+            app.kubernetes.io/name: prometheus
+            prometheus: prometheus-kube-prometheus-prometheus
+      toPorts:
+        - ports:
+            - port: "9153"

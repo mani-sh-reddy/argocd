@@ -1,0 +1,28 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus-pod-to-host
+  namespace: monitoring-system
+spec:
+  endpointSelector:
+    matchLabels:
+      k8s:io.kubernetes.pod.namespace: monitoring-system
+      app.kubernetes.io/name: prometheus
+      prometheus: prometheus-kube-prometheus-prometheus
+  egress:
+    - toEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "6443"
+              protocol: TCP
+            - port: "9100"
+              protocol: TCP
+            - port: "10249"
+              protocol: TCP
+            - port: "10250"
+              protocol: TCP
+            - port: "10257"
+              protocol: TCP
+            - port: "10259"
+              protocol: TCP
