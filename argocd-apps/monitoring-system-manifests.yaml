@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitor-manifests
+  name: monitoring-system-manifests
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -9,11 +9,11 @@ metadata:
     app.kubernetes.io/managed-by: argocd
 spec:
   destination:
-    namespace: monitor
+    namespace: monitoring-system
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: monitor-manifests/
+    path: monitoring-system-manifests/
     repoURL: https://github.com/mani-sh-reddy/argocd.git
     targetRevision: HEAD
   syncPolicy:

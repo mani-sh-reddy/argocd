@@ -2,7 +2,7 @@ apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
   name: namespace-isolation-monitoring-system
-  namespace: monitor
+  namespace: monitoring-system
 spec:
   endpointSelector:
     matchLabels: {}
