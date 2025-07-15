@@ -163,7 +163,7 @@ prometheus:
     create: true
   server:
     # UID and groupid are from prometheus helm chart
-    enabled: true
+    enabled: false
     securityContext:
       runAsUser: 65534
       runAsNonRoot: true
