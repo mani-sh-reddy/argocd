@@ -1,5 +1,4 @@
 {{- range .Values.ingressRoutes }}
----
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
@@ -30,4 +29,5 @@ spec:
     - ports:
       - port: {{ .podPort | quote }}
         protocol: {{ .podProtocol }}
+---
 {{- end }}
