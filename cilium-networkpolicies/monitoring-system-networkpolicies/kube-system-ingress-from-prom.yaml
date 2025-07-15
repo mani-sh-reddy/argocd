@@ -1,0 +1,41 @@
+# apiVersion: "cilium.io/v2"
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: kube-system-ingress-from-prom
+#   namespace: kube-system
+# spec:
+#   endpointSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: kube-scheduler
+#   ingress:
+#     - fromEndpoints:
+#         - matchLabels:
+#             k8s:io.kubernetes.pod.namespace: monitoring-system
+#             app.kubernetes.io/name: prometheus
+#             prometheus: prometheus-kube-prometheus-prometheus
+#       toPorts:
+#         - ports:
+#             - port: "9153"
+#               protocol: TCP
+#             - port: "10259"
+#               protocol: TCP
+  
+  
+  
+  
+#   # egress:
+#   #   - toEntities:
+#   #       - host
+#   #     toPorts:
+#   #       - ports:
+#   #           - port: "6443"
+#   #             protocol: TCP
+#   #           - port: "9100"
+#   #             protocol: TCP
+#   #           - port: "10249"
+#   #             protocol: TCP
+#   #           - port: "10250"
+#   #             protocol: TCP
+#   #           - port: "10257"
+#   #             protocol: TCP
+
