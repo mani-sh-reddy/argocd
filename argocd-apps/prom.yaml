@@ -15,7 +15,7 @@ spec:
       targetRevision: 75.*.*
       helm:
         valueFiles:
-          - $values/prometheus-stack/values.yaml # Path to values file in this repo
+          - $values/prom/values.yaml # Path to values file in this repo
     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
       targetRevision: main
       ref: values
