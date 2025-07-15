@@ -1,0 +1,14 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: namespace-isolation-traefik
+  namespace: traefik
+spec:
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+  - fromEndpoints:
+    - matchLabels: {}
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
