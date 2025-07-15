@@ -1,4 +1,5 @@
 {{- range .Values.ingressRoutes }}
+---
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
