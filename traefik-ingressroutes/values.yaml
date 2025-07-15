@@ -5,7 +5,7 @@ ingressRoutes:
     appName: argocd-server
     servicePort: 443
     serversTransport: true
-    podPort: "8080"
+    podPort: 8080
     podProtocol: TCP
 
   - id: kasten
@@ -15,7 +15,7 @@ ingressRoutes:
     component: gateway
     servicePort: 80
     redirectPath: "k10/"
-    podPort: "8000"
+    podPort: 8000
     podProtocol: TCP
 
   - id: longhorn
@@ -26,7 +26,7 @@ ingressRoutes:
     redirectPath: "#/dashboard"
     headers:
       - X-Forwarded-Proto: "https"
-    podPort: "8000"
+    podPort: 8000
     podProtocol: TCP
 
   - id: hubble
@@ -34,7 +34,7 @@ ingressRoutes:
     serviceName: hubble-ui
     appName: hubble-ui
     servicePort: 80
-    podPort: "8081"
+    podPort: 8081
     podProtocol: TCP
 
   - id: grafana
@@ -42,7 +42,7 @@ ingressRoutes:
     serviceName: prometheus-grafana
     appName: grafana
     servicePort: 80
-    podPort: "3000"
+    podPort: 3000
     podProtocol: TCP
 
   - id: prometheus
@@ -52,5 +52,5 @@ ingressRoutes:
     appName: prometheus
     headers:
       - X-Forwarded-Proto: "https"
-    podPort: "9090"
+    podPort: 9090
     podProtocol: TCP
