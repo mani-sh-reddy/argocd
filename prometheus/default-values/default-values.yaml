@@ -4315,8 +4315,8 @@ prometheus:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
     storageSpec: {}
-    ## Using PersistentVolumeClaim
-    ##
+    # # Using PersistentVolumeClaim
+    # #
     #  volumeClaimTemplate:
     #    spec:
     #      storageClassName: gluster

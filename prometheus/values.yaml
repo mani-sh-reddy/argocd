@@ -8,14 +8,18 @@ prometheus-node-exporter:
 
 prometheusSpec:
   retention: 5y
-  volumeClaimTemplate:
-   spec:
-     storageClassName: longhorn
-     accessModes: 
-      - ReadWriteOnce
-     resources:
-       requests:
-         storage: 50Gi
+  storageSpec:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: longhorn
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
   podMonitorSelectorNilUsesHelmValues: false
   ruleSelectorNilUsesHelmValues: false
   serviceMonitorSelectorNilUsesHelmValues: false
@@ -25,7 +29,7 @@ grafana:
   defaultDashboardsEditable: false
   defaultDashboardsTimezone: browser
   # operator:
-    # dashboardsConfigMapRefEnabled: true
+  # dashboardsConfigMapRefEnabled: true
   persistence:
     enabled: true
     storageClassName: longhorn
@@ -34,7 +38,6 @@ grafana:
     size: 20Gi
     finalizers:
       - kubernetes.io/pvc-protection
-
 # kubeControllerManager:
 #   enabled: false
 
