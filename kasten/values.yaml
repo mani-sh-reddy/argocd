@@ -8,7 +8,7 @@ multicluster:
 storageClass: "longhorn"
 
 eula:
-  accept: true *#true value if EULA accepted*
+  accept: true
   company: "na"
   email: "na@na.na"
 
