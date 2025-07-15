@@ -5,7 +5,20 @@ multicluster:
     name: "talos"
     ingressURL: "http://localhost:2222/k10/"
 
-storageClass: "longhorn"
+global:
+  persistence:
+    enabled: true
+    storageClass: "longhorn"
+    accessMode: ReadWriteOnce
+    size: 20Gi
+    metering:
+      size: 2Gi
+    catalog:
+      size: 20Gi
+    jobs:
+      size: 20Gi
+    logging:
+      size: 20Gi
 
 eula:
   accept: true
