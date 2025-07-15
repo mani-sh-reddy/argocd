@@ -24,8 +24,8 @@ grafana:
   namespaceOverride: monitoring-system
   defaultDashboardsEditable: false
   defaultDashboardsTimezone: browser
-  operator:
-    dashboardsConfigMapRefEnabled: true
+  # operator:
+    # dashboardsConfigMapRefEnabled: true
   persistence:
     enabled: true
     storageClassName: longhorn
