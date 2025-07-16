@@ -1,10 +1,60 @@
 apiVersion: grafana.integreatly.org/Grafana
 kind: Grafana
 metadata:
-  name: external-grafana
+  name: grafana
   namespace: monitoring-system
-spec:
-  ingress:
-    enabled: false
-  external:
-    url: 
+  labels:
+    dashboards: "grafana"
+  
+  config:
+    log:
+      mode: "console"
+    auth:
+      disable_login_form: "false"
+  disableDefaultAdminSecret: true
+
+
+  deployment:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: grafana
+              env:
+                - name: GF_SECURITY_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_USER
+                      name: credentials
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_PASSWORD
+                      name: credentials
+          volumes:
+            - name: grafana-data
+              persistentVolumeClaim:
+                claimName: grafana-pvc
+      strategy:
+        type: Recreate
+
+  persistentVolumeClaim:
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: longhorn
+
+
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: credentials
+  namespace: grafana
+stringData:
+  GF_SECURITY_ADMIN_PASSWORD: admin
+  GF_SECURITY_ADMIN_USER: admin
+type: Opaque
