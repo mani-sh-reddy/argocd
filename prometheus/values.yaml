@@ -26,7 +26,7 @@ prometheusSpec:
 
 grafana:
   namespaceOverride: monitoring-system
-  defaultDashboardsEditable: false
+  defaultDashboardsEditable: true
   defaultDashboardsTimezone: browser
   # operator:
   # dashboardsConfigMapRefEnabled: true
