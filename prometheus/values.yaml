@@ -1,22 +1,23 @@
 namespaceOverride: monitoring-system
 
-prometheusSpec:
-  retention: 5y
-  storageSpec:
-    volumeClaimTemplate:
-      spec:
-        storageClassName: longhorn
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 50Gi
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Retain
-    whenScaled: Retain
-  podMonitorSelectorNilUsesHelmValues: false
-  ruleSelectorNilUsesHelmValues: false
-  serviceMonitorSelectorNilUsesHelmValues: false
+pometheus:
+  prometheusSpec:
+    retention: 5y
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 50Gi
+    persistentVolumeClaimRetentionPolicy:
+      whenDeleted: Retain
+      whenScaled: Retain
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
   enabled: false
@@ -42,7 +43,6 @@ alertmanager:
 
 prometheus-windows-exporter:
   enabled: false
-
 # kubeControllerManager:
 #   enabled: false
 
