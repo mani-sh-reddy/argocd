@@ -1,0 +1,21 @@
+apiVersion: integreatly.org/v1alpha1
+kind: Grafana
+metadata:
+  name: external-grafana
+  namespace: monitoring-system
+spec:
+  ingress:
+    enabled: false
+  config:
+    log:
+      mode: "console"
+      level: "info"
+    auth:
+      disable_signout_menu: "true"
+    security:
+      admin_user: "admin"
+      admin_password: "admin"
+  deployment:
+    skipCreateAdminAccount: true
+  service:
+    name: prometheus-grafana
