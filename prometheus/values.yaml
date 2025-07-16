@@ -12,12 +12,12 @@ pometheus:
             requests:
               storage: 50Gi
           selector: {}
-    persistentVolumeClaimRetentionPolicy:
-      whenDeleted: Retain
-      whenScaled: Retain
-    podMonitorSelectorNilUsesHelmValues: false
-    ruleSelectorNilUsesHelmValues: false
-    serviceMonitorSelectorNilUsesHelmValues: false
+    # persistentVolumeClaimRetentionPolicy:
+    #   whenDeleted: Retain
+    #   whenScaled: Retain
+    # podMonitorSelectorNilUsesHelmValues: false
+    # ruleSelectorNilUsesHelmValues: false
+    # serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
   enabled: false
