@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: egress-all-to-manishreddyuk
+  namespace: monitoring-system
+spec:
+  description: "Allow all traffic from cluster to manishreddy.uk"
+  endpointSelector:
+    matchLabels:
+      io.kubernetes.pod.namespace: monitoring-system
+  egress:
+    - toFQDNs:
+        - matchName: auth.manishreddy.uk
+      toPorts:
+        - ports:
+            - port: "443"

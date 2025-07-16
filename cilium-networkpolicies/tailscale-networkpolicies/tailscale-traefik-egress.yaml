@@ -18,6 +18,8 @@ spec:
               protocol: UDP
             - port: "33339"
               protocol: UDP
+            - port: "36333"
+              protocol: UDP
     - toEntities:
         - host
       toPorts:

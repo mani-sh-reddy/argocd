@@ -26,10 +26,7 @@ prometheusSpec:
 
 grafana:
   namespaceOverride: monitoring-system
-  defaultDashboardsEditable: true
   defaultDashboardsTimezone: browser
-  # operator:
-  # dashboardsConfigMapRefEnabled: true
   persistence:
     enabled: true
     storageClassName: longhorn
