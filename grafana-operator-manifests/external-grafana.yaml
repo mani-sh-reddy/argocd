@@ -1,4 +1,4 @@
-apiVersion: integreatly.org/v1beta1
+apiVersion: grafana.integreatly.org/Grafana
 kind: Grafana
 metadata:
   name: external-grafana
@@ -6,16 +6,5 @@ metadata:
 spec:
   ingress:
     enabled: false
-  config:
-    log:
-      mode: "console"
-      level: "info"
-    auth:
-      disable_signout_menu: "true"
-    security:
-      admin_user: "admin"
-      admin_password: "admin"
-  deployment:
-    skipCreateAdminAccount: true
-  service:
-    name: prometheus-grafana
+  external:
+    url: 

@@ -19,16 +19,17 @@ prometheusSpec:
   serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
-  namespaceOverride: monitoring-system
-  defaultDashboardsTimezone: browser
-  persistence:
-    enabled: true
-    storageClassName: longhorn
-    accessModes:
-      - ReadWriteOnce
-    size: 20Gi
-    finalizers:
-      - kubernetes.io/pvc-protection
+  enabled: false
+  # namespaceOverride: monitoring-system
+  # defaultDashboardsTimezone: browser
+  # persistence:
+  #   enabled: true
+  #   storageClassName: longhorn
+  #   accessModes:
+  #     - ReadWriteOnce
+  #   size: 20Gi
+  #   finalizers:
+  #     - kubernetes.io/pvc-protection
 
 kube-state-metrics:
   namespaceOverride: monitoring-system
