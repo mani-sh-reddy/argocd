@@ -25,12 +25,12 @@ metadata:
                   valueFrom:
                     secretKeyRef:
                       key: GF_SECURITY_ADMIN_USER
-                      name: credentials
+                      name: grafana-ui-admin-credentials
                 - name: GF_SECURITY_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: GF_SECURITY_ADMIN_PASSWORD
-                      name: credentials
+                      name: grafana-ui-admin-credentials
           volumes:
             - name: grafana-data
               persistentVolumeClaim:
@@ -52,8 +52,8 @@ metadata:
 kind: Secret
 apiVersion: v1
 metadata:
-  name: credentials
-  namespace: grafana
+  name: grafana-ui-admin-credentials
+  namespace: monitoring-system
 stringData:
   GF_SECURITY_ADMIN_PASSWORD: admin
   GF_SECURITY_ADMIN_USER: admin
