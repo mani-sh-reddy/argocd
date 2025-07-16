@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring-system
   labels:
     dashboards: "grafana"
-  
+spec:
   config:
     log:
       mode: "console"
