@@ -7,11 +7,11 @@ pometheus:
       volumeClaimTemplate:
         spec:
           storageClassName: longhorn
-          accessModes:
-            - ReadWriteOnce
+          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 50Gi
+          selector: {}
     persistentVolumeClaimRetentionPolicy:
       whenDeleted: Retain
       whenScaled: Retain
