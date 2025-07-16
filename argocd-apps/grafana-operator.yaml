@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prometheus
+  name: grafana-operator
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -10,12 +10,12 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: "https://prometheus-community.github.io/helm-charts"
-      chart: kube-prometheus-stack
-      targetRevision: 75.*.*
+    - repoURL: "https://grafana.github.io/helm-charts"
+      chart: grafana-operator
+      targetRevision: 5.*.*
       helm:
         valueFiles:
-          - $values/prometheus/values.yaml # Path to values file in this repo
+          - $values/grafana-operator/values.yaml # Path to values file in this repo
     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
       targetRevision: main
       ref: values

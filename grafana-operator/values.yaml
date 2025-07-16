@@ -1,0 +1,4 @@
+clusterDomain: cluster.local
+namespaceOverride: monitoring-system
+dashboard:
+  enabled: true
