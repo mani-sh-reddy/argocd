@@ -8,10 +8,11 @@ pometheus:
         spec:
           storageClassName: longhorn
           accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 50Gi
-          selector: {}
+          # resources:
+          #   requests:
+          #     storage: 50Gi
+          selector: 
+            longhornvolume: cloned-pvc-3285f46e-bad0-4b82-9-ef03d97c
     # persistentVolumeClaimRetentionPolicy:
     #   whenDeleted: Retain
     #   whenScaled: Retain
