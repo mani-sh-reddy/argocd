@@ -1,7 +1,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: grafana-telegram-notifs
+  name: grafana-egress-world
   namespace: monitoring-system
 spec:
   endpointSelector:
@@ -11,6 +11,8 @@ spec:
   egress:
     - toFQDNs:
         - matchName: api.telegram.org
+        - matchName: snapshots.raintank.io
+        - matchName: grafana.com
       toPorts:
         - ports:
             - port: "443"
