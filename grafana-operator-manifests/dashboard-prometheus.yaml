@@ -2,6 +2,7 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: grafana-dash-prometheus
+  namespace: monitoring-system
 spec:
   resyncPeriod: 30s
   instanceSelector:
