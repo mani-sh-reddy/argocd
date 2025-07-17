@@ -1,25 +1,25 @@
-# apiVersion: grafana.integreatly.org/v1beta1
-# kind: Grafana
-# metadata:
-#   name: external-grafana
-#   labels:
-#     dashboards: "external-grafana"
-# spec:
-#   external:
-#     url: https://my-grafana.example.com    # Grafana instance URL
-#     apiKey:                                # Option 1: API Key authentication
-#       name: grafana-api-key-secret
-#       key: GF_API_KEY
-#     # OR
-#     adminUser:                             # Option 2: Username/password authentication
-#       name: grafana-admin-credentials
-#       key: GF_SECURITY_ADMIN_USER
-#     adminPassword:
-#       name: grafana-admin-credentials
-#       key: GF_SECURITY_ADMIN_PASSWORD
-#     tls:                                   # Optional TLS configuration
-#       insecureSkipVerify: false
-#       # OR
-#       certSecretRef:
-#         name: grafana-tls-cert
-#         namespace: default
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: external-grafana
+  labels:
+    dashboards: "external-grafana"
+spec:
+  external:
+    url: http://prometheus-grafana.monitoring-system.svc.cluster.local    # Grafana instance URL
+    # apiKey:                                # Option 1: API Key authentication
+    #   name: grafana-api-key-secret
+    #   key: GF_API_KEY
+    # OR
+    adminUser:                             # Option 2: Username/password authentication
+      name: grafana-admin-credentials
+      key: GRAFANA_ADMIN_USERNAME
+    adminPassword:
+      name: grafana-admin-credentials
+      key: GRAFANA_ADMIN_PASSWORD
+    tls:                                   # Optional TLS configuration
+      insecureSkipVerify: true
+      # OR
+      # certSecretRef:
+        # name: grafana-tls-cert
+        # namespace: default
