@@ -10,7 +10,7 @@ spec:
       dashboards: "external-grafana"
   settings:  
     chatid: "-4835005485"
-    message: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+    # message: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
   valuesFrom:
     - targetPath: "settings.bottoken"
       valueFrom:
