@@ -1,6 +1,15 @@
-apiVersion: v1
-data:
-  k8s-resources-node.json: '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: dashboard-k8s-resources-node
+  namespace: monitoring-system
+spec:
+  resyncPeriod: 30s
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  json: >
+    '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
     Mixed --"},"fieldConfig":{"defaults":{"custom":{"fillOpacity":10,"showPoints":"never","spanNulls":true,"stacking":{"mode":"normal"}}},"overrides":[{"matcher":{"id":"byName","options":"max
     capacity"},"properties":[{"id":"color","value":{"fixedColor":"red","mode":"fixed"}},{"id":"custom.stacking","value":{"mode":"none"}},{"id":"custom.hideFrom","value":{"legend":false,"tooltip":true,"viz":false}},{"id":"custom.lineStyle","value":{"dash":[10,10],"fill":"dash"}}]}]},"gridPos":{"h":6,"w":24,"x":0,"y":0},"id":1,"interval":"1m","options":{"legend":{"asTable":true,"calcs":["lastNotNull"],"displayMode":"table","placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(kube_node_status_capacity{cluster=\"$cluster\",
     job=\"kube-state-metrics\", node=~\"$node\", resource=\"cpu\"})","legendFormat":"max
@@ -52,22 +61,3 @@ data:
     cluster)","refresh":2,"sort":1,"type":"query","allValue":".*"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":0,"label":"node","multi":true,"name":"node","query":"label_values(kube_node_info{cluster=\"$cluster\"},
     node)","refresh":2,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timezone":
     "browser","title":"Kubernetes / Compute Resources / Node (Pods)","uid":"200ac8fdbfbb74b39aff88118e4d1c2c"}'
-kind: ConfigMap
-metadata:
-  annotations:
-    argocd.argoproj.io/tracking-id: prometheus:/ConfigMap:monitoring-system/prometheus-kube-prometheus-k8s-resources-node
-  creationTimestamp: "2025-07-16T21:24:04Z"
-  labels:
-    app: kube-prometheus-stack-grafana
-    app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 75.11.0
-    chart: kube-prometheus-stack-75.11.0
-    grafana_dashboard: "1"
-    heritage: Helm
-    release: prometheus
-  name: prometheus-kube-prometheus-k8s-resources-node
-  namespace: monitoring-system
-  resourceVersion: "3836007"
-  uid: 7b2544c9-caea-43a5-87d6-c706317feb77

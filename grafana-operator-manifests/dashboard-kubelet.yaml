@@ -1,6 +1,15 @@
-apiVersion: v1
-data:
-  kubelet.json: '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: dashboard-kubelet
+  namespace: monitoring-system
+spec:
+  resyncPeriod: 30s
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  json: >
+    '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
     Mixed --"},"fieldConfig":{"defaults":{"unit":"none"}},"gridPos":{"h":7,"w":4,"x":0,"y":0},"id":1,"interval":"1m","options":{"colorMode":"none"},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(kubelet_node_name{cluster=\"$cluster\",
     job=\"kubelet\", metrics_path=\"/metrics\"})","instant":true}],"title":"Running
     Kubelets","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"unit":"none"}},"gridPos":{"h":7,"w":4,"x":4,"y":0},"id":2,"interval":"1m","options":{"colorMode":"none"},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(kubelet_running_pods{cluster=\"$cluster\",
@@ -97,22 +106,3 @@ data:
     metrics_path=\"/metrics\"}, cluster)","refresh":2,"sort":1,"type":"query","allValue":".*"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":0,"includeAll":true,"label":"instance","name":"instance","query":"label_values(up{job=\"kubelet\",
     metrics_path=\"/metrics\",cluster=\"$cluster\"}, instance)","refresh":2,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timezone":
     "browser","title":"Kubernetes / Kubelet","uid":"3138fa155d5915769fbded898ac09fd9"}'
-kind: ConfigMap
-metadata:
-  annotations:
-    argocd.argoproj.io/tracking-id: prometheus:/ConfigMap:monitoring-system/prometheus-kube-prometheus-kubelet
-  creationTimestamp: "2025-07-16T21:24:04Z"
-  labels:
-    app: kube-prometheus-stack-grafana
-    app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 75.11.0
-    chart: kube-prometheus-stack-75.11.0
-    grafana_dashboard: "1"
-    heritage: Helm
-    release: prometheus
-  name: prometheus-kube-prometheus-kubelet
-  namespace: monitoring-system
-  resourceVersion: "3835997"
-  uid: 89351c67-f146-4406-9a9c-bf893e9a4270

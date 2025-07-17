@@ -1,6 +1,15 @@
-apiVersion: v1
-data:
-  k8s-resources-namespace.json: '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: dashboard-k8s-resources-namespace
+  namespace: monitoring-system
+spec:
+  resyncPeriod: 30s
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  json: >
+    '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
     Mixed --"},"fieldConfig":{"defaults":{"unit":"percentunit"}},"gridPos":{"h":3,"w":6,"x":0,"y":0},"id":1,"interval":"1m","options":{"colorMode":"none"},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m{cluster=\"$cluster\",
     namespace=\"$namespace\"}) / sum(kube_pod_container_resource_requests{job=\"kube-state-metrics\",
     cluster=\"$cluster\", namespace=\"$namespace\", resource=\"cpu\"})","instant":true}],"title":"CPU
@@ -158,22 +167,3 @@ data:
     cluster)","refresh":2,"sort":1,"type":"query","allValue":".*"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":0,"label":"namespace","name":"namespace","query":"label_values(kube_namespace_status_phase{job=\"kube-state-metrics\",
     cluster=\"$cluster\"}, namespace)","refresh":2,"sort":1,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timezone":
     "browser","title":"Kubernetes / Compute Resources / Namespace (Pods)","uid":"85a562078cdf77779eaa1add43ccec1e"}'
-kind: ConfigMap
-metadata:
-  annotations:
-    argocd.argoproj.io/tracking-id: prometheus:/ConfigMap:monitoring-system/prometheus-kube-prometheus-k8s-resources-namespace
-  creationTimestamp: "2025-07-16T21:24:04Z"
-  labels:
-    app: kube-prometheus-stack-grafana
-    app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 75.11.0
-    chart: kube-prometheus-stack-75.11.0
-    grafana_dashboard: "1"
-    heritage: Helm
-    release: prometheus
-  name: prometheus-kube-prometheus-k8s-resources-namespace
-  namespace: monitoring-system
-  resourceVersion: "3836009"
-  uid: 6ae61ce7-905e-40df-8fbf-7e8a5aebb39f

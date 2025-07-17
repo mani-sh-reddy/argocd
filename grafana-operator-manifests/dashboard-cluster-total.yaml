@@ -1,6 +1,15 @@
-apiVersion: v1
-data:
-  cluster-total.json: '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: dashboard-cluster-total
+  namespace: monitoring-system
+spec:
+  resyncPeriod: 30s
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  json: >
+    '{"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"--
     Mixed --"},"fieldConfig":{"defaults":{"custom":{"showPoints":"never"},"unit":"binBps"}},"gridPos":{"h":9,"w":12,"x":0,"y":0},"id":1,"interval":"1m","options":{"legend":{"asTable":true,"displayMode":"table","placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum
     by (namespace) (\n    rate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace!=\"\"}[$__rate_interval])\n  *
     on (cluster,namespace,pod) group_left ()\n    topk by (cluster,namespace,pod)
@@ -100,22 +109,3 @@ data:
     source","name":"datasource","query":"prometheus","regex":"","type":"datasource"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":2,"label":"cluster","name":"cluster","query":"label_values(up{job=\"kubelet\",
     metrics_path=\"/metrics/cadvisor\"}, cluster)","refresh":2,"sort":1,"type":"query","allValue":".*"}]},"time":{"from":"now-1h","to":"now"},"timezone":
     "browser","title":"Kubernetes / Networking / Cluster","uid":"ff635a025bcfea7bc3dd4f508990a3e9"}'
-kind: ConfigMap
-metadata:
-  annotations:
-    argocd.argoproj.io/tracking-id: prometheus:/ConfigMap:monitoring-system/prometheus-kube-prometheus-cluster-total
-  creationTimestamp: "2025-07-16T21:24:04Z"
-  labels:
-    app: kube-prometheus-stack-grafana
-    app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 75.11.0
-    chart: kube-prometheus-stack-75.11.0
-    grafana_dashboard: "1"
-    heritage: Helm
-    release: prometheus
-  name: prometheus-kube-prometheus-cluster-total
-  namespace: monitoring-system
-  resourceVersion: "3835992"
-  uid: eea0a50e-0d30-4977-abab-18f0b47b93e9

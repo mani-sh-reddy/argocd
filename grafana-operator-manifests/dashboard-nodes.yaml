@@ -1,6 +1,15 @@
-apiVersion: v1
-data:
-  nodes.json: '{"graphTooltip":1,"panels":[{"collapsed":false,"gridPos":{"h":1,"w":24,"x":0,"y":0},"id":1,"panels":[],"title":"CPU","type":"row"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"fieldConfig":{"defaults":{"custom":{"fillOpacity":10,"showPoints":"never","stacking":{"mode":"normal"}},"max":1,"min":0,"unit":"percentunit"}},"gridPos":{"h":7,"w":12,"x":0,"y":1},"id":2,"options":{"tooltip":{"mode":"multi"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"$datasource"},"expr":"(\n  (1
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: dashboard-nodes
+  namespace: monitoring-system
+spec:
+  resyncPeriod: 30s
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  json: >
+    '{"graphTooltip":1,"panels":[{"collapsed":false,"gridPos":{"h":1,"w":24,"x":0,"y":0},"id":1,"panels":[],"title":"CPU","type":"row"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"fieldConfig":{"defaults":{"custom":{"fillOpacity":10,"showPoints":"never","stacking":{"mode":"normal"}},"max":1,"min":0,"unit":"percentunit"}},"gridPos":{"h":7,"w":12,"x":0,"y":1},"id":2,"options":{"tooltip":{"mode":"multi"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"$datasource"},"expr":"(\n  (1
     - sum without (mode) (rate(node_cpu_seconds_total{job=\"node-exporter\", mode=~\"idle|iowait|steal\",
     instance=\"$instance\", cluster=\"$cluster\"}[$__rate_interval])))\n/ ignoring(cpu)
     group_left\n  count without (cpu, mode) (node_cpu_seconds_total{job=\"node-exporter\",
@@ -54,22 +63,3 @@ data:
     sysname!=\"Darwin\"}, cluster)","refresh":2,"type":"query","allValue":".*"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"label":"Instance","name":"instance","query":"label_values(node_uname_info{job=\"node-exporter\",
     cluster=\"$cluster\", sysname!=\"Darwin\"}, instance)","refresh":2,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timezone":
     "browser","title":"Node Exporter / Nodes","uid":"7d57716318ee0dddbac5a7f451fb7753"}'
-kind: ConfigMap
-metadata:
-  annotations:
-    argocd.argoproj.io/tracking-id: prometheus:/ConfigMap:monitoring-system/prometheus-kube-prometheus-nodes
-  creationTimestamp: "2025-07-16T21:24:04Z"
-  labels:
-    app: kube-prometheus-stack-grafana
-    app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 75.11.0
-    chart: kube-prometheus-stack-75.11.0
-    grafana_dashboard: "1"
-    heritage: Helm
-    release: prometheus
-  name: prometheus-kube-prometheus-nodes
-  namespace: monitoring-system
-  resourceVersion: "3836000"
-  uid: 5fa548d2-756b-4770-8af7-f112f5a697b5
