@@ -6,13 +6,24 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      k8s:io.kubernetes.pod.namespace: monitoring-system
+      namespace: monitoring-system
       app: grafana
   egress:
     - toFQDNs:
         - matchName: api.telegram.org
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    - toFQDNs:
         - matchName: snapshots.raintank.io
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    - toFQDNs:
         - matchName: grafana.com
       toPorts:
         - ports:
             - port: "443"
+              protocol: TCP
