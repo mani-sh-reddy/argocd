@@ -1,5 +1,12 @@
-apiVersion: v1
-data:
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: grafana-dash-prometheus
+spec:
+  resyncPeriod: 30s
+  instanceSelector:
+    matchLabels:
+      dashboards: "external-grafana"
   prometheus.json: '{"panels":[{"collapsed":false,"gridPos":{"h":1,"w":24,"x":0,"y":0},"id":1,"panels":[],"title":"Prometheus
     Stats","type":"row"},{"datasource":{"type":"prometheus","uid":"$datasource"},"fieldConfig":{"defaults":{"decimals":2,"displayName":"","unit":"short"},"overrides":[{"matcher":{"id":"byName","options":"Time"},"properties":[{"id":"displayName","value":"Time"},{"id":"custom.align","value":null},{"id":"custom.hidden","value":"true"}]},{"matcher":{"id":"byName","options":"cluster"},"properties":[{"id":"custom.align","value":null},{"id":"unit","value":"short"},{"id":"decimals","value":2},{"id":"displayName","value":"Cluster"}]},{"matcher":{"id":"byName","options":"job"},"properties":[{"id":"custom.align","value":null},{"id":"unit","value":"short"},{"id":"decimals","value":2},{"id":"displayName","value":"Job"}]},{"matcher":{"id":"byName","options":"instance"},"properties":[{"id":"displayName","value":"Instance"},{"id":"custom.align","value":null},{"id":"unit","value":"short"},{"id":"decimals","value":2}]},{"matcher":{"id":"byName","options":"version"},"properties":[{"id":"displayName","value":"Version"},{"id":"custom.align","value":null},{"id":"unit","value":"short"},{"id":"decimals","value":2}]},{"matcher":{"id":"byName","options":"Value
     #A"},"properties":[{"id":"displayName","value":"Count"},{"id":"custom.align","value":null},{"id":"unit","value":"short"},{"id":"decimals","value":2},{"id":"custom.hidden","value":"true"}]},{"matcher":{"id":"byName","options":"Value
@@ -39,9 +46,3 @@ data:
     job)","refresh":2,"sort":2,"type":"query"},{"allValue":".+","datasource":{"type":"prometheus","uid":"${datasource}"},"includeAll":true,"label":"instance","multi":true,"name":"instance","query":"label_values(prometheus_build_info{cluster=~\"$cluster\",
     job=~\"$job\"}, instance)","refresh":2,"sort":2,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timepicker":{"refresh_intervals":["60s"]},"timezone":
     "browser","title":"Prometheus / Overview"}'
-kind: ConfigMap
-metadata:
-  labels:
-    dashboards: "external-grafana"
-  name: grafana-dash-prometheus
-  namespace: monitoring-system
