@@ -19,8 +19,8 @@ pometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
-  enabled: false
-  # defaultDashboardsEnabled: false
+  enabled: true
+  defaultDashboardsEnabled: true
   # namespaceOverride: monitoring-system
   # defaultDashboardsTimezone: browser
   # persistence:
