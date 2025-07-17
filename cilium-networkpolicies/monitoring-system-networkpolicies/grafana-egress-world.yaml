@@ -7,7 +7,7 @@ spec:
   endpointSelector:
     matchLabels:
       k8s:io.kubernetes.pod.namespace: monitoring-system
-      app.kubernetes.io/name: grafana
+      app: grafana
   egress:
     - toFQDNs:
         - matchName: api.telegram.org
