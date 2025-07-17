@@ -6,7 +6,6 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      namespace: monitoring-system
       app: grafana
   egress:
     - toFQDNs:

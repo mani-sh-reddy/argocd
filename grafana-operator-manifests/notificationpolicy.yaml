@@ -1,0 +1,17 @@
+apiVersion: grafana.integreatly.org/v1beta1  
+kind: GrafanaNotificationPolicy  
+metadata:  
+  name: grafana-contactpoint-telegram
+  namespace: monitoring-system  
+spec:  
+  instanceSelector:  
+    matchLabels:  
+      dashboards: "grafana"  
+  route:  
+    receiver: telegram-alerts # This should match the 'name' of your GrafanaContactPoint  
+    group_by:  
+      - grafana_folder  
+      - alertname  
+    group_wait: 10s  
+    group_interval: 5m  
+    repeat_interval: 12h
