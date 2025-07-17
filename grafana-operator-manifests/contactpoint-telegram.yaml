@@ -12,8 +12,9 @@ spec:
   settings:  
     chatid: "-4835005485"
     message: "{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}"
+    bottoken: ""
   valuesFrom:
-    - targetPath: "settings.bot_token"
+    - targetPath: "settings.bottoken"
       valueFrom:
         secretKeyRef:
           name: telegram-apollobot-token
