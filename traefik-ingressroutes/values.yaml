@@ -41,9 +41,9 @@ ingressRoutes:
 
   - id: grafana
     namespace: monitoring-system
-    serviceName: grafana-service
+    serviceName: prometheus-grafana
     app: grafana
-    servicePort: 3000
+    servicePort: 80
     podPort: 3000
     podProtocol: TCP
 
