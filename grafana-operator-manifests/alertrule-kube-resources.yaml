@@ -1,0 +1,53 @@
+apiVersion: grafana.integreatly.org/v1beta1  
+kind: GrafanaAlertRuleGroup  
+metadata:  
+  name: kubernetes-resources  
+  namespace: monitoring-system  
+spec:  
+  instanceSelector:  
+    matchLabels:  
+      dashboards: "grafana"  
+  interval: 1m  
+  folderUID: kubernetes-alerts  
+  rules:  
+    - title: KubernetesMemoryPressure  
+      uid: k8s-memory-pressure  
+      condition: B  
+      for: 2m  
+      data:  
+        - refId: A  
+          datasourceUid: prometheus-uid  
+          model:  
+            expr: 'kube_node_status_condition{condition="MemoryPressure",status="true"} == 1'  
+        - refId: B  
+          datasourceUid: __expr__  
+          model:  
+            expression: A  
+            type: threshold  
+            conditions:  
+              - evaluator:  
+                  params: [0]  
+                  type: gt  
+      noDataState: NoData  
+      execErrState: Alerting  
+        
+    - title: KubernetesNodeNotReady  
+      uid: k8s-node-not-ready  
+      condition: B  
+      for: 15m  
+      data:  
+        - refId: A  
+          datasourceUid: prometheus-uid  
+          model:  
+            expr: 'kube_node_status_condition{condition="Ready",status="true"} == 0'  
+        - refId: B  
+          datasourceUid: __expr__  
+          model:  
+            expression: A  
+            type: threshold  
+            conditions:  
+              - evaluator:  
+                  params: [0]  
+                  type: gt  
+      noDataState: NoData  
+      execErrState: Alerting
