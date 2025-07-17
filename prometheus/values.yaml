@@ -38,7 +38,7 @@ prometheus-node-exporter:
   namespaceOverride: monitoring-node-exporter
 
 alertmanager:
-  enabled: false
+  enabled: true
 
 prometheus-windows-exporter:
   enabled: false
