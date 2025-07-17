@@ -50,3 +50,13 @@ prometheus-windows-exporter:
 
 # kubeEtcd:
 #   enabled: false
+
+nodeExporter:
+  enabled: true
+  operatingSystems:
+    linux:
+      enabled: true
+    aix:
+      enabled: false
+    darwin:
+      enabled: false
