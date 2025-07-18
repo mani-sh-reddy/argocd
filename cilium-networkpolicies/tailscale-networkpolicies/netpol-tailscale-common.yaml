@@ -1,0 +1,43 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: netpol-tailscale-common
+  namespace: tailscale
+spec:
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+    - fromEndpoints:
+        - {}
+  egress:
+    - toEndpoints:
+        - {}
+    - toEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "6443"
+              protocol: TCP
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "80"
+              protocol: TCP
+            - port: "5351"
+              protocol: UDP
+            - port: "1900"
+              protocol: UDP
+            - port: "41641"
+              protocol: UDP
+            - port: "3478"
+              protocol: UDP
+    - toCIDRSet:
+        - cidr: 239.255.255.250/32
+      toPorts:
+        - ports:
+            - port: "1900"
+              protocol: UDP
+
