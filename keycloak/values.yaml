@@ -25,7 +25,7 @@ auth:
 postgresql:
   enabled: true
   auth:
-    postgresPassword: "bn_keycloak"
+    postgresPassword: "supersecretpostgrespass"
     username: bn_keycloak
     password: "bn_keycloak"
     database: bitnami_keycloak
