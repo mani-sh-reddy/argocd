@@ -1,4 +1,5 @@
 namespaceOverride: keycloak
+resourcesPreset: "medium"
 
 auth:
   ## @param auth.adminUser Keycloak administrator user
