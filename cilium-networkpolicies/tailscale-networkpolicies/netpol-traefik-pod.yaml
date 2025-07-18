@@ -16,6 +16,8 @@ spec:
               protocol: TCP
             - port: "1900"
               protocol: UDP
+            - port: "34553"
+              protocol: UDP
     - toEntities:
         - host
       toPorts:
