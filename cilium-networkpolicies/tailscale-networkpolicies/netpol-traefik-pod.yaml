@@ -28,6 +28,8 @@ spec:
               protocol: UDP
             - port: "34604"
               protocol: UDP
+            - port: "35654"
+              protocol: UDP
             - port: "33388"
               protocol: UDP
             - port: "5351"
