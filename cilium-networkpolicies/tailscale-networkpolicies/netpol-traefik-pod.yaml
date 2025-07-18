@@ -9,6 +9,14 @@ spec:
       tailscale.com/parent-resource: traefik
   egress:
     - toEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "5351"
+              protocol: UDP
+            - port: "1900"
+              protocol: UDP
+    - toEntities:
         - world
       toPorts:
         - ports:
@@ -18,12 +26,14 @@ spec:
               protocol: UDP
             - port: "34553"
               protocol: UDP
-    - toEntities:
-        - host
-      toPorts:
-        - ports:
+            - port: "34604"
+              protocol: UDP
+            - port: "33388"
+              protocol: UDP
             - port: "5351"
               protocol: UDP
-            - port: "1900"
+            - port: "41641"
+              protocol: UDP
+            - port: "3478"
               protocol: UDP
 
