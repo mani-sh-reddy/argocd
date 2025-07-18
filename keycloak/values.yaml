@@ -1,6 +1,13 @@
 namespaceOverride: keycloak
 resourcesPreset: "medium"
 
+## @param production Run Keycloak in production mode. TLS configuration is required except when using proxy=edge.
+##
+production: true
+## @param proxyHeaders Set Keycloak proxy headers
+##
+proxyHeaders: "xforwarded"
+
 auth:
   ## @param auth.adminUser Keycloak administrator user
   ##
