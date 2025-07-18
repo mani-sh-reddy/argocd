@@ -1,0 +1,24 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: netpol-traefik-pod
+  namespace: tailscale
+spec:
+  endpointSelector:
+    matchLabels:
+      tailscale.com/parent-resource: traefik
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+    - toEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "5351"
+              protocol: UDP
+            - port: "1900"
+              protocol: UDP
