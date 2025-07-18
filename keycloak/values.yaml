@@ -21,3 +21,15 @@ auth:
   # ## @param auth.passwordSecretKey Key where the Keycloak admin password is being stored inside the existing secret.
   # ##
   # passwordSecretKey: ""
+
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "bn_keycloak"
+    username: bn_keycloak
+    password: "bn_keycloak"
+    database: bitnami_keycloak
+    # existingSecret: ""
+    # secretKeys:
+    #   userPasswordKey: password
+  # architecture: standalone
