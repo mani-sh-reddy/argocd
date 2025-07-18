@@ -6,7 +6,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      tailscale.com/parent-resource: traefik
+      app.kubernetes.io/name: traefik
   egress:
     - toEntities:
         - world
