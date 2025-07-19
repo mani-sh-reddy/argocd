@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/tailnet-fqdn: apollo.typhon-neon.ts.net
-    tailscale.com/tags: '["tag:kasten"]'
+    tailscale.com/tags: "tag:kasten"
   name: expose-apollo   # service name
   namespace: kasten-io
 spec:
