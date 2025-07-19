@@ -1,5 +1,5 @@
 multicluster:
-  enabled: true
+  enabled: false
   primary:
     create: true
     name: "talos"
