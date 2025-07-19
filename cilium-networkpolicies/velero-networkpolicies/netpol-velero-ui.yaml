@@ -6,7 +6,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      name: velero-ui
+      app.kubernetes.io/name: velero-ui
   egress:
     - toEntities:
         - host
