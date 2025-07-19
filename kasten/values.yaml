@@ -14,11 +14,11 @@ global:
     metering:
       size: 2Gi
     catalog:
-      size: 20Gi
+      size: 19Gi
     jobs:
-      size: 20Gi
+      size: 18Gi
     logging:
-      size: 20Gi
+      size: 17Gi
 
 eula:
   accept: true
