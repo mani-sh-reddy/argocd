@@ -15,19 +15,19 @@ spec:
      targetRevision: 10.*.*
      helm:
        valueFiles:
-         - $values/velero/values.yaml # Path to values file in this repo
+         - $velero/velero/values.yaml # Path to values file in this repo
    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
      targetRevision: main
-     ref: values
+     ref: velero
    - repoURL: "https://helm.otwld.com/"
      chart: velero-ui
      targetRevision: 0.*.*
      helm:
        valueFiles:
-         - $values/velero-ui/values.yaml # Path to values file in this repo
+         - $velero-ui/velero-ui/values.yaml # Path to values file in this repo
    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
      targetRevision: main
-     ref: values
+     ref: velero-ui
   #  - repoURL: https://github.com/mani-sh-reddy/argocd.git
   #    path: velero-manifests/
   #    targetRevision: HEAD
