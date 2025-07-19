@@ -10,7 +10,7 @@ metadata:
 spec:
  project: default
  sources:
-   - repoURL: "https://charts.kasten.io/"
+   - repoURL: "https://vmware-tanzu.github.io/helm-charts"
      chart: velero
      targetRevision: 10.*.*
      helm:
