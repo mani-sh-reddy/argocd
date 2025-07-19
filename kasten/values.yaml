@@ -1,9 +1,5 @@
 multicluster:
   enabled: false
-  primary:
-    create: true
-    name: "talos"
-    ingressURL: "http://localhost:2222/k10/"
 
 global:
   persistence:
