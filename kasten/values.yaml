@@ -44,4 +44,4 @@ excludedApps:
 
 kastenDisasterRecovery:
   quickMode:
-    enabled: false
+    enabled: true
