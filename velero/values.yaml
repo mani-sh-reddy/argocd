@@ -56,10 +56,10 @@ configuration:
     # provider is the name for the volume snapshot provider.
     provider: aws
     credential:
-      # name of the secret used by this volumeSnapshotLocation.
-      name:
+      # name of the secret used by this backupStorageLocation.
+      name: velero-apollo-minio-access
       # name of key that contains the secret data to be used.
-      key:
+      key: cloud
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
     config:
