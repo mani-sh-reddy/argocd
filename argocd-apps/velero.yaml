@@ -1,43 +1,43 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
- name: velero
- namespace: argocd # This manifest's namespace
- labels:
-   app.kubernetes.io/managed-by: argocd
- finalizers:
-   - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
-spec:
- project: default
- sources:
-   - repoURL: "https://vmware-tanzu.github.io/helm-charts"
-     chart: velero
-     targetRevision: 10.*.*
-     helm:
-       valueFiles:
-         - $velero/velero/values.yaml # Path to values file in this repo
-   - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-     targetRevision: main
-     ref: velero
-   - repoURL: "https://helm.otwld.com/"
-     chart: velero-ui
-     targetRevision: 0.*.*
-     helm:
-       valueFiles:
-         - $velero-ui/velero-ui/values.yaml # Path to values file in this repo
-   - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-     targetRevision: main
-     ref: velero-ui
-  #  - repoURL: https://github.com/mani-sh-reddy/argocd.git
-  #    path: velero-manifests/
-  #    targetRevision: HEAD
- destination:
-   server: "https://kubernetes.default.svc"
-   namespace: velero # Where components live
- syncPolicy:
-   automated:
-     selfHeal: true
-     prune: true
-     allowEmpty: true
-   syncOptions:
-     - CreateNamespace=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#  name: velero
+#  namespace: argocd # This manifest's namespace
+#  labels:
+#    app.kubernetes.io/managed-by: argocd
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+# spec:
+#  project: default
+#  sources:
+#    - repoURL: "https://vmware-tanzu.github.io/helm-charts"
+#      chart: velero
+#      targetRevision: 10.*.*
+#      helm:
+#        valueFiles:
+#          - $velero/velero/values.yaml # Path to values file in this repo
+#    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+#      targetRevision: main
+#      ref: velero
+#    - repoURL: "https://helm.otwld.com/"
+#      chart: velero-ui
+#      targetRevision: 0.*.*
+#      helm:
+#        valueFiles:
+#          - $velero-ui/velero-ui/values.yaml # Path to values file in this repo
+#    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+#      targetRevision: main
+#      ref: velero-ui
+#   #  - repoURL: https://github.com/mani-sh-reddy/argocd.git
+#   #    path: velero-manifests/
+#   #    targetRevision: HEAD
+#  destination:
+#    server: "https://kubernetes.default.svc"
+#    namespace: velero # Where components live
+#  syncPolicy:
+#    automated:
+#      selfHeal: true
+#      prune: true
+#      allowEmpty: true
+#    syncOptions:
+#      - CreateNamespace=true
