@@ -19,6 +19,14 @@
 #     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
 #       targetRevision: main
 #       ref: values
+#     - repoURL: https://github.com/mani-sh-reddy/argocd.git
+#       path: cilium-networkpolicies/
+#       targetRevision: HEAD
+#       directory:
+#         recurse: true
+#     - repoURL: https://github.com/mani-sh-reddy/argocd.git
+#       path: cilium-manifests/
+#       targetRevision: HEAD
 #   destination:
 #     server: "https://kubernetes.default.svc"
 #     namespace: kube-system # Where components live

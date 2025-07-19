@@ -1,10 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infisical-operator
+  name: infisical
   namespace: argocd # This manifest's namespace
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
   labels:
     app.kubernetes.io/managed-by: argocd
 spec:
@@ -19,6 +17,9 @@ spec:
     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
       targetRevision: main
       ref: values
+    - repoURL: https://github.com/mani-sh-reddy/argocd.git
+      path: infisical-secrets/
+      targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
     namespace: infisical # Where components live
