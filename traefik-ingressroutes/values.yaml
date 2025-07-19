@@ -39,6 +39,14 @@ ingressRoutes:
     podPort: 8081
     podProtocol: TCP
 
+  - id: velero
+    namespace: velero
+    serviceName: velero-velero-ui
+    appName: velero
+    servicePort: 80
+    podPort: 3000
+    podProtocol: TCP
+
   - id: grafana
     namespace: monitoring-system
     serviceName: grafana-service
