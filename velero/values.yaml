@@ -1,4 +1,5 @@
 configuration:
+  features: EnableCSI
   backupStorageLocation:
     - name: apollo-minio
       provider: aws
