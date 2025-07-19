@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tailscale-operator
+  name: tailscale
   namespace: argocd # This manifest's namespace
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -19,6 +19,9 @@ spec:
     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
       targetRevision: main
       ref: values
+    - repoURL: https://github.com/mani-sh-reddy/argocd.git
+      path: tailscale-manifests/
+      targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
     namespace: tailscale # Where components live
@@ -29,3 +32,9 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      jsonPointers:
+        - /spec/externalName
