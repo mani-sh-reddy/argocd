@@ -41,3 +41,7 @@ excludedApps:
   - "kube-node-lease"
   - "kube-public"
   - "kube-rook-ceph"
+
+kastenDisasterRecovery:
+  quickMode:
+    enabled: false
