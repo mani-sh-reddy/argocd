@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: grafana
   namespace: argocd # This manifest's namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
   labels:
     app.kubernetes.io/managed-by: argocd
 spec:

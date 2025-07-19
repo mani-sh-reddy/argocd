@@ -5,6 +5,8 @@
 #  namespace: argocd # This manifest's namespace
 #  labels:
 #    app.kubernetes.io/managed-by: argocd
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
 #spec:
 #  project: default
 #  sources:
