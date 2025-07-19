@@ -16,7 +16,7 @@ ingressRoutes:
     appName: k10
     component: gateway
     servicePort: 80
-    redirectPath: "k10/"
+    redirectPath: "kasten/"
     podPort: 8000
     podProtocol: TCP
 
