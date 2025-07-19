@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: kube-csi-snapshotter
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
   labels:
     app.kubernetes.io/managed-by: argocd
 spec:
