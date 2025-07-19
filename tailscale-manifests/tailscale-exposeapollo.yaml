@@ -3,9 +3,9 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/tailnet-fqdn: apollo.typhon-neon.ts.net
-    tailscale.com/tags: "tag:kasten"
+    tailscale.com/tags: "tag:k8s-backup"
   name: expose-apollo   # service name
-  namespace: kasten-io
+  namespace: velero
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
