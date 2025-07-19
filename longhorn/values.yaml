@@ -11,7 +11,7 @@ defaultSettings:
   concurrentReplicaRebuildPerNodeLimit: 2
   disableRevisionCounter: true
 persistence:
-  reclaimPolicy: Delete
+  reclaimPolicy: Retain
   defaultClassReplicaCount: 1
   defaultDataLocality: best-effort
   disableRevisionCounter: true
