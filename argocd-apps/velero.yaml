@@ -19,6 +19,15 @@ spec:
    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
      targetRevision: main
      ref: values
+   - repoURL: "https://helm.otwld.com/"
+     chart: velero-ui
+     targetRevision: 0.*.*
+     helm:
+       valueFiles:
+         - $values/velero-ui/values.yaml # Path to values file in this repo
+   - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+     targetRevision: main
+     ref: values
   #  - repoURL: https://github.com/mani-sh-reddy/argocd.git
   #    path: velero-manifests/
   #    targetRevision: HEAD
