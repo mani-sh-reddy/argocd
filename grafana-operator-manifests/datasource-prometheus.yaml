@@ -1,7 +1,7 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
-  name: grafana-datasource-prom
+  name: datasource-prometheus
   namespace: monitoring-system
 spec:
   instanceSelector:

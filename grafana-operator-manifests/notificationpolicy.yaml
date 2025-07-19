@@ -1,7 +1,7 @@
 apiVersion: grafana.integreatly.org/v1beta1  
 kind: GrafanaNotificationPolicy  
 metadata:  
-  name: grafana-contactpoint-telegram
+  name: notificationpolicy
   namespace: monitoring-system  
 spec:  
   instanceSelector:  

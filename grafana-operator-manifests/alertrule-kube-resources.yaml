@@ -1,7 +1,7 @@
 apiVersion: grafana.integreatly.org/v1beta1  
 kind: GrafanaAlertRuleGroup  
 metadata:  
-  name: kubernetes-resources  
+  name: alertrule-kube-resources
   namespace: monitoring-system  
 spec:  
   instanceSelector:  

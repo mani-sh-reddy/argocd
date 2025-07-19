@@ -1,7 +1,7 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaContactPoint
 metadata:
-  name: grafana-contactpoint-telegram
+  name: contactpoint-telegram
   namespace: monitoring-system
 spec:
   instanceSelector:
