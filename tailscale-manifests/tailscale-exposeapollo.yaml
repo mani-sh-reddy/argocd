@@ -5,7 +5,7 @@ metadata:
     tailscale.com/tailnet-fqdn: apollo.typhon-neon.ts.net
     tailscale.com/tags: "tag:k8s-backup"
   name: expose-apollo   # service name
-  namespace: velero
+  namespace: kasten-io
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
