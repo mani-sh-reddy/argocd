@@ -39,3 +39,5 @@ spec:
       namespace: kasten-io
       jsonPointers:
         - /spec/externalName
+    - group: ""
+      kind: PersistentVolumeClaim
