@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-traefik-operator
+  name: netpol-tailscale-operator
   namespace: tailscale
 spec:
   endpointSelector:
@@ -14,3 +14,5 @@ spec:
         - ports:
             - port: "6443"
               protocol: TCP
+    - toEntities:
+        - world
