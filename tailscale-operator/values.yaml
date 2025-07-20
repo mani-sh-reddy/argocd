@@ -1,0 +1,2 @@
+operatorConfig:
+  logging: "debug" # info, debug, dev

@@ -7,7 +7,8 @@ pometheus:
       volumeClaimTemplate:
         spec:
           storageClassName: longhorn
-          accessModes: ["ReadWriteOnce"]
+          accessModes:
+            - ReadWriteOnce
           resources:
             requests:
               storage: 50Gi
@@ -58,3 +59,26 @@ nodeExporter:
       enabled: false
     darwin:
       enabled: false
+
+
+# NEED TO PATCH TO FIX STORAGE ON STATEFULSET
+# kubectl patch prometheus prometheus-kube-prometheus-prometheus \
+#   -n monitoring-system \
+#   --type=merge \
+#   -p '{
+#     "spec": {
+#       "storage": {
+#         "volumeClaimTemplate": {
+#           "spec": {
+#             "storageClassName": "longhorn",
+#             "accessModes": ["ReadWriteOnce"],
+#             "resources": {
+#               "requests": {
+#                 "storage": "50Gi"
+#               }
+#             }
+#           }
+#         }
+#       }
+#     }
+#   }'
