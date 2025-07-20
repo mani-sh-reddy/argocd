@@ -6,15 +6,11 @@ defaultSettings:
   storageOverProvisioningPercentage: 200
   storageMinimalAvailablePercentage: 5
   allowRecurringJobWhileVolumeDetached: true
-  replicaSoftAntiAffinity: true
   autoSalvage: true
   concurrentReplicaRebuildPerNodeLimit: 2
-  disableRevisionCounter: true
 persistence:
   reclaimPolicy: Retain
   defaultClassReplicaCount: 1
-  defaultDataLocality: best-effort
-  disableRevisionCounter: true
   recurringJobSelector:
     enable: true
 image:
@@ -23,3 +19,10 @@ image:
     provisionerReplicaCount: 1
     resizerReplicaCount: 1
     snapshotterReplicaCount: 1
+defaultBackupStore:
+  # -- Endpoint used to access the default backupstore. (Options: "NFS", "CIFS", "AWS", "GCP", "AZURE")
+  backupTarget: http://expose-apollo.kasten-io.svc.cluster.local:9090
+  # -- Name of the Kubernetes secret associated with the default backup target.
+  backupTargetCredentialSecret: longhorn-apollo-minio-access
+  # -- Number of seconds that Longhorn waits before checking the default backupstore for new backups. The default value is "300". When the value is "0", polling is disabled.
+  # pollInterval: ~
