@@ -26,10 +26,10 @@ spec:
     server: "https://kubernetes.default.svc"
     namespace: kasten-io # Where components live
   syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
-      allowEmpty: true
+    automated: {}
+      # selfHeal: true
+      # prune: true
+      # allowEmpty: true
     syncOptions:
       - CreateNamespace=true
   ignoreDifferences:
