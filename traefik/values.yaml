@@ -89,7 +89,7 @@ updateStrategy: # @schema additionalProperties: false
 #     format:  # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
 #     # By default, the level is set to INFO.
 #     # -- Alternative logging levels are TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC.
-    # level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
+# level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
 #     # -- To write the logs into a log file, use the filePath option.
 #     filePath: ""
 #     # -- When set to true and format is common, it disables the colorized output.
@@ -186,10 +186,10 @@ global:
 # See [CLI Reference](https://docs.traefik.io/reference/static-configuration/cli/)
 # Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
 # additionalArguments: {}
-  # - "--certificatesresolvers.cloudflare.acme.email=${ACME_EMAIL}"
-  # - "--certificatesresolvers.cloudflare.acme.storage=/data/acme.json"
-  # - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
-  # - "--certificatesresolvers.cloudflare.acme.dnschallenge.delaybeforecheck=0"
+# - "--certificatesresolvers.cloudflare.acme.email=${ACME_EMAIL}"
+# - "--certificatesresolvers.cloudflare.acme.storage=/data/acme.json"
+# - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+# - "--certificatesresolvers.cloudflare.acme.dnschallenge.delaybeforecheck=0"
 
 # # -- Additional Environment variables to be passed to Traefik's binary
 # # @default -- See _values.yaml_
@@ -368,7 +368,7 @@ service:
   # # -- Additional annotations for UDP service only
   # annotationsUDP: {}
   # # -- Additional service labels (e.g. for filtering Service by custom labels)
-  labels: 
+  labels:
     app: traefik
   # -- Additional entries here will be added to the service spec.
   # -- Cannot contain type, selector or ports entries.
@@ -451,22 +451,24 @@ certificatesResolvers:
           - "1.1.1.1:53"
 
 deployment:
-  initContainers:
-    - name: acme-volume-permissions
-      image: busybox:latest
-      command:
-        - "sh"
-        - "-c"
-        - "touch /data/acme.json"
-        - "chmod -v 600 /data/acme.json"
-        - "chown 65532:65532 /data/acme.json"
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65532
-        runAsGroup: 65532
-      volumeMounts:
-        - mountPath: /data
-          name: data
+initContainers:
+  - name: acme-volume-permissions-fix
+    image: busybox:latest
+    command:
+      - sh
+      - -c
+      - |
+        echo "Fixing acme.json permissions..." && \
+        touch /data/acme.json && \
+        chmod 600 /data/acme.json && \
+        chown 65532:65532 /data/acme.json && \
+        echo "Permissions fixed. Sleeping for 2 mins..." && \
+        sleep 120
+    securityContext:
+      runAsUser: 0
+    volumeMounts:
+      - name: data
+        mountPath: /data
 
 # # -- If hostNetwork is true, runs traefik in the host network namespace
 # # To prevent unschedulable pods due to port collisions, if hostNetwork=true
