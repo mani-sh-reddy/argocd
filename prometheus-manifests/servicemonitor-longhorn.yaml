@@ -4,7 +4,7 @@ metadata:
   name: servicemonitor-longhorn
   namespace: monitoring-system
   labels:
-    release: prometheus
+    release: prometheus # MUST MATCH ARGOCD RELEASE NAME
 spec:
   selector:
     matchLabels:
