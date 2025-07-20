@@ -7,6 +7,8 @@ metadata:
     app.kubernetes.io/managed-by: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   project: default
   sources:
@@ -27,11 +29,11 @@ spec:
     namespace: kasten-io # Where components live
   syncPolicy:
     automated: {}
-      # selfHeal: true
-      # prune: true
-      # allowEmpty: true
+      # selfHeal: false
+      # prune: false
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
   ignoreDifferences:
     - group: ""
       kind: Service
