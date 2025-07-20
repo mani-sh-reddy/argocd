@@ -1,7 +1,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: traefik-egress-acme
+  name: traefik-egress-endpoints
   namespace: traefik
 spec:
   endpointSelector:
@@ -15,6 +15,11 @@ spec:
             - port: "443"
     - toFQDNs:
         - matchName: api.cloudflare.com
+      toPorts:
+        - ports:
+            - port: "443"
+    - toFQDNs:
+        - matchName: update.traefik.io
       toPorts:
         - ports:
             - port: "443"
