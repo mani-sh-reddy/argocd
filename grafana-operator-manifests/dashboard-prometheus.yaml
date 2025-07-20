@@ -1350,7 +1350,7 @@ spec:
       ]
     },
     "timezone": "utc",
-    "title": "Prometheus / Overview",
+    "title": "Prometheus",
     "uid": "79e21d80-bff9-45b8-963a-a114ae69aafd",
     "version": 1
     }

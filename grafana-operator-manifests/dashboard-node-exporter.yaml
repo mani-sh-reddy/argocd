@@ -1133,7 +1133,7 @@ spec:
     },
     "timepicker": {},
     "timezone": "utc",
-    "title": "Node Exporter / Nodes",
+    "title": "Node Exporter",
     "uid": "7d57716318ee0dddbac5a7f451fb7753",
     "version": 1
     }

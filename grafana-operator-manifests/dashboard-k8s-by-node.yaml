@@ -924,7 +924,7 @@ spec:
     },
     "timepicker": {},
     "timezone": "utc",
-    "title": "Kubernetes / Compute Resources / Node (Pods)",
+    "title": "K8s Node - Compute",
     "uid": "200ac8fdbfbb74b39aff88118e4d1c2c",
     "version": 1
     }

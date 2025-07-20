@@ -1723,7 +1723,7 @@ spec:
     },
     "timepicker": {},
     "timezone": "utc",
-    "title": "Kubernetes / Kubelet",
+    "title": "K8s Kubelet",
     "uid": "3138fa155d5915769fbded898ac09fd9",
     "version": 1
     }
