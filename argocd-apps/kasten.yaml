@@ -1,45 +1,45 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: k10
-  namespace: argocd # This manifest's namespace
-  labels:
-    app.kubernetes.io/managed-by: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-spec:
-  project: default
-  sources:
-    - repoURL: "https://charts.kasten.io/"
-      chart: k10
-      targetRevision: 8.*.*
-      helm:
-        valueFiles:
-          - $values/kasten/values.yaml # Path to values file in this repo
-    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-      targetRevision: main
-      ref: values
-    - repoURL: https://github.com/mani-sh-reddy/argocd.git
-      path: kasten-manifests/
-      targetRevision: HEAD
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: kasten-io # Where components live
-  syncPolicy:
-    automated: {}
-      # selfHeal: false
-      # prune: false
-    syncOptions:
-      - CreateNamespace=true
-      - RespectIgnoreDifferences=true
-  ignoreDifferences:
-    - group: ""
-      kind: Service
-      name: expose-apollo
-      namespace: kasten-io
-      jsonPointers:
-        - /spec/externalName
-    - group: ""
-      kind: PersistentVolumeClaim
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: k10
+#   namespace: argocd # This manifest's namespace
+#   labels:
+#     app.kubernetes.io/managed-by: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+#   annotations:
+#     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: "https://charts.kasten.io/"
+#       chart: k10
+#       targetRevision: 8.*.*
+#       helm:
+#         valueFiles:
+#           - $values/kasten/values.yaml # Path to values file in this repo
+#     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+#       targetRevision: main
+#       ref: values
+#     - repoURL: https://github.com/mani-sh-reddy/argocd.git
+#       path: kasten-manifests/
+#       targetRevision: HEAD
+#   destination:
+#     server: "https://kubernetes.default.svc"
+#     namespace: kasten-io # Where components live
+#   syncPolicy:
+#     automated: {}
+#       # selfHeal: false
+#       # prune: false
+#     syncOptions:
+#       - CreateNamespace=true
+#       - RespectIgnoreDifferences=true
+#   ignoreDifferences:
+#     - group: ""
+#       kind: Service
+#       name: expose-apollo
+#       namespace: kasten-io
+#       jsonPointers:
+#         - /spec/externalName
+#     - group: ""
+#       kind: PersistentVolumeClaim
