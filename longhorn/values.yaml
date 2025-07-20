@@ -1,5 +1,6 @@
 preUpgradeChecker:
   jobEnabled: false
+
 defaultSettings:
   defaultReplicaCount: 1
   defaultDataPath: /var/lib/longhorn
@@ -8,11 +9,13 @@ defaultSettings:
   allowRecurringJobWhileVolumeDetached: true
   autoSalvage: true
   concurrentReplicaRebuildPerNodeLimit: 2
+
 persistence:
   reclaimPolicy: Retain
   defaultClassReplicaCount: 1
   recurringJobSelector:
     enable: true
+
 image:
   csi:
     attacherReplicaCount: 1
