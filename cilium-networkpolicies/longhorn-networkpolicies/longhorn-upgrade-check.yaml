@@ -1,8 +1,8 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: kasten-check-licence
-  namespace: kasten-io
+  name: longhorn-upgrade-check
+  namespace: longhorn-system
 spec:
   endpointSelector:
     matchLabels:
@@ -13,6 +13,11 @@ spec:
   egress:
     - toFQDNs:
         - matchName: gcr.io
+      toPorts:
+        - ports:
+            - port: "443"
+    - toFQDNs:
+        - matchName: longhorn-upgrade-responder.rancher.io
       toPorts:
         - ports:
             - port: "443"

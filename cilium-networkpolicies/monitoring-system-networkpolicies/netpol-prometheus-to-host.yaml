@@ -1,7 +1,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: prometheus-pod-to-host
+  name: netpol-prometheus-to-host
   namespace: monitoring-system
 spec:
   endpointSelector:
