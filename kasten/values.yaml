@@ -2,10 +2,10 @@ multicluster:
   enabled: false
 
 global:
-  prometheus:
-    external:
-      host: prometheus-kube-prometheus-prometheus.monitoring-system.svc.cluster.local
-      port: 9090
+  # prometheus:
+  #   external:
+  #     host: prometheus-kube-prometheus-prometheus.monitoring-system.svc.cluster.local
+  #     port: 9090
   persistence:
     enabled: true
     storageClass: "longhorn"
@@ -19,6 +19,19 @@ global:
       size: 20Gi
     logging:
       size: 20Gi
+
+prometheus:
+  rbac:
+    create: true
+  server:
+    enabled: true
+    retention: 120d
+    persistentVolume:
+      storageClass: longhorn
+      size: 12Gi
+    fullnameOverride: prometheus-server
+    baseURL: /k10/prometheus/
+    prefixURL: /k10/prometheus
 
 eula:
   accept: true
