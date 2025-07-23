@@ -1,9 +1,10 @@
 apiVersion: config.kio.kasten.io/v1alpha1
 kind: Policy
 metadata:
-  name: whole-cluster
+  name: cluster-backup
   namespace: kasten-io
 spec:
+  comment: Whole Cluster Backup
   actions:
     - action: backup
       backupParameters:
@@ -13,9 +14,8 @@ spec:
         migrationToken:
           name: whole-cluster-migration-token
           namespace: kasten-io
-  comment: Whole Cluster Backup
   presetRef:
-    name: hourly-snapshots-daily-export
+    name: daily-backups
     namespace: kasten-io
   selector:
     matchExpressions:
@@ -24,6 +24,7 @@ spec:
         values:
           - kasten-io-cluster
           - argocd
+          - authentik
           - cilium-secrets
           - cleaners
           - default
@@ -35,4 +36,3 @@ spec:
           - monitoring-system
           - tailscale
           - traefik
-          - authentik

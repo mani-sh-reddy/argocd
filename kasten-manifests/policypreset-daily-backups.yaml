@@ -1,0 +1,28 @@
+apiVersion: config.kio.kasten.io/v1alpha1
+kind: PolicyPreset
+metadata:
+  name: daily-backups
+  namespace: kasten-io
+spec:
+  comment: Daily Backups
+  backup:
+    frequency: "@daily"
+    backupWindow:
+      start:
+        hour: 2
+        minute: 0
+      end:
+        hour: 4
+        minute: 0
+    enableStaggering: true
+    retention:
+      daily: 7
+      weekly: 5
+      monthly: 3
+      yearly: 1
+  export:
+    profile:
+      name: apollo-minio-s3
+      namespace: kasten-io
+    exportData:
+      enabled: true
