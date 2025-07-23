@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-csi-snapshotter
+  name: csi
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
@@ -13,6 +13,9 @@ spec:
     - repoURL: https://github.com/longhorn/csi-snapshotter.git
       targetRevision: HEAD
       path: deploy/kubernetes/snapshot-controller
+    - repoURL: https://github.com/kubernetes-csi/external-snapshotter.git
+      targetRevision: HEAD
+      path: client/config/crd
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
