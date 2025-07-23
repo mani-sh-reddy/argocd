@@ -35,5 +35,4 @@ spec:
           - monitoring-system
           - tailscale
           - traefik
-          - whoami
           - authentik
