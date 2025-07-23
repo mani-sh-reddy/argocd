@@ -10,15 +10,15 @@ ingressRoutes:
     podPort: 8080
     podProtocol: TCP
 
-  # - id: kasten
-  #   namespace: kasten-io
-  #   serviceName: gateway
-  #   appName: k10
-  #   component: gateway
-  #   servicePort: 80
-  #   redirectPath: "k10/"
-  #   podPort: 8000
-  #   podProtocol: TCP
+  - id: kasten
+    namespace: kasten-io
+    serviceName: gateway
+    appName: k10
+    component: gateway
+    servicePort: 80
+    redirectPath: "k10/"
+    podPort: 8000
+    podProtocol: TCP
 
   - id: longhorn
     namespace: longhorn-system
@@ -55,12 +55,12 @@ ingressRoutes:
     podPort: 3000
     podProtocol: TCP
 
-  - id: prometheus
-    namespace: monitoring-system
-    serviceName: prometheus-kube-prometheus-prometheus
-    servicePort: 9090
-    appName: prometheus
-    headers:
-      - X-Forwarded-Proto: "https"
-    podPort: 9090
-    podProtocol: TCP
+  # - id: prometheus
+  #   namespace: monitoring-system
+  #   serviceName: prometheus-kube-prometheus-prometheus
+  #   servicePort: 9090
+  #   appName: prometheus
+  #   headers:
+  #     - X-Forwarded-Proto: "https"
+  #   podPort: 9090
+  #   podProtocol: TCP

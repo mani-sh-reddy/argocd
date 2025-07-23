@@ -3,6 +3,8 @@ kind: Profile
 metadata:
   name: apollo-minio-s3
   namespace: kasten-io
+  annotations:
+    argocd.argoproj.io/tracking-id: k10:config.kio.kasten.io/Profile:kasten-io/apollo-minio-s3
 spec:
   locationSpec:
     credential:
