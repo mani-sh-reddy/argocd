@@ -2,6 +2,10 @@ multicluster:
   enabled: false
 
 global:
+  prometheus:
+    external:
+      host: prometheus-kube-prometheus-prometheus.monitoring-system.svc.cluster.local
+      port: 9090
   persistence:
     enabled: true
     storageClass: "longhorn"
