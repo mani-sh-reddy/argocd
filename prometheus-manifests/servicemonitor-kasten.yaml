@@ -1,19 +1,19 @@
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: servicemonitor-kasten
-  namespace: kasten-io
-  labels:
-    release: prometheus # MUST MATCH ARGOCD RELEASE NAME
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: k10
-      component: metering
-  namespaceSelector:
-    matchNames:
-      - kasten-io
-  endpoints:
-    - port: http
-      path: /metrics
-      interval: 30s
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: servicemonitor-kasten
+#   namespace: kasten-io
+#   labels:
+#     release: prometheus # MUST MATCH ARGOCD RELEASE NAME
+# spec:
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: k10
+#       component: metering
+#   namespaceSelector:
+#     matchNames:
+#       - kasten-io
+#   endpoints:
+#     - port: http
+#       path: /metrics
+#       interval: 30s
