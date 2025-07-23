@@ -38,12 +38,6 @@ eula:
   company: "na"
   email: "na@na.na"
 
-prometheus:
-  rbac:
-    create: false
-  server:
-    enabled: false
-
 clusterName: "talos"
 
 limiter:
