@@ -1,0 +1,40 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kasten-prom-metrics-ingress
+  namespace: kasten-io
+spec:
+  endpointSelector:
+    matchLabels: 
+      app.kubernetes.io/name: k10
+      component: metering
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: monitoring-system
+            app.kubernetes.io/name: prometheus
+            prometheus: prometheus-kube-prometheus-prometheus
+      toPorts:
+        - ports:
+            - port: "8000"
+
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kasten-prom-metrics-egress
+  namespace: monitoring-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+      prometheus: prometheus-kube-prometheus-prometheus
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kasten-io
+            app.kubernetes.io/name: k10
+            component: metering
+      toPorts:
+        - ports:
+            - port: "8000"
