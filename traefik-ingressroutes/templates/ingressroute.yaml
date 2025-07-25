@@ -11,15 +11,17 @@ spec:
   routes:
     - match: {{ printf "Host(`%s.talos.manishreddy.uk`)" .id | quote }}
       kind: Rule
-
-      {{- if .redirectPath }}
+      
+      {{- if or (or .redirectPath .headers) .authentikMiddleware }}
       middlewares:
+      {{- if .redirectPath }}
         - name: {{ .id }}-redirect
       {{- end }}
-
       {{- if .headers }}
-      middlewares:
         - name: {{ .id }}-headers
+      {{- end }}
+      {{- if (default true .authentik) }}
+        - name: middleware-authentik-forwardauth
       {{- end }}
       
       services:
