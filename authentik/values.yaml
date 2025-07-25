@@ -5,3 +5,6 @@ global:
         secretKeyRef:
           name: authentik-secret-key
           key: AUTHENTIK_SECRET_KEY
+
+authentik:
+  secret_key: "env://AUTHENTIK_SECRET_KEY"
