@@ -5,6 +5,30 @@ global:
         secretKeyRef:
           name: authentik-secret-key
           key: AUTHENTIK_SECRET_KEY
+    - name: AUTHENTIK_POSTGRESQL_USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-postgres-auth
+          key: AUTHENTIK_POSTGRESQL_USER_PASSWORD
 
 authentik:
   secret_key: "env://AUTHENTIK_SECRET_KEY"
+
+postgresql:
+    enabled: true
+    auth:
+      existingSecret: authentik-postgres-auth
+      secretKeys:
+        adminPasswordKey: AUTHENTIK_POSTGRESQL_ADMIN_PASSWORD
+        userPasswordKey: AUTHENTIK_POSTGRESQL_USER_PASSWORD
+        replicationPasswordKey: AUTHENTIK_POSTGRESQL_REPLICATION_PASSWORD
+      usePasswordFiles: false
+    persistence:
+      enabled: true
+      storageClass:
+      accessModes:
+        - ReadWriteOnce
+      size: 8Gi
+
+redis:
+    enabled: true
