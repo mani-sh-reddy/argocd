@@ -45,7 +45,7 @@ ingressRoutes:
     appName: authentik
     servicePort: 443
     serversTransport: true
-    podPort: 9433
+    podPort: 9443
     podProtocol: TCP
 
   # - id: velero
