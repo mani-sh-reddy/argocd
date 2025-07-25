@@ -25,6 +25,9 @@ spec:
       helm:
         valueFiles:
           - values.yaml
+    - repoURL: https://github.com/mani-sh-reddy/argocd.git
+      path: traefik-manifests/
+      targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
     namespace: traefik # Where components live
