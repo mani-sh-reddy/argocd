@@ -5,7 +5,7 @@ global:
         secretKeyRef:
           name: authentik-secret-key
           key: AUTHENTIK_SECRET_KEY
-    - name: AUTHENTIK_POSTGRESQL_USER_PASSWORD
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
         secretKeyRef:
           name: authentik-postgres-auth
@@ -13,7 +13,7 @@ global:
 
 authentik:
   secret_key: "env://AUTHENTIK_SECRET_KEY"
-  password: "env://AUTHENTIK_POSTGRESQL_USER_PASSWORD"
+  password: "env://AUTHENTIK_POSTGRESQL__PASSWORD"
 
 postgresql:
     enabled: true
