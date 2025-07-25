@@ -1,1401 +1,1077 @@
-# Copyright Broadcom, Inc. All Rights Reserved.
-# SPDX-License-Identifier: APACHE-2.0
-
-## @section Global parameters
-## Global Docker image parameters
-## Please, note that this will override the image parameters, including dependencies, configured to use the global value
-## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
-##
-
-## @param global.imageRegistry Global Docker image registry
-## @param global.imagePullSecrets Global Docker registry secret names as an array
-## @param global.defaultStorageClass Global default StorageClass for Persistent Volume(s)
-## @param global.storageClass DEPRECATED: use global.defaultStorageClass instead
-##
-global:
-  imageRegistry: ""
-  ## E.g.
-  ## imagePullSecrets:
-  ##   - myRegistryKeySecretName
-  ##
-  imagePullSecrets: []
-  defaultStorageClass: ""
-  storageClass: ""
-  ## Security parameters
-  ##
-  security:
-    ## @param global.security.allowInsecureImages Allows skipping image verification
-    allowInsecureImages: false
-  ## Compatibility adaptations for Kubernetes platforms
-  ##
-  compatibility:
-    ## Compatibility adaptations for Openshift
-    ##
-    openshift:
-      ## @param global.compatibility.openshift.adaptSecurityContext Adapt the securityContext sections of the deployment to make them compatible with Openshift restricted-v2 SCC: remove runAsUser, runAsGroup and fsGroup and let the platform use their allowed default IDs. Possible values: auto (apply if the detected running cluster is Openshift), force (perform the adaptation always), disabled (do not perform adaptation)
-      ##
-      adaptSecurityContext: auto
-## @section Common parameters
-##
-
-## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
-##
-kubeVersion: ""
-## @param nameOverride String to partially override common.names.fullname
-##
+---
+# -- Provide a name in place of `authentik`. Prefer using global.nameOverride if possible
 nameOverride: ""
-## @param fullnameOverride String to fully override common.names.fullname
-##
+# -- String to fully override `"authentik.fullname"`. Prefer using global.fullnameOverride if possible
 fullnameOverride: ""
-## @param namespaceOverride String to fully override common.names.namespace
-##
-namespaceOverride: ""
-## @param commonLabels Labels to add to all deployed objects
-##
-commonLabels: {}
-## @param enableServiceLinks If set to false, disable Kubernetes service links in the pod spec
-## Ref: https://kubernetes.io/docs/tutorials/services/connect-applications-service/#accessing-the-service
-##
-enableServiceLinks: true
-## @param commonAnnotations Annotations to add to all deployed objects
-##
-commonAnnotations: {}
-## @param dnsPolicy DNS Policy for pod
-## ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
-## E.g.
-## dnsPolicy: ClusterFirst
-dnsPolicy: ""
-## @param dnsConfig DNS Configuration pod
-## ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
-## E.g.
-## dnsConfig:
-##   options:
-##   - name: ndots
-##     value: "4"
-dnsConfig: {}
-## @param clusterDomain Default Kubernetes cluster domain
-##
-clusterDomain: cluster.local
-## @param extraDeploy Array of extra objects to deploy with the release
-##
-extraDeploy: []
-## @param usePasswordFiles Mount credentials as files instead of using environment variables
-##
-usePasswordFiles: true
-## Enable diagnostic mode in the statefulset
-##
-diagnosticMode:
-  ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
-  ##
-  enabled: false
-  ## @param diagnosticMode.command Command to override all containers in the the statefulset
-  ##
-  command:
-    - sleep
-  ## @param diagnosticMode.args Args to override all containers in the the statefulset
-  ##
-  args:
-    - infinity
-## @section Keycloak parameters
+# -- Override the Kubernetes version, which is used to evaluate certain manifests
+kubeVersionOverride: ""
 
-## Bitnami Keycloak image version
-## ref: https://hub.docker.com/r/bitnami/keycloak/tags/
-## @param image.registry [default: REGISTRY_NAME] Keycloak image registry
-## @param image.repository [default: REPOSITORY_NAME/keycloak] Keycloak image repository
-## @skip image.tag Keycloak image tag (immutable tags are recommended)
-## @param image.digest Keycloak image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
-## @param image.pullPolicy Keycloak image pull policy
-## @param image.pullSecrets Specify docker-registry secret names as an array
-## @param image.debug Specify if debug logs should be enabled
-##
-image:
-  registry: docker.io
-  repository: bitnami/keycloak
-  tag: 26.3.1-debian-12-r1
-  digest: ""
-  ## Specify a imagePullPolicy
-  ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
-  ##
-  pullPolicy: IfNotPresent
-  ## Optionally specify an array of imagePullSecrets.
-  ## Secrets must be manually created in the namespace.
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-  ## Example:
-  ## pullSecrets:
-  ##   - myRegistryKeySecretName
-  ##
-  pullSecrets: []
-  ## Set to true if you would like to see extra information on logs
-  ##
-  debug: false
-## Keycloak authentication parameters
-## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#admin-credentials
-##
-auth:
-  ## @param auth.adminUser Keycloak administrator user
-  ##
-  adminUser: user
-  ## @param auth.adminPassword Keycloak administrator password for the new user
-  ##
-  adminPassword: ""
-  ## @param auth.existingSecret Existing secret containing Keycloak admin password
-  ##
-  existingSecret: ""
-  ## @param auth.passwordSecretKey Key where the Keycloak admin password is being stored inside the existing secret.
-  ##
-  passwordSecretKey: ""
-  ## @param auth.annotations Additional custom annotations for Keycloak auth secret object
-  ##
-  annotations: {}
-## Custom Certificates
-## @param customCaExistingSecret Name of the secret containing the Keycloak custom CA certificates. The secret will be mounted as a directory and configured using KC_TRUSTSTORE_PATHS.
-## https://www.keycloak.org/server/keycloak-truststore
-## Could be created like this: kubectl create secret generic secretName --from-file=./certificateToMerge.pem
-customCaExistingSecret: ""
-## HTTPS settings
-## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#tls-encryption
-##
-tls:
-  ## @param tls.enabled Enable TLS encryption. Required for HTTPs traffic.
-  ##
-  enabled: false
-  ## @param tls.autoGenerated Generate automatically self-signed TLS certificates. Currently only supports PEM certificates
-  ##
-  autoGenerated: false
-  ## @param tls.existingSecret Existing secret containing the TLS certificates per Keycloak replica
-  ## Create this secret following the steps below:
-  ## 1) Generate your truststore and keystore files (more info at https://www.keycloak.org/docs/latest/server_installation/#_setting_up_ssl)
-  ## 2) Rename your truststore to `keycloak.truststore.jks` or use a different name overwriting the value 'tls.truststoreFilename'.
-  ## 3) Rename your keystores to `keycloak.keystore.jks` or use a different name overwriting the value 'tls.keystoreFilename'.
-  ## 4) Run the command below where SECRET_NAME is the name of the secret you want to create:
-  ##       kubectl create secret generic SECRET_NAME --from-file=./keycloak.truststore.jks --from-file=./keycloak.keystore.jks
-  ## NOTE: If usePem enabled, make sure the PEM key and cert are named 'tls.key' and 'tls.crt' respectively.
-  ##
-  existingSecret: ""
-  ## @param tls.usePem Use PEM certificates as input instead of PKS12/JKS stores
-  ## If "true", the Keycloak chart will look for the files tls.key and tls.crt inside the secret provided with 'existingSecret'.
-  ##
-  usePem: false
-  ## @param tls.truststoreFilename Truststore filename inside the existing secret
-  ##
-  truststoreFilename: "keycloak.truststore.jks"
-  ## @param tls.keystoreFilename Keystore filename inside the existing secret
-  ##
-  keystoreFilename: "keycloak.keystore.jks"
-  ## @param tls.keystorePassword Password to access the keystore when it's password-protected
-  ##
-  keystorePassword: ""
-  ## @param tls.truststorePassword Password to access the truststore when it's password-protected
-  ##
-  truststorePassword: ""
-  ## @param tls.passwordsSecret Secret containing the Keystore and Truststore passwords.
-  ## The secret must have "tls-keystore-password" and "tls-truststore-password" keys for the keystore and truststore respectively.
-  ##
-  passwordsSecret: ""
-## SPI TLS settings
-## ref: https://www.keycloak.org/server/keycloak-truststore
-##
-spi:
-  ## @param spi.existingSecret Existing secret containing the Keycloak truststore for SPI connection over HTTPS/TLS
-  ## Create this secret following the steps below:
-  ## 1) Rename your truststore to `keycloak-spi.truststore.jks` or use a different name overwriting the value 'spi.truststoreFilename'.
-  ## 2) Run the command below where SECRET_NAME is the name of the secret you want to create:
-  ##       kubectl create secret generic SECRET_NAME --from-file=./keycloak-spi.truststore.jks --from-file=./keycloak.keystore.jks
-  ##
-  existingSecret: ""
-  ## @param spi.truststorePassword Password to access the truststore when it's password-protected
-  ##
-  truststorePassword: ""
-  ## @param spi.truststoreFilename Truststore filename inside the existing secret
-  ##
-  truststoreFilename: "keycloak-spi.truststore.jks"
-  ## @param spi.passwordsSecret Secret containing the SPI Truststore passwords.
-  ## The secret must have "spi-truststore-password" key.
-  ##
-  passwordsSecret: ""
-  ## @param spi.hostnameVerificationPolicy Verify the hostname of the server's certificate. Allowed values: "ANY", "WILDCARD", "STRICT".
-  ##
-  hostnameVerificationPolicy: ""
-## @param adminRealm Name of the admin realm
-##
-adminRealm: "master"
-## @param production Run Keycloak in production mode. TLS configuration is required except when using proxy=edge.
-##
-production: false
-## @param proxyHeaders Set Keycloak proxy headers
-##
-proxyHeaders: ""
-## @param proxy reverse Proxy mode edge, reencrypt, passthrough or none
-## DEPRECATED: use proxyHeaders instead
-## ref: https://www.keycloak.org/server/reverseproxy
-##
-proxy: ""
-## @param httpRelativePath Set the path relative to '/' for serving resources. Useful if you are migrating from older version which were using '/auth/'
-## ref: https://www.keycloak.org/migration/migrating-to-quarkus#_default_context_path_changed
-##
-httpRelativePath: "/"
-## Keycloak Service Discovery settings
-## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#cluster-configuration
-##
-## @param configuration Keycloak Configuration. Auto-generated based on other parameters when not specified
-## Specify content for keycloak.conf
-## NOTE: This will override configuring Keycloak based on environment variables (including those set by the chart)
-## The keycloak.conf is auto-generated based on other parameters when this parameter is not specified
-##
-## Example:
-## configuration: |-
-##    foo: bar
-##    baz:
-##
-configuration: ""
-## @param existingConfigmap Name of existing ConfigMap with Keycloak configuration
-## NOTE: When it's set the configuration parameter is ignored
-##
-existingConfigmap: ""
-## @param extraStartupArgs Extra default startup args
-##
-extraStartupArgs: ""
-## @param enableDefaultInitContainers Deploy default init containers
-## Disable this parameter could be helpful for 3rd party images e.g native Keycloak image.
-##
-enableDefaultInitContainers: true
-## @param initdbScripts Dictionary of initdb scripts
-## Specify dictionary of scripts to be run at first boot
-## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#initializing-a-new-instance
-## Example:
-## initdbScripts:
-##   my_init_script.sh: |
-##      #!/bin/bash
-##      echo "Do something."
-##
-initdbScripts: {}
-## @param initdbScriptsConfigMap ConfigMap with the initdb scripts (Note: Overrides `initdbScripts`)
-##
-initdbScriptsConfigMap: ""
-## @param command Override default container command (useful when using custom images)
-##
-command: []
-## @param args Override default container args (useful when using custom images)
-##
-args: []
-## @param extraEnvVars Extra environment variables to be set on Keycloak container
-## Example:
-## extraEnvVars:
-##   - name: FOO
-##     value: "bar"
-##
-extraEnvVars: []
-## @param extraEnvVarsCM Name of existing ConfigMap containing extra env vars
-##
-extraEnvVarsCM: ""
-## @param extraEnvVarsSecret Name of existing Secret containing extra env vars
-##
-extraEnvVarsSecret: ""
-## @section Keycloak statefulset parameters
 
-## @param replicaCount Number of Keycloak replicas to deploy
-##
-replicaCount: 1
-## @param revisionHistoryLimitCount Number of controller revisions to keep
-##
-revisionHistoryLimitCount: 10
-## @param containerPorts.http Keycloak HTTP container port
-## @param containerPorts.https Keycloak HTTPS container port
-## @param containerPorts.metrics Keycloak metrics container port
-##
-containerPorts:
-  http: 8080
-  https: 8443
-  metrics: 9000
-## @param extraContainerPorts Optionally specify extra list of additional port-mappings for Keycloak container
-##
-extraContainerPorts: []
-## @param statefulsetAnnotations Optionally add extra annotations on the statefulset resource
-statefulsetAnnotations: {}
-##
-## Keycloak pods' SecurityContext
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-## @param podSecurityContext.enabled Enabled Keycloak pods' Security Context
-## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
-## @param podSecurityContext.sysctls Set kernel settings using the sysctl interface
-## @param podSecurityContext.supplementalGroups Set filesystem extra groups
-## @param podSecurityContext.fsGroup Set Keycloak pod's Security Context fsGroup
-##
-podSecurityContext:
-  enabled: true
-  fsGroupChangePolicy: Always
-  sysctls: []
-  supplementalGroups: []
-  fsGroup: 1001
-## Keycloak containers' Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-## @param containerSecurityContext.enabled Enabled containers' Security Context
-## @param containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
-## @param containerSecurityContext.runAsUser Set containers' Security Context runAsUser
-## @param containerSecurityContext.runAsGroup Set containers' Security Context runAsGroup
-## @param containerSecurityContext.runAsNonRoot Set container's Security Context runAsNonRoot
-## @param containerSecurityContext.privileged Set container's Security Context privileged
-## @param containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
-## @param containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
-## @param containerSecurityContext.capabilities.drop List of capabilities to be dropped
-## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
-##
-containerSecurityContext:
-  enabled: true
-  seLinuxOptions: {}
-  runAsUser: 1001
-  runAsGroup: 1001
-  runAsNonRoot: true
-  privileged: false
-  readOnlyRootFilesystem: true
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop: ["ALL"]
-  seccompProfile:
-    type: "RuntimeDefault"
-## Keycloak resource requests and limits
-## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
-## @param resourcesPreset Set container resources according to one common preset (allowed values: none, nano, micro, small, medium, large, xlarge, 2xlarge). This is ignored if resources is set (resources is recommended for production).
-## More information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15
-##
-resourcesPreset: "small"
-## @param resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
-## Example:
-## resources:
-##   requests:
-##     cpu: 2
-##     memory: 512Mi
-##   limits:
-##     cpu: 3
-##     memory: 1024Mi
-##
-resources: {}
-## Configure extra options for Keycloak containers' liveness, readiness and startup probes
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
-## @param livenessProbe.enabled Enable livenessProbe on Keycloak containers
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.successThreshold Success threshold for livenessProbe
-##
-livenessProbe:
-  enabled: true
-  initialDelaySeconds: 300
-  periodSeconds: 1
-  timeoutSeconds: 5
-  failureThreshold: 3
-  successThreshold: 1
-## @param readinessProbe.enabled Enable readinessProbe on Keycloak containers
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.successThreshold Success threshold for readinessProbe
-##
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
-## When enabling this, make sure to set initialDelaySeconds to 0 for livenessProbe and readinessProbe
-## @param startupProbe.enabled Enable startupProbe on Keycloak containers
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.successThreshold Success threshold for startupProbe
-##
-startupProbe:
-  enabled: false
-  initialDelaySeconds: 30
-  periodSeconds: 5
-  timeoutSeconds: 1
-  failureThreshold: 60
-  successThreshold: 1
-## @param customLivenessProbe Custom Liveness probes for Keycloak
-##
-customLivenessProbe: {}
-## @param customReadinessProbe Custom Rediness probes Keycloak
-##
-customReadinessProbe: {}
-## @param customStartupProbe Custom Startup probes for Keycloak
-##
-customStartupProbe: {}
-## @param lifecycleHooks LifecycleHooks to set additional configuration at startup
-##
-lifecycleHooks: {}
-## @param automountServiceAccountToken Mount Service Account token in pod
-##
-automountServiceAccountToken: true
-## @param hostAliases Deployment pod host aliases
-## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
-##
-hostAliases: []
-## @param podLabels Extra labels for Keycloak pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-##
-podLabels: {}
-## @param podAnnotations Annotations for Keycloak pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-##
-podAnnotations: {}
-## @param podAffinityPreset Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
-## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-##
-podAffinityPreset: ""
-## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
-## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-##
-podAntiAffinityPreset: soft
-## Node affinity preset
-## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
-##
-nodeAffinityPreset:
-  ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
-  ##
-  type: ""
-  ## @param nodeAffinityPreset.key Node label key to match. Ignored if `affinity` is set.
-  ## E.g.
-  ## key: "kubernetes.io/e2e-az-name"
-  ##
-  key: ""
-  ## @param nodeAffinityPreset.values Node label values to match. Ignored if `affinity` is set.
-  ## E.g.
-  ## values:
-  ##   - e2e-az1
-  ##   - e2e-az2
-  ##
-  values: []
-## @param affinity Affinity for pod assignment
-## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-##
-affinity: {}
-## @param nodeSelector Node labels for pod assignment
-## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
-##
-nodeSelector: {}
-## @param tolerations Tolerations for pod assignment
-## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
-tolerations: []
-## @param topologySpreadConstraints Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
-## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
-##
-topologySpreadConstraints: []
-## @param podManagementPolicy Pod management policy for the Keycloak statefulset
-##
-podManagementPolicy: Parallel
-## @param priorityClassName Keycloak pods' Priority Class Name
-## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
-##
-priorityClassName: ""
-## @param schedulerName Use an alternate scheduler, e.g. "stork".
-## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
-##
-schedulerName: ""
-## @param terminationGracePeriodSeconds Seconds Keycloak pod needs to terminate gracefully
-## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
-##
-terminationGracePeriodSeconds: ""
-## @param updateStrategy.type Keycloak statefulset strategy type
-## @param updateStrategy.rollingUpdate Keycloak statefulset rolling update configuration parameters
-## ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
-##
-updateStrategy:
-  type: RollingUpdate
-  rollingUpdate: {}
-## @param minReadySeconds How many seconds a pod needs to be ready before killing the next, during update
-##
-minReadySeconds: 0
-## @param extraVolumes Optionally specify extra list of additional volumes for Keycloak pods
-##
-extraVolumes: []
-## @param extraVolumeMounts Optionally specify extra list of additional volumeMounts for Keycloak container(s)
-##
-extraVolumeMounts: []
-## @param initContainers Add additional init containers to the Keycloak pods
-## Example:
-## initContainers:
-##   - name: your-image-name
-##     image: your-image
-##     imagePullPolicy: Always
-##     ports:
-##       - name: portname
-##         containerPort: 1234
-##
-initContainers: []
-## @param sidecars Add additional sidecar containers to the Keycloak pods
-## Example:
-## sidecars:
-##   - name: your-image-name
-##     image: your-image
-##     imagePullPolicy: Always
-##     ports:
-##       - name: portname
-##         containerPort: 1234
-##
-sidecars: []
-## @section Exposure parameters
-##
+## Globally shared configuration for authentik components.
+global:
+  # -- Provide a name in place of `authentik`
+  nameOverride: ""
+  # -- String to fully override `"authentik.fullname"`
+  fullnameOverride: ""
+  # -- A custom namespace to override the default namespace for the deployed resources.
+  namespaceOverride: ""
+  # -- Common labels for all resources.
+  additionalLabels: {}
+    # app: authentik
 
-## Service configuration
-##
-service:
-  ## @param service.type Kubernetes service type
-  ##
-  type: ClusterIP
-  ## @param service.http.enabled Enable http port on service
-  ##
-  http:
-    enabled: true
-  ## @param service.ports.http Keycloak service HTTP port
-  ## @param service.ports.https Keycloak service HTTPS port
-  ##
-  ports:
-    http: 80
-    https: 443
-  ## @param service.nodePorts [object] Specify the nodePort values for the LoadBalancer and NodePort service types.
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
-  ##
-  nodePorts:
-    http: ""
-    https: ""
-  ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
-  ## Values: ClientIP or None
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/
-  ##
-  sessionAffinity: None
-  ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
-  ## sessionAffinityConfig:
-  ##   clientIP:
-  ##     timeoutSeconds: 300
-  ##
-  sessionAffinityConfig: {}
-  ## @param service.clusterIP Keycloak service clusterIP IP
-  ## e.g:
-  ## clusterIP: None
-  ##
-  clusterIP: ""
-  ## @param service.loadBalancerIP loadBalancerIP for the SuiteCRM Service (optional, cloud specific)
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
-  ##
-  loadBalancerIP: ""
-  ## @param service.loadBalancerSourceRanges Address that are allowed when service is LoadBalancer
-  ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
-  ## Example:
-  ## loadBalancerSourceRanges:
-  ##   - 10.10.10.0/24
-  ##
-  loadBalancerSourceRanges: []
-  ## @param service.externalTrafficPolicy Enable client source IP preservation
-  ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
-  ##
-  externalTrafficPolicy: Cluster
-  ## @param service.annotations Additional custom annotations for Keycloak service
-  ##
-  annotations: {}
-  ## @param service.extraPorts Extra port to expose on Keycloak service
-  ##
-  extraPorts: []
-  # DEPRECATED service.extraHeadlessPorts will be removed in a future release, please use service.headless.extraPorts instead
-  ## @param service.extraHeadlessPorts Extra ports to expose on Keycloak headless service
-  ##
-  extraHeadlessPorts: []
-  ## Headless service properties
-  ##
-  headless:
-    ## @param service.headless.annotations Annotations for the headless service.
-    ##
-    annotations: {}
-    ## @param service.headless.extraPorts Extra ports to expose on Keycloak headless service
-    ##
-    extraPorts: []
-## Keycloak ingress parameters
-## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
-##
-ingress:
-  ## @param ingress.enabled Enable ingress record generation for Keycloak
-  ##
-  enabled: false
-  ## @param ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
-  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
-  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
-  ##
-  ingressClassName: ""
-  ## @param ingress.pathType Ingress path type
-  ##
-  pathType: ImplementationSpecific
-  ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
-  ##
-  apiVersion: ""
-  ## @param ingress.controller The ingress controller type. Currently supports `default` and `gce`
-  ## leave as `default` for most ingress controllers.
-  ## set to `gce` if using the GCE ingress controller
-  ##
-  controller: default
-  ## @param ingress.hostname Default host for the ingress record (evaluated as template)
-  ##
-  hostname: keycloak.local
-  ## @param ingress.hostnameStrict Disables dynamically resolving the hostname from request headers.
-  ## Should always be set to true in production, unless your reverse proxy overwrites the Host header.
-  ## If enabled, the hostname option needs to be specified.
-  ##
-  hostnameStrict: false
-  ## @param ingress.path [string] Default path for the ingress record (evaluated as template)
-  ##
-  path: "{{ .Values.httpRelativePath }}"
-  ## @param ingress.servicePort Backend service port to use
-  ## Default is http. Alternative is https.
-  ##
-  servicePort: http
-  ## @param ingress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
-  ## Use this parameter to set the required annotations for cert-manager, see
-  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
-  ## e.g:
-  ## annotations:
-  ##   kubernetes.io/ingress.class: nginx
-  ##   cert-manager.io/cluster-issuer: cluster-issuer-name
-  ##
-  annotations: {}
-  ## @param ingress.labels Additional labels for the Ingress resource.
-  ## e.g:
-  ## labels:
-  ##   app: keycloak
-  ##
-  labels: {}
-  ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
-  ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" (tpl .Values.ingress.hostname .) }}`
-  ## You can:
-  ##   - Use the `ingress.secrets` parameter to create this TLS secret
-  ##   - Rely on cert-manager to create it by setting the corresponding annotations
-  ##   - Rely on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
-  ##
-  tls: false
-  ## @param ingress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
-  ##
-  selfSigned: false
-  ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
-  ## e.g:
-  ## extraHosts:
-  ##   - name: keycloak.local
-  ##     path: /
-  ##
-  extraHosts: []
-  ## @param ingress.extraPaths Any additional arbitrary paths that may need to be added to the ingress under the main host.
-  ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
-  ## extraPaths:
-  ## - path: /*
-  ##   backend:
-  ##     serviceName: ssl-redirect
-  ##     servicePort: use-annotation
-  ##
-  extraPaths: []
-  ## @param ingress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
-  ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
-  ## extraTls:
-  ## - hosts:
-  ##     - keycloak.local
-  ##   secretName: keycloak.local-tls
-  ##
-  extraTls: []
-  ## @param ingress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
-  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
-  ## -----BEGIN RSA PRIVATE KEY-----
-  ##
-  ## name should line up with a tlsSecret set further up
-  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
-  ##
-  ## It is also possible to create and manage the certificates outside of this helm chart
-  ## Please see README.md for more information
-  ## e.g:
-  ## - name: keycloak.local-tls
-  ##   key:
-  ##   certificate:
-  ##
-  secrets: []
-  ## @param ingress.extraRules Additional rules to be covered with this ingress record
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
-  ## e.g:
-  ## extraRules:
-  ## - host: keycloak.local
-  ##     http:
-  ##       path: /
-  ##       backend:
-  ##         service:
-  ##           name: keycloak
-  ##           port:
-  ##             name: http
-  ##
-  extraRules: []
-## Keycloak admin ingress parameters
-## ref: https://kubernetes.io/docs/user-guide/ingress/
-##
-adminIngress:
-  ## @param adminIngress.enabled Enable admin ingress record generation for Keycloak
-  ##
-  enabled: false
-  ## @param adminIngress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
-  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
-  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
-  ##
-  ingressClassName: ""
-  ## @param adminIngress.pathType Ingress path type
-  ##
-  pathType: ImplementationSpecific
-  ## @param adminIngress.apiVersion Force Ingress API version (automatically detected if not set)
-  ##
-  apiVersion: ""
-  ## @param adminIngress.controller The ingress controller type. Currently supports `default` and `gce`
-  ## leave as `default` for most ingress controllers.
-  ## set to `gce` if using the GCE ingress controller
-  ##
-  controller: default
-  ## @param adminIngress.hostname Default host for the admin ingress record (evaluated as template)
-  ##
-  hostname: keycloak.local
-  ## @param adminIngress.path [string] Default path for the admin ingress record (evaluated as template)
-  ##
-  path: "{{ .Values.httpRelativePath }}"
-  ## @param adminIngress.servicePort Backend service port to use
-  ## Default is http. Alternative is https.
-  ##
-  servicePort: http
-  ## @param adminIngress.annotations [object] Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
-  ## Use this parameter to set the required annotations for cert-manager, see
-  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
-  ## e.g:
-  ## annotations:
-  ##   kubernetes.io/ingress.class: nginx
-  ##   cert-manager.io/cluster-issuer: cluster-issuer-name
-  ##
-  annotations: {}
-  ## @param adminIngress.labels Additional labels for the Ingress resource.
-  ## e.g:
-  ## labels:
-  ##   app: keycloak
-  ##
-  labels: {}
-  ## @param adminIngress.tls Enable TLS configuration for the host defined at `adminIngress.hostname` parameter
-  ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" (tpl .Values.adminIngress.hostname .) }}`
-  ## You can:
-  ##   - Use the `adminIngress.secrets` parameter to create this TLS secret
-  ##   - Rely on cert-manager to create it by setting the corresponding annotations
-  ##   - Rely on Helm to create self-signed certificates by setting `adminIngress.selfSigned=true`
-  ##
-  tls: false
-  ## @param adminIngress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
-  ##
-  selfSigned: false
-  ## @param adminIngress.extraHosts An array with additional hostname(s) to be covered with the admin ingress record
-  ## e.g:
-  ## extraHosts:
-  ##   - name: keycloak.local
-  ##     path: /
-  ##
-  extraHosts: []
-  ## @param adminIngress.extraPaths Any additional arbitrary paths that may need to be added to the admin ingress under the main host.
-  ## For example: The ALB ingress controller requires a special rule for handling SSL redirection.
-  ## extraPaths:
-  ## - path: /*
-  ##   backend:
-  ##     serviceName: ssl-redirect
-  ##     servicePort: use-annotation
-  ##
-  extraPaths: []
-  ## @param adminIngress.extraTls The tls configuration for additional hostnames to be covered with this ingress record.
-  ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
-  ## extraTls:
-  ## - hosts:
-  ##     - keycloak.local
-  ##   secretName: keycloak.local-tls
-  ##
-  extraTls: []
-  ## @param adminIngress.secrets If you're providing your own certificates, please use this to add the certificates as secrets
-  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
-  ## -----BEGIN RSA PRIVATE KEY-----
-  ##
-  ## name should line up with a tlsSecret set further up
-  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
-  ##
-  ## It is also possible to create and manage the certificates outside of this helm chart
-  ## Please see README.md for more information
-  ## e.g:
-  ## - name: keycloak.local-tls
-  ##   key:
-  ##   certificate:
-  ##
-  secrets: []
-  ## @param adminIngress.extraRules Additional rules to be covered with this ingress record
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-rules
-  ## e.g:
-  ## extraRules:
-  ## - host: keycloak.local
-  ##     http:
-  ##       path: /
-  ##       backend:
-  ##         service:
-  ##           name: keycloak
-  ##           port:
-  ##             name: http
-  ##
-  extraRules: []
-## Network Policy configuration
-## ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/
-##
-networkPolicy:
-  ## @param networkPolicy.enabled Specifies whether a NetworkPolicy should be created
-  ##
-  enabled: true
-  ## @param networkPolicy.allowExternal Don't require server label for connections
-  ## The Policy model to apply. When set to false, only pods with the correct
-  ## server label will have network access to the ports server is listening
-  ## on. When true, server will accept connections from any source
-  ## (with the correct destination port).
-  ##
-  allowExternal: true
-  ## @param networkPolicy.allowExternalEgress Allow the pod to access any range of port and all destinations.
-  ##
-  allowExternalEgress: true
-  ## @param networkPolicy.kubeAPIServerPorts [array] List of possible endpoints to kube-apiserver (limit to your cluster settings to increase security)
-  ##
-  kubeAPIServerPorts: [443, 6443, 8443]
-  ## @param networkPolicy.extraIngress [array] Add extra ingress rules to the NetworkPolicy
-  ## e.g:
-  ## extraIngress:
-  ##   - ports:
-  ##       - port: 1234
-  ##     from:
-  ##       - podSelector:
-  ##           - matchLabels:
-  ##               - role: frontend
-  ##       - podSelector:
-  ##           - matchExpressions:
-  ##               - key: role
-  ##                 operator: In
-  ##                 values:
-  ##                   - frontend
-  extraIngress: []
-  ## @param networkPolicy.extraEgress [array] Add extra ingress rules to the NetworkPolicy
-  ## e.g:
-  ## extraEgress:
-  ##   - ports:
-  ##       - port: 1234
-  ##     to:
-  ##       - podSelector:
-  ##           - matchLabels:
-  ##               - role: frontend
-  ##       - podSelector:
-  ##           - matchExpressions:
-  ##               - key: role
-  ##                 operator: In
-  ##                 values:
-  ##                   - frontend
-  ##
-  extraEgress: []
-  ## @param networkPolicy.ingressNSMatchLabels [object] Labels to match to allow traffic from other namespaces
-  ## @param networkPolicy.ingressNSPodMatchLabels [object] Pod labels to match to allow traffic from other namespaces
-  ##
-  ingressNSMatchLabels: {}
-  ingressNSPodMatchLabels: {}
-## @section RBAC parameter
-## Specifies whether a ServiceAccount should be created
-##
-serviceAccount:
-  ## @param serviceAccount.create Enable the creation of a ServiceAccount for Keycloak pods
-  ##
-  create: true
-  ## @param serviceAccount.name Name of the created ServiceAccount
-  ## If not set and create is true, a name is generated using the fullname template
-  ##
-  name: ""
-  ## @param serviceAccount.automountServiceAccountToken Auto-mount the service account token in the pod
-  ##
-  automountServiceAccountToken: false
-  ## @param serviceAccount.annotations Additional custom annotations for the ServiceAccount
-  ##
-  annotations: {}
-  ## @param serviceAccount.extraLabels Additional labels for the ServiceAccount
-  ##
-  extraLabels: {}
-## Specifies whether RBAC resources should be created
-##
-rbac:
-  ## @param rbac.create Whether to create and use RBAC resources or not
-  ##
-  create: false
-  ## @param rbac.rules Custom RBAC rules
-  ## Example:
-  ## rules:
-  ##   - apiGroups:
-  ##       - ""
-  ##     resources:
-  ##       - pods
-  ##     verbs:
-  ##       - get
-  ##       - list
-  ##
-  rules: []
-## @section Other parameters
-##
+  # Number of old deployment ReplicaSets to retain. The rest will be garbage collected.
+  revisionHistoryLimit: 3
 
-## Keycloak Pod Disruption Budget configuration
-## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
-##
-pdb:
-  ## @param pdb.create Enable/disable a Pod Disruption Budget creation
-  ##
-  create: true
-  ## @param pdb.minAvailable Minimum number/percentage of pods that should remain scheduled
-  ##
-  minAvailable: ""
-  ## @param pdb.maxUnavailable Maximum number/percentage of pods that may be made unavailable
-  ##
-  maxUnavailable: ""
-## Keycloak Autoscaling configuration
-## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
-## @param autoscaling.enabled Enable autoscaling for Keycloak
-## @param autoscaling.minReplicas Minimum number of Keycloak replicas
-## @param autoscaling.maxReplicas Maximum number of Keycloak replicas
-## @param autoscaling.targetCPU Target CPU utilization percentage
-## @param autoscaling.targetMemory Target Memory utilization percentage
-##
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 11
-  targetCPU: ""
-  targetMemory: ""
-  ## HPA Scaling Behavior
-  ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#configurable-scaling-behavior
-  ##
-  behavior:
-    ## HPA behavior when scaling up
-    ## @param autoscaling.behavior.scaleUp.stabilizationWindowSeconds The number of seconds for which past recommendations should be considered while scaling up
-    ## @param autoscaling.behavior.scaleUp.selectPolicy The priority of policies that the autoscaler will apply when scaling up
-    ## @param autoscaling.behavior.scaleUp.policies [array] HPA scaling policies when scaling up
-    ## e.g:
-    ## Policy to scale 20% of the pod in 60s
-    ## - type: Percent
-    ##   value: 20
-    ##   periodSeconds: 60
-    ##
-    scaleUp:
-      stabilizationWindowSeconds: 120
-      selectPolicy: Max
-      policies: []
-    ## HPA behavior when scaling down
-    ## @param autoscaling.behavior.scaleDown.stabilizationWindowSeconds The number of seconds for which past recommendations should be considered while scaling down
-    ## @param autoscaling.behavior.scaleDown.selectPolicy The priority of policies that the autoscaler will apply when scaling down
-    ## @param autoscaling.behavior.scaleDown.policies [array] HPA scaling policies when scaling down
-    ## e.g:
-    ## Policy to scale one pod in 300s
-    ## - type: Pods
-    ##   value: 1
-    ##   periodSeconds: 300
-    ##
-    scaleDown:
-      stabilizationWindowSeconds: 300
-      selectPolicy: Max
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 300
-## @section Metrics parameters
-##
-
-## Metrics configuration
-##
-metrics:
-  ## @param metrics.enabled Enable exposing Keycloak statistics
-  ## ref: https://github.com/bitnami/containers/tree/main/bitnami/keycloak#enabling-statistics
-  ##
-  enabled: false
-  ## Keycloak metrics service parameters
-  ##
-  service:
-    ports:
-      ## @param metrics.service.ports.http Metrics service HTTP port
-      ##
-      http: 8080
-      ## @param metrics.service.ports.https Metrics service HTTPS port
-      ##
-      https: 8443
-      ## @param metrics.service.ports.metrics Metrics service Metrics port
-      ##
-      metrics: 9000
-    ## @param metrics.service.annotations [object] Annotations for enabling prometheus to access the metrics endpoints
-    ##
-    annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "{{ .Values.metrics.service.ports.metrics }}"
-    ## @param metrics.service.extraPorts [array] Add additional ports to the keycloak metrics service (i.e. admin port 9000)
-    ##
-    extraPorts: []
-  ## Prometheus Operator ServiceMonitor configuration
-  ##
-  serviceMonitor:
-    ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
-    ##
-    enabled: false
-    ## @param metrics.serviceMonitor.port Metrics service HTTP port
-    ##
-    port: metrics
-    ## @param metrics.serviceMonitor.scheme Metrics service scheme
-    ##
-    scheme: http
-    ## @param metrics.serviceMonitor.tlsConfig Metrics service TLS configuration
-    ##
-    tlsConfig: {}
-    ## @param metrics.serviceMonitor.endpoints [array] The endpoint configuration of the ServiceMonitor. Path is mandatory. Port, scheme, tlsConfig, interval, timeout and labellings can be overwritten.
-    ##
-    endpoints:
-      - path: '{{ include "keycloak.httpPath" . }}metrics'
-      - path: '{{ include "keycloak.httpPath" . }}realms/{{ .Values.adminRealm }}/metrics'
-        port: http
-    ## @param metrics.serviceMonitor.path Metrics service HTTP path. Deprecated: Use @param metrics.serviceMonitor.endpoints instead
-    ##
-    path: ""
-    ## @param metrics.serviceMonitor.namespace Namespace which Prometheus is running in
-    ##
-    namespace: ""
-    ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
-    ##
-    interval: 30s
-    ## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
-    ## e.g:
-    ##   scrapeTimeout: 30s
-    ##
-    scrapeTimeout: ""
-    ## @param metrics.serviceMonitor.labels Additional labels that can be used so ServiceMonitor will be discovered by Prometheus
-    ##
-    labels: {}
-    ## @param metrics.serviceMonitor.selector Prometheus instance selector labels
-    ## ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration
-    ##
-    selector: {}
-    ## @param metrics.serviceMonitor.relabelings RelabelConfigs to apply to samples before scraping
-    ##
-    relabelings: []
-    ## @param metrics.serviceMonitor.metricRelabelings MetricRelabelConfigs to apply to samples before ingestion
-    ##
-    metricRelabelings: []
-    ## @param metrics.serviceMonitor.honorLabels honorLabels chooses the metric's labels on collisions with target labels
-    ##
-    honorLabels: false
-    ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
-    ##
-    jobLabel: ""
-  ## Prometheus Operator alert rules configuration
-  ##
-  prometheusRule:
-    ## @param metrics.prometheusRule.enabled Create PrometheusRule Resource for scraping metrics using PrometheusOperator
-    ##
-    enabled: false
-    ## @param metrics.prometheusRule.namespace Namespace which Prometheus is running in
-    ##
-    namespace: ""
-    ## @param metrics.prometheusRule.labels Additional labels that can be used so PrometheusRule will be discovered by Prometheus
-    ##
-    labels: {}
-    ## @param metrics.prometheusRule.groups Groups, containing the alert rules.
-    ## Example:
-    ##   groups:
-    ##     - name: Keycloak
-    ##       rules:
-    ##         - alert: KeycloakInstanceNotAvailable
-    ##           annotations:
-    ##             message: "Keycloak instance in namespace {{ `{{` }} $labels.namespace {{ `}}` }} has not been available for the last 5 minutes."
-    ##           expr: |
-    ##             absent(kube_pod_status_ready{namespace="{{ include "common.names.namespace" . }}", condition="true"} * on (pod) kube_pod_labels{pod=~"{{ include "common.names.fullname" . }}-\\d+", namespace="{{ include "common.names.namespace" . }}"}) != 0
-    ##           for: 5m
-    ##           labels:
-    ##             severity: critical
-    groups: []
-## @section keycloak-config-cli parameters
-
-## Configuration for keycloak-config-cli
-## ref: https://github.com/adorsys/keycloak-config-cli
-##
-keycloakConfigCli:
-  ## @param keycloakConfigCli.enabled Whether to enable keycloak-config-cli job
-  ##
-  enabled: false
-  ## Bitnami keycloak-config-cli image
-  ## ref: https://hub.docker.com/r/bitnami/keycloak-config-cli/tags/
-  ## @param keycloakConfigCli.image.registry [default: REGISTRY_NAME] keycloak-config-cli container image registry
-  ## @param keycloakConfigCli.image.repository [default: REPOSITORY_NAME/keycloak-config-cli] keycloak-config-cli container image repository
-  ## @skip keycloakConfigCli.image.tag keycloak-config-cli container image tag
-  ## @param keycloakConfigCli.image.digest keycloak-config-cli container image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
-  ## @param keycloakConfigCli.image.pullPolicy keycloak-config-cli container image pull policy
-  ## @param keycloakConfigCli.image.pullSecrets keycloak-config-cli container image pull secrets
-  ##
+  # Default image used by all authentik components. For GeoIP configuration, see the geoip values below.
   image:
-    registry: docker.io
-    repository: bitnami/keycloak-config-cli
-    tag: 6.4.0-debian-12-r9
+    # -- If defined, a repository applied to all authentik deployments
+    repository: ghcr.io/goauthentik/server
+    # -- Overrides the global authentik whose default is the chart appVersion
+    tag: ""
+    # -- If defined, an image digest applied to all authentik deployments
     digest: ""
-    ## Specify a imagePullPolicy
-    ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
-    ##
+    # -- If defined, an imagePullPolicy applied to all authentik deployments
     pullPolicy: IfNotPresent
-    ## Optionally specify an array of imagePullSecrets.
-    ## Secrets must be manually created in the namespace.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-    ## e.g:
-    ## pullSecrets:
-    ##   - myRegistryKeySecretName
-    ##
-    pullSecrets: []
-  ## @param keycloakConfigCli.annotations [object] Annotations for keycloak-config-cli job
-  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-  ##
-  annotations:
-    helm.sh/hook: "post-install,post-upgrade,post-rollback"
-    helm.sh/hook-delete-policy: "hook-succeeded,before-hook-creation"
-    helm.sh/hook-weight: "5"
-  ## @param keycloakConfigCli.command Command for running the container (set to default if not set). Use array form
-  ##
-  command: []
-  ## @param keycloakConfigCli.args Args for running the container (set to default if not set). Use array form
-  ##
-  args: []
-  ## @param keycloakConfigCli.automountServiceAccountToken Mount Service Account token in pod
-  ##
-  automountServiceAccountToken: true
-  ## @param keycloakConfigCli.hostAliases Job pod host aliases
-  ## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
-  ##
-  hostAliases: []
-  ## Keycloak config CLI resource requests and limits
-  ## ref: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
-  ## @param keycloakConfigCli.resourcesPreset Set container resources according to one common preset (allowed values: none, nano, micro, small, medium, large, xlarge, 2xlarge). This is ignored if keycloakConfigCli.resources is set (keycloakConfigCli.resources is recommended for production).
-  ## More information: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15
-  ##
-  resourcesPreset: "small"
-  ## @param keycloakConfigCli.resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
-  ## Example:
-  ## resources:
-  ##   requests:
-  ##     cpu: 2
-  ##     memory: 512Mi
-  ##   limits:
-  ##     cpu: 3
-  ##     memory: 1024Mi
-  ##
-  resources: {}
-  ## keycloak-config-cli containers' Security Context
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-  ## @param keycloakConfigCli.containerSecurityContext.enabled Enabled keycloak-config-cli Security Context
-  ## @param keycloakConfigCli.containerSecurityContext.seLinuxOptions [object,nullable] Set SELinux options in container
-  ## @param keycloakConfigCli.containerSecurityContext.runAsUser Set keycloak-config-cli Security Context runAsUser
-  ## @param keycloakConfigCli.containerSecurityContext.runAsGroup Set keycloak-config-cli Security Context runAsGroup
-  ## @param keycloakConfigCli.containerSecurityContext.runAsNonRoot Set keycloak-config-cli Security Context runAsNonRoot
-  ## @param keycloakConfigCli.containerSecurityContext.privileged Set keycloak-config-cli Security Context privileged
-  ## @param keycloakConfigCli.containerSecurityContext.readOnlyRootFilesystem Set keycloak-config-cli Security Context readOnlyRootFilesystem
-  ## @param keycloakConfigCli.containerSecurityContext.allowPrivilegeEscalation Set keycloak-config-cli Security Context allowPrivilegeEscalation
-  ## @param keycloakConfigCli.containerSecurityContext.capabilities.drop List of capabilities to be dropped
-  ## @param keycloakConfigCli.containerSecurityContext.seccompProfile.type Set keycloak-config-cli Security Context seccomp profile
-  ##
-  containerSecurityContext:
-    enabled: true
-    seLinuxOptions: {}
-    runAsUser: 1001
-    runAsGroup: 1001
-    runAsNonRoot: true
-    privileged: false
-    readOnlyRootFilesystem: true
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop: ["ALL"]
-    seccompProfile:
-      type: "RuntimeDefault"
-  ## keycloak-config-cli pods' Security Context
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-  ## @param keycloakConfigCli.podSecurityContext.enabled Enabled keycloak-config-cli pods' Security Context
-  ## @param keycloakConfigCli.podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
-  ## @param keycloakConfigCli.podSecurityContext.sysctls Set kernel settings using the sysctl interface
-  ## @param keycloakConfigCli.podSecurityContext.supplementalGroups Set filesystem extra groups
-  ## @param keycloakConfigCli.podSecurityContext.fsGroup Set keycloak-config-cli pod's Security Context fsGroup
-  ##
-  podSecurityContext:
-    enabled: true
-    fsGroupChangePolicy: Always
-    sysctls: []
-    supplementalGroups: []
-    fsGroup: 1001
-  ## @param keycloakConfigCli.backoffLimit Number of retries before considering a Job as failed
-  ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy
-  ##
-  backoffLimit: 1
-  ## @param keycloakConfigCli.podLabels Pod extra labels
-  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-  ##
-  podLabels: {}
-  ## @param keycloakConfigCli.podAnnotations Annotations for job pod
-  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-  ##
+
+  # -- Secrets with credentials to pull images from a private registry
+  imagePullSecrets: []
+
+  # -- Annotations for all deployed Deployments
+  deploymentAnnotations: {}
+
+  # -- Annotations for all deployed pods
   podAnnotations: {}
-  ## @param keycloakConfigCli.nodeSelector Node labels for pod assignment
-  ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
-  ##
+
+  # -- Annotations for all deployed secrets
+  secretAnnotations: {}
+
+  # -- Labels for all deployed pods
+  podLabels: {}
+
+  # -- Add Prometheus scrape annotations to all metrics services. This can be used as an alternative to the ServiceMonitors.
+  addPrometheusAnnotations: false
+
+  # -- Toggle and define pod-level security context.
+  # @default -- `{}` (See [values.yaml])
+  securityContext: {}
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # fsGroup: 1000
+
+  # -- Mapping between IP and hostnames that will be injected as entries in the pod's hosts files
+  hostAliases: []
+    # - ip: 10.20.30.40
+    #   hostnames:
+    #     - my.hostname
+
+  # -- Default priority class for all components
+  priorityClassName: ""
+
+  # -- Default node selector for all components
   nodeSelector: {}
-  ##
-  ## @param keycloakConfigCli.podTolerations Tolerations for job pod assignment
-  ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  ##
-  podTolerations: []
-  ## keycloak-config-cli availability-check configuration
-  ## ref: https://github.com/adorsys/keycloak-config-cli#Configuration
-  ## @param keycloakConfigCli.availabilityCheck.enabled Whether to wait until Keycloak is available
-  ## @param keycloakConfigCli.availabilityCheck.timeout Timeout for the availability check (Default is 120s)
-  ##
-  availabilityCheck:
-    enabled: true
-    timeout: ""
-  ## @param keycloakConfigCli.extraEnvVars Additional environment variables to set
-  ## Example:
-  ## extraEnvVars:
-  ##   - name: FOO
-  ##     value: "bar"
-  ##
-  extraEnvVars: []
-  ## @param keycloakConfigCli.extraEnvVarsCM ConfigMap with extra environment variables
-  ##
-  extraEnvVarsCM: ""
-  ## @param keycloakConfigCli.extraEnvVarsSecret Secret with extra environment variables
-  ##
-  extraEnvVarsSecret: ""
-  ## @param keycloakConfigCli.extraVolumes Extra volumes to add to the job
-  ##
-  extraVolumes: []
-  ## @param keycloakConfigCli.extraVolumeMounts Extra volume mounts to add to the container
-  ##
-  extraVolumeMounts: []
-  ## @param keycloakConfigCli.initContainers Add additional init containers to the Keycloak config cli pod
-  ## Example:
-  ## initContainers:
-  ##   - name: your-image-name
-  ##     image: your-image
-  ##     imagePullPolicy: Always
-  ##     ports:
-  ##       - name: portname
-  ##         containerPort: 1234
-  ##
-  initContainers: []
-  ## @param keycloakConfigCli.sidecars Add additional sidecar containers to the Keycloak config cli pod
-  ## Example:
-  ## sidecars:
-  ##   - name: your-image-name
-  ##     image: your-image
-  ##     imagePullPolicy: Always
-  ##     ports:
-  ##       - name: portname
-  ##         containerPort: 1234
-  ##
-  sidecars: []
-  ## @param keycloakConfigCli.configuration keycloak-config-cli realms configuration
-  ## NOTE: nil keys will be considered files to import locally
-  ## Example:
-  ## configuration:
-  ##   realm1.json: |
-  ##     {
-  ##       "realm": "realm1",
-  ##       "clients": []
-  ##     }
-  ##   realm2.yaml: |
-  ##     realm: realm2
-  ##     clients: []
-  ##
-  configuration: {}
-  ## @param keycloakConfigCli.existingConfigmap ConfigMap with keycloak-config-cli configuration
-  ## NOTE: This will override keycloakConfigCli.configuration
-  ##
-  existingConfigmap: ""
-  ## Automatic Cleanup for Finished Jobs
-  ## @param keycloakConfigCli.cleanupAfterFinished.enabled Enables Cleanup for Finished Jobs
-  ## @param keycloakConfigCli.cleanupAfterFinished.seconds Sets the value of ttlSecondsAfterFinished
-  ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/
-  ##
-  cleanupAfterFinished:
-    enabled: false
-    seconds: 600
-## @section Database parameters
 
-## PostgreSQL chart configuration
-## ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
-## @param postgresql.enabled Switch to enable or disable the PostgreSQL helm chart
-## @param postgresql.auth.postgresPassword Password for the "postgres" admin user. Ignored if `auth.existingSecret` with key `postgres-password` is provided
-## @param postgresql.auth.username Name for a custom user to create
-## @param postgresql.auth.password Password for the custom user to create
-## @param postgresql.auth.database Name for a custom database to create
-## @param postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials
-## @param postgresql.auth.secretKeys.userPasswordKey Name of key in existing secret to use for PostgreSQL credentials. Only used when `auth.existingSecret` is set.
-## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
-##
-postgresql:
+  # -- Default tolerations for all components
+  tolerations: []
+
+  # Default affinity preset for all components
+  affinity:
+    # -- Default pod anti-affinity rules. Either: `none`, `soft` or `hard`
+    podAntiAffinity: soft
+    # Node affinity rules
+    nodeAffinity:
+      # -- Default node affinity rules. Either `none`, `soft` or `hard`
+      type: hard
+      # -- Default match expressions for node affinity
+      matchExpressions: []
+        # - key: topology.kubernetes.io/zone
+        #   operator: In
+        #   values:
+        #     - zonea
+        #     - zoneb
+
+  # -- Default [TopologySpreadConstraints] rules for all components
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  topologySpreadConstraints: []
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
+
+  # -- Deployment strategy for all deployed Deployments
+  deploymentStrategy: {}
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
+
+  # -- Environment variables to pass to all deployed Deployments. Does not apply to GeoIP
+  # See configuration options at https://goauthentik.io/docs/installation/configuration/
+  # @default -- `[]` (See [values.yaml])
+  env: []
+    # - name: AUTHENTIK_VAR_NAME
+    #   value: VALUE
+    # - name: AUTHENTIK_VAR_OTHER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: secret-key
+    # - name: AUTHENTIK_VAR_ANOTHER
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: config-map-name
+    #       key: config-map-key
+
+  # -- envFrom to pass to all deployed Deployments. Does not apply to GeoIP
+  # @default -- `[]` (See [values.yaml])
+  envFrom: []
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
+
+  # -- Additional volumeMounts to all deployed Deployments. Does not apply to GeoIP
+  # @default -- `[]` (See [values.yaml])
+  volumeMounts: []
+    # - name: custom
+    #   mountPath: /custom
+
+  # -- Additional volumes to all deployed Deployments.
+  # @default -- `[]` (See [values.yaml])
+  volumes: []
+    # - name: custom
+    #   emptyDir: {}
+
+
+## Authentik configuration
+authentik:
+  # -- whether to create the authentik configuration secret
   enabled: true
-  auth:
-    postgresPassword: ""
-    username: bn_keycloak
+  # -- Log level for server and worker
+  log_level: info
+  # -- Secret key used for cookie singing and unique user IDs,
+  # don't change this after the first install
+  secret_key: ""
+  events:
+    context_processors:
+      # -- Path for the GeoIP City database. If the file doesn't exist, GeoIP features are disabled.
+      geoip: /geoip/GeoLite2-City.mmdb
+      # -- Path for the GeoIP ASN database. If the file doesn't exist, GeoIP features are disabled.
+      asn: /geoip/GeoLite2-ASN.mmdb
+  web:
+    # -- Relative path the authentik instance will be available at. Value _must_ contain both a leading and trailing slash.
+    path: /
+  email:
+    # -- SMTP Server emails are sent from, fully optional
+    host: ""
+    # -- SMTP server port
+    port: 587
+    # -- SMTP credentials, when left empty, no authentication will be done
+    username: ""
+    # -- SMTP credentials, when left empty, no authentication will be done
     password: ""
-    database: bitnami_keycloak
-    existingSecret: ""
-    secretKeys:
-      userPasswordKey: password
-  architecture: standalone
-## External PostgreSQL configuration
-## All of these values are only used when postgresql.enabled is set to false
-## @param externalDatabase.host Database host
-## @param externalDatabase.port Database port number
-## @param externalDatabase.user Non-root username for Keycloak
-## @param externalDatabase.password Password for the non-root username for Keycloak
-## @param externalDatabase.database Keycloak database name
-## @param externalDatabase.existingSecret Name of an existing secret resource containing the database credentials
-## @param externalDatabase.existingSecretHostKey Name of an existing secret key containing the database host name
-## @param externalDatabase.existingSecretPortKey Name of an existing secret key containing the database port
-## @param externalDatabase.existingSecretUserKey Name of an existing secret key containing the database user
-## @param externalDatabase.existingSecretDatabaseKey Name of an existing secret key containing the database name
-## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
-## @param externalDatabase.annotations Additional custom annotations for external database secret object
-##
-externalDatabase:
-  host: ""
-  port: 5432
-  user: bn_keycloak
-  database: bitnami_keycloak
-  password: ""
-  existingSecret: ""
-  existingSecretHostKey: ""
-  existingSecretPortKey: ""
-  existingSecretUserKey: ""
-  existingSecretDatabaseKey: ""
-  existingSecretPasswordKey: ""
-  annotations: {}
-## @section Keycloak Cache parameters
+    # -- Use StartTLS. Enable either use_tls or use_ssl, they can't be enabled at the same time.
+    use_tls: false
+    # -- Use SSL. Enable either use_tls or use_ssl, they can't be enabled at the same time.
+    use_ssl: false
+    # -- Connection timeout
+    timeout: 30
+    # -- Email from address, can either be in the format "foo@bar.baz" or "authentik <foo@bar.baz>"
+    from: ""
+  outposts:
+    # -- Template used for managed outposts. The following placeholders can be used
+    # %(type)s - the type of the outpost
+    # %(version)s - version of your authentik install
+    # %(build_hash)s - only for beta versions, the build hash of the image
+    container_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
+  error_reporting:
+    # -- This sends anonymous usage-data, stack traces on errors and
+    # performance data to sentry.beryju.org, and is fully opt-in
+    enabled: false
+    # -- This is a string that is sent to sentry with your error reports
+    environment: "k8s"
+    # -- Send PII (Personally identifiable information) data to sentry
+    send_pii: false
+  postgresql:
+    # -- set the postgresql hostname to talk to
+    # if unset and .Values.postgresql.enabled == true, will generate the default
+    # @default -- `{{ .Release.Name }}-postgresql`
+    host: "{{ .Release.Name }}-postgresql"
+    # -- postgresql Database name
+    # @default -- `authentik`
+    name: "authentik"
+    # -- postgresql Username
+    # @default -- `authentik`
+    user: "authentik"
+    password: ""
+    port: 5432
+  redis:
+    # -- set the redis hostname to talk to
+    # @default -- `{{ .Release.Name }}-redis-master`
+    host: "{{ .Release.Name }}-redis-master"
+    password: ""
 
-## Keycloak cache configuration
-## ref: https://www.keycloak.org/server/caching
-## @param cache.enabled Switch to enable or disable the keycloak distributed cache for kubernetes.
-## NOTE: Set to false to use 'local' cache (only supported when replicaCount=1).
-## @param cache.stack Set infinispan cache stack to use, sets KC_CACHE_STACK (<https://www.keycloak.org/server/all-config?q=cache-stack>)
-## @param cache.configFile Set infinispan cache stack config filename sets KC_CACHE_CONFIG_FILE (<https://www.keycloak.org/server/all-config?q=cache-config-file>)
-## @param cache.useHeadlessServiceWithAppVersion Set to true to create the headless service used for ispn containing the app version
-##
-cache:
+
+blueprints:
+  # -- List of config maps to mount blueprints from.
+  # Only keys in the configMap ending with `.yaml` will be discovered and applied.
+  configMaps: []
+  # -- List of secrets to mount blueprints from.
+  # Only keys in the secret ending with `.yaml` will be discovered and applied.
+  secrets: []
+
+
+## authentik server
+server:
+  # -- whether to enable server resources
   enabled: true
-  stack: kubernetes
-  configFile: "cache-ispn.xml"
-  useHeadlessServiceWithAppVersion: false
-## @section Keycloak Logging parameters
 
-## Keycloak logging configuration
-## ref: https://www.keycloak.org/server/logging
-## @param logging.output Alternates between the default log output format or json format
-## @param logging.level Allowed values as documented: FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL, OFF
-##
-logging:
-  output: default
-  level: INFO
+  # -- authentik server name
+  name: server
+
+  # -- The number of server pods to run
+  replicas: 1
+
+  ## authentik server Horizontal Pod Autoscaler
+  autoscaling:
+    # -- Enable Horizontal Pod Autoscaler ([HPA]) for the authentik server
+    enabled: false
+    # -- Minimum number of replicas for the authentik server [HPA]
+    minReplicas: 1
+    # -- Maximum number of replicas for the authentik server [HPA]
+    maxReplicas: 5
+    # -- Average CPU utilization percentage for the authentik server [HPA]
+    targetCPUUtilizationPercentage: 50
+    # -- Average memory utilization percentage for the authentik server [HPA]
+    targetMemoryUtilizationPercentage: ~
+    # -- Configures the scaling behavior of the target in both Up and Down directions.
+    behavior: {}
+      # scaleDown:
+      #   stabilizationWindowSeconds: 300
+      #   policies:
+      #     - type: Pods
+      #       value: 1
+      #       periodSeconds: 180
+      # scaleUp:
+      #   stabilizationWindowSeconds: 300
+      #   policies:
+      #     - type: Pods
+      #       value: 2
+      #       periodSeconds: 60
+    # -- Configures custom HPA metrics for the authentik server
+    # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+    metrics: []
+
+  ## authentik server Pod Disruption Budget
+  ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  pdb:
+    # -- Deploy a [PodDistrubtionBudget] for the authentik server
+    enabled: false
+    # -- Labels to be added to the authentik server pdb
+    labels: {}
+    # -- Annotations to be added to the authentik server pdb
+    annotations: {}
+    # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+    # @default -- `""` (defaults to 0 if not specified)
+    minAvailable: ""
+    # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%)
+    ## Has higher precedence over `server.pdb.minAvailable`
+    maxUnavailable: ""
+
+  ## authentik server image
+  ## This should match what is deployed in the worker. Prefer using global.image
+  image:
+    # -- Repository to use to the authentik server
+    # @default -- `""` (defaults to global.image.repository)
+    repository: "" # defaults to global.image.repository
+    # -- Tag to use to the authentik server
+    # @default -- `""` (defaults to global.image.tag)
+    tag: "" # defaults to global.image.tag
+    # -- Digest to use to the authentik server
+    # @default -- `""` (defaults to global.image.digest)
+    digest: "" # defaults to global.image.digest
+    # -- Image pull policy to use to the authentik server
+    # @default -- `""` (defaults to global.image.pullPolicy)
+    pullPolicy: "" # defaults to global.image.pullPolicy
+
+  # -- Secrets with credentials to pull images from a private registry
+  # @default -- `[]` (defaults to global.imagePullSecrets)
+  imagePullSecrets: []
+
+  # -- Environment variables to pass to the authentik server. Does not apply to GeoIP
+  # See configuration options at https://goauthentik.io/docs/installation/configuration/
+  # @default -- `[]` (See [values.yaml])
+  env: []
+    # - name: AUTHENTIK_VAR_NAME
+    #   value: VALUE
+    # - name: AUTHENTIK_VAR_OTHER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: secret-key
+    # - name: AUTHENTIK_VAR_ANOTHER
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: config-map-name
+    #       key: config-map-key
+
+  # -- envFrom to pass to the authentik server. Does not apply to GeoIP
+  # @default -- `[]` (See [values.yaml])
+  envFrom: []
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
+
+  # -- Specify postStart and preStop lifecycle hooks for you authentik server container
+  lifecycle: {}
+
+  # -- Additional containers to be added to the authentik server pod
+  ## Note: Supports use of custom Helm templates
+  extraContainers: []
+  # - name: my-sidecar
+  #   image: nginx:latest
+
+  # -- Init containers to add to the authentik server pod
+  ## Note: Supports use of custom Helm templates
+  initContainers: []
+  # - name: download-tools
+  #   image: alpine:3
+  #   command: [sh, -c]
+  #   args:
+  #     - echo init
+
+  # -- Additional volumeMounts to the authentik server main container
+  volumeMounts: []
+    # - name: custom
+    #   mountPath: /custom
+
+  # -- Additional volumes to the authentik server pod
+  volumes: []
+    # - name: custom
+    #   emptyDir: {}
+
+  # -- Annotations to be added to the authentik server Deployment
+  deploymentAnnotations: {}
+
+  # -- Annotations to be added to the authentik server pods
+  podAnnotations: {}
+
+  # -- Labels to be added to the authentik server pods
+  podLabels: {}
+
+  # -- Resource limits and requests for the authentik server
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 512Mi
+    # limits:
+    #   memory: 512Mi
+
+  # authentik server container ports
+  containerPorts:
+    # -- http container port
+    http: 9000
+    # -- https container port
+    https: 9443
+    # -- metrics container port
+    metrics: 9300
+
+  # -- Host Network for authentik server pods
+  hostNetwork: false
+
+  # -- [DNS configuration]
+  dnsConfig: {}
+  # -- Alternative DNS policy for authentik server pods
+  dnsPolicy: ""
+
+  # -- serviceAccount to use for authentik server pods
+  serviceAccountName: ~
+
+  # -- authentik server pod-level security context
+  # @default -- `{}` (See [values.yaml])
+  securityContext: {}
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # fsGroup: 1000
+
+  # -- authentik server container-level security context
+  # @default -- See [values.yaml]
+  containerSecurityContext: {}
+    # Not all of the following has been tested. Use at your own risk.
+    # runAsNonRoot: true
+    # readOnlyRootFilesystem: true
+    # allowPrivilegeEscalation: false
+    # seccomProfile:
+    #   type: RuntimeDefault
+    # capabilities:
+    #   drop:
+    #     - ALL
+
+  ## Liveness, readiness and startup probes for authentik server
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+  livenessProbe:
+    # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+    failureThreshold: 3
+    # -- Number of seconds after the container has started before [probe] is initiated
+    initialDelaySeconds: 5
+    # -- How often (in seconds) to perform the [probe]
+    periodSeconds: 10
+    # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+    successThreshold: 1
+    # -- Number of seconds after which the [probe] times out
+    timeoutSeconds: 1
+    ## Probe configuration
+    httpGet:
+      path: "{{ .Values.authentik.web.path }}-/health/live/"
+      port: http
+
+  readinessProbe:
+    # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+    failureThreshold: 3
+    # -- Number of seconds after the container has started before [probe] is initiated
+    initialDelaySeconds: 5
+    # -- How often (in seconds) to perform the [probe]
+    periodSeconds: 10
+    # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+    successThreshold: 1
+    # -- Number of seconds after which the [probe] times out
+    timeoutSeconds: 1
+    ## Probe configuration
+    httpGet:
+      path: "{{ .Values.authentik.web.path }}-/health/ready/"
+      port: http
+
+  startupProbe:
+    # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+    failureThreshold: 60
+    # -- Number of seconds after the container has started before [probe] is initiated
+    initialDelaySeconds: 5
+    # -- How often (in seconds) to perform the [probe]
+    periodSeconds: 10
+    # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+    successThreshold: 1
+    # -- Number of seconds after which the [probe] times out
+    timeoutSeconds: 1
+    ## Probe configuration
+    httpGet:
+      path: "{{ .Values.authentik.web.path }}-/health/live/"
+      port: http
+
+  # -- terminationGracePeriodSeconds for container lifecycle hook
+  terminationGracePeriodSeconds: 30
+
+  # -- Prority class for the authentik server pods
+  # @default -- `""` (defaults to global.priorityClassName)
+  priorityClassName: ""
+
+  # -- [Node selector]
+  # @default -- `{}` (defaults to global.nodeSelector)
+  nodeSelector: {}
+
+  # -- [Tolerations] for use with node taints
+  # @default -- `[]` (defaults to global.tolerations)
+  tolerations: []
+
+  # -- Assign custom [affinity] rules to the deployment
+  # @default -- `{}` (defaults to the global.affinity preset)
+  affinity: {}
+
+  # -- Assign custom [TopologySpreadConstraints] rules to the authentik server
+  # @default -- `[]` (defaults to global.topologySpreadConstraints)
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
+  topologySpreadConstraints: []
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
+
+  # -- Deployment strategy to be added to the authentik server Deployment
+  # @default -- `{}` (defaults to global.deploymentStrategy)
+  deploymentStrategy: {}
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
+
+  ## authentik server service configuration
+  service:
+    # -- authentik server service annotations
+    annotations: {}
+    # -- authentik server service labels
+    labels: {}
+    # -- authentik server service type
+    type: ClusterIP
+    # -- authentik server service http port for NodePort service type (only if `server.service.type` is set to `NodePort`)
+    nodePortHttp: 30080
+    # -- authentik server service https port for NodePort service type (only if `server.service.type` is set to `NodePort`)
+    nodePortHttps: 30443
+    # -- authentik server service http port
+    servicePortHttp: 80
+    # -- authentik server service https port
+    servicePortHttps: 443
+    # -- authentik server service http port name
+    servicePortHttpName: http
+    # -- authentik server service https port name
+    servicePortHttpsName: https
+    # -- authentik server service http port appProtocol
+    # servicePortHttpAppProtocol: HTTP
+    # -- authentik server service https port appProtocol
+    # servicePortHttpsAppProtocol: HTTPS
+    # -- LoadBalancer will get created with the IP specified in this field
+    loadBalancerIP: ""
+    # -- Source IP ranges to allow access to service from
+    loadBalancerSourceRanges: []
+    # -- authentik server service external IPs
+    externalIPs: []
+    # -- Denotes if this service desires to route external traffic to node-local or cluster-wide endpoints
+    externalTrafficPolicy: ""
+    # -- Used to maintain session affinity. Supports `ClientIP` and `None`
+    sessionAffinity: ""
+    # -- Session affinity configuration
+    sessionAffinityConfig: {}
+
+  ## authentik server metrics service configuration
+  metrics:
+    # -- deploy metrics service
+    enabled: false
+    service:
+      # -- metrics service type
+      type: ClusterIP
+      # -- metrics service clusterIP. `None` makes a "headless service" (no virtual IP)
+      clusterIP: ""
+      # -- metrics service annotations
+      annotations: {}
+      # -- metrics service labels
+      labels: {}
+      # -- metrics service port
+      servicePort: 9300
+      # -- metrics service port name
+      portName: metrics
+    serviceMonitor:
+      # -- enable a prometheus ServiceMonitor
+      enabled: false
+      # -- Prometheus ServiceMonitor interval
+      interval: 30s
+      # -- Prometheus ServiceMonitor scrape timeout
+      scrapeTimeout: 3s
+      # -- Prometheus [RelabelConfigs] to apply to samples before scraping
+      relabelings: []
+      # -- Prometheus [MetricsRelabelConfigs] to apply to samples before ingestion
+      metricRelabelings: []
+      # -- Prometheus ServiceMonitor selector
+      selector: {}
+        # prometheus: kube-prometheus
+
+      # -- Prometheus ServiceMonitor scheme
+      scheme: ""
+      # -- Prometheus ServiceMonitor tlsConfig
+      tlsConfig: {}
+      # -- Prometheus ServiceMonitor namespace
+      namespace: ""
+      # -- Prometheus ServiceMonitor labels
+      labels: {}
+      # -- Prometheus ServiceMonitor annotations
+      annotations: {}
+
+  ingress:
+    # -- enable an ingress resource for the authentik server
+    enabled: false
+    # -- additional ingress annotations
+    annotations: {}
+    # -- additional ingress labels
+    labels: {}
+    # -- defines which ingress controller will implement the resource
+    ingressClassName: ""
+    # -- List of ingress hosts
+    hosts: []
+      # - authentik.domain.tld
+
+    # -- List of ingress paths
+    paths:
+      - "{{ .Values.authentik.web.path }}"
+    # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+    pathType: Prefix
+    # -- additional ingress paths
+    extraPaths: []
+      # - path: /*
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: ssl-redirect
+      #       port:
+      #         name: use-annotation
+
+    # -- ingress TLS configuration
+    tls: []
+      # - secretName: authentik-tls
+      #   hosts:
+      #     - authentik.domain.tld
+
+    # -- uses `server.service.servicePortHttps` instead of `server.service.servicePortHttp`
+    https: false
+
+  route:
+    main:
+      # -- enable an HTTPRoute resource for the authentik server.
+      # Be aware that this is an early beta of this feature. We don't guarantee this works and is subject to change.
+      enabled: false
+      # -- Set the route apiVersion
+      apiVersion: gateway.networking.k8s.io/v1
+      # -- Set the route kind
+      kind: HTTPRoute
+
+      # -- Route annotations
+      annotations: {}
+      # -- Route labels
+      labels: {}
+
+      # -- Route hostnames
+      hostnames: []
+      # -- Reference to parent gateways
+      parentRefs: []
+
+      # -- Create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects).
+      # Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+      # Matches, filters and additionalRules will be ignored if this is set to true
+      httpsRedirect: false
+
+      # -- uses `server.service.servicePortHttps` instead of `server.service.servicePortHttp`
+      https: false
+
+      # -- Route matches
+      matches:
+        - path:
+            type: PathPrefix
+            value: "{{ .Values.authentik.web.path }}"
+
+      # -- Route filters
+      filters: []
+
+      # -- Additional custom rules that can be added to the route
+      additionalRules: []
+
+
+## authentik worker
+worker:
+  # -- whether to enable worker resources
+  enabled: true
+
+  # -- authentik worker name
+  name: worker
+
+  # -- The number of worker pods to run
+  replicas: 1
+
+  ## authentik worker Horizontal Pod Autoscaler
+  autoscaling:
+    # -- Enable Horizontal Pod Autoscaler ([HPA]) for the authentik worker
+    enabled: false
+    # -- Minimum number of replicas for the authentik worker [HPA]
+    minReplicas: 1
+    # -- Maximum number of replicas for the authentik worker [HPA]
+    maxReplicas: 5
+    # -- Average CPU utilization percentage for the authentik worker [HPA]
+    targetCPUUtilizationPercentage: 50
+    # -- Average memory utilization percentage for the authentik worker [HPA]
+    targetMemoryUtilizationPercentage: ~
+    # -- Configures the scaling behavior of the target in both Up and Down directions.
+    behavior: {}
+      # scaleDown:
+      #   stabilizationWindowSeconds: 300
+      #   policies:
+      #     - type: Pods
+      #       value: 1
+      #       periodSeconds: 180
+      # scaleUp:
+      #   stabilizationWindowSeconds: 300
+      #   policies:
+      #     - type: Pods
+      #       value: 2
+      #       periodSeconds: 60
+    # -- Configures custom HPA metrics for the authentik worker
+    # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+    metrics: []
+
+  ## authentik worker Pod Disruption Budget
+  ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  pdb:
+    # -- Deploy a [PodDistrubtionBudget] for the authentik worker
+    enabled: false
+    # -- Labels to be added to the authentik worker pdb
+    labels: {}
+    # -- Annotations to be added to the authentik worker pdb
+    annotations: {}
+    # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+    # @default -- `""` (defaults to 0 if not specified)
+    minAvailable: ""
+    # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%)
+    ## Has higher precedence over `worker.pdb.minAvailable`
+    maxUnavailable: ""
+
+  ## authentik worker image
+  ## This should match what is deployed in the server. Prefer using global.image
+  image:
+    # -- Repository to use to the authentik worker
+    # @default -- `""` (defaults to global.image.repository)
+    repository: "" # defaults to global.image.repository
+    # -- Tag to use to the authentik worker
+    # @default -- `""` (defaults to global.image.tag)
+    tag: "" # defaults to global.image.tag
+    # -- Digest to use to the authentik worker
+    # @default -- `""` (defaults to global.image.digest)
+    digest: "" # defaults to global.image.digest
+    # -- Image pull policy to use to the authentik worker
+    # @default -- `""` (defaults to global.image.pullPolicy)
+    pullPolicy: "" # defaults to global.image.pullPolicy
+
+  # -- Secrets with credentials to pull images from a private registry
+  # @default -- `[]` (defaults to global.imagePullSecrets)
+  imagePullSecrets: []
+
+  # -- Environment variables to pass to the authentik worker. Does not apply to GeoIP
+  # See configuration options at https://goauthentik.io/docs/installation/configuration/
+  # @default -- `[]` (See [values.yaml])
+  env: []
+    # - name: AUTHENTIK_VAR_NAME
+    #   value: VALUE
+    # - name: AUTHENTIK_VAR_OTHER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: secret-key
+    # - name: AUTHENTIK_VAR_ANOTHER
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: config-map-name
+    #       key: config-map-key
+
+  # -- envFrom to pass to the authentik worker. Does not apply to GeoIP
+  # @default -- `[]` (See [values.yaml])
+  envFrom: []
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
+
+  # -- Specify postStart and preStop lifecycle hooks for you authentik worker container
+  lifecycle: {}
+
+  # -- Additional containers to be added to the authentik worker pod
+  ## Note: Supports use of custom Helm templates
+  extraContainers: []
+  # - name: my-sidecar
+  #   image: nginx:latest
+
+  # -- Init containers to add to the authentik worker pod
+  ## Note: Supports use of custom Helm templates
+  initContainers: []
+  # - name: download-tools
+  #   image: alpine:3
+  #   command: [sh, -c]
+  #   args:
+  #     - echo init
+
+  # -- Additional volumeMounts to the authentik worker main container
+  volumeMounts: []
+    # - name: custom
+    #   mountPath: /custom
+
+  # -- Additional volumes to the authentik worker pod
+  volumes: []
+    # - name: custom
+    #   emptyDir: {}
+
+  # -- Annotations to be added to the authentik worker Deployment
+  deploymentAnnotations: {}
+
+  # -- Annotations to be added to the authentik worker pods
+  podAnnotations: {}
+
+  # -- Labels to be added to the authentik worker pods
+  podLabels: {}
+
+  # -- Resource limits and requests for the authentik worker
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 512Mi
+    # limits:
+    #   memory: 512Mi
+
+  # -- Host Network for authentik worker pods
+  hostNetwork: false
+
+  # -- [DNS configuration]
+  dnsConfig: {}
+  # -- Alternative DNS policy for authentik worker pods
+  dnsPolicy: ""
+
+  # -- serviceAccount to use for authentik worker pods. If set, overrides the value used when serviceAccount.create is true
+  serviceAccountName: ~
+
+  # -- authentik worker pod-level security context
+  # @default -- `{}` (See [values.yaml])
+  securityContext: {}
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # fsGroup: 1000
+
+  # -- authentik worker container-level security context
+  # @default -- See [values.yaml]
+  containerSecurityContext: {}
+    # Not all of the following has been tested. Use at your own risk.
+    # runAsNonRoot: true
+    # readOnlyRootFilesystem: true
+    # allowPrivilegeEscalation: false
+    # seccomProfile:
+    #   type: RuntimeDefault
+    # capabilities:
+    #   drop:
+    #     - ALL
+
+  livenessProbe:
+    # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+    failureThreshold: 3
+    # -- Number of seconds after the container has started before [probe] is initiated
+    initialDelaySeconds: 5
+    # -- How often (in seconds) to perform the [probe]
+    periodSeconds: 10
+    # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+    successThreshold: 1
+    # -- Number of seconds after which the [probe] times out
+    timeoutSeconds: 1
+    ## Probe configuration
+    exec:
+      command:
+        - ak
+        - healthcheck
+
+  readinessProbe:
+    # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+    failureThreshold: 3
+    # -- Number of seconds after the container has started before [probe] is initiated
+    initialDelaySeconds: 5
+    # -- How often (in seconds) to perform the [probe]
+    periodSeconds: 10
+    # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+    successThreshold: 1
+    # -- Number of seconds after which the [probe] times out
+    timeoutSeconds: 1
+    ## Probe configuration
+    exec:
+      command:
+        - ak
+        - healthcheck
+
+  startupProbe:
+    # -- Minimum consecutive failures for the [probe] to be considered failed after having succeeded
+    failureThreshold: 60
+    # -- Number of seconds after the container has started before [probe] is initiated
+    initialDelaySeconds: 30
+    # -- How often (in seconds) to perform the [probe]
+    periodSeconds: 10
+    # -- Minimum consecutive successes for the [probe] to be considered successful after having failed
+    successThreshold: 1
+    # -- Number of seconds after which the [probe] times out
+    timeoutSeconds: 1
+    ## Probe configuration
+    exec:
+      command:
+        - ak
+        - healthcheck
+
+  # -- terminationGracePeriodSeconds for container lifecycle hook
+  terminationGracePeriodSeconds: 30
+
+  # -- Prority class for the authentik worker pods
+  # @default -- `""` (defaults to global.priorityClassName)
+  priorityClassName: ""
+
+  # -- [Node selector]
+  # @default -- `{}` (defaults to global.nodeSelector)
+  nodeSelector: {}
+
+  # -- [Tolerations] for use with node taints
+  # @default -- `[]` (defaults to global.tolerations)
+  tolerations: []
+
+  # -- Assign custom [affinity] rules to the deployment
+  # @default -- `{}` (defaults to the global.affinity preset)
+  affinity: {}
+
+  # -- Assign custom [TopologySpreadConstraints] rules to the authentik worker
+  # @default -- `[]` (defaults to global.topologySpreadConstraints)
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
+  topologySpreadConstraints: []
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
+
+  # -- Deployment strategy to be added to the authentik worker Deployment
+  # @default -- `{}` (defaults to global.deploymentStrategy)
+  deploymentStrategy: {}
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxSurge: 25%
+    #   maxUnavailable: 25%
+
+
+serviceAccount:
+  # -- Create service account. Needed for managed outposts
+  create: true
+  # -- additional service account annotations
+  annotations: {}
+  serviceAccountSecret:
+    # As we use the authentik-remote-cluster chart as subchart, and that chart
+    # creates a service account secret by default which we don't need here,
+    # disable its creation
+    enabled: false
+  fullnameOverride: authentik
+
+
+geoip:
+  # -- enable GeoIP sidecars for the authentik server and worker pods
+  enabled: false
+
+  editionIds: "GeoLite2-City GeoLite2-ASN"
+  # -- GeoIP update frequency, in hours
+  updateInterval: 8
+  # -- sign up under https://www.maxmind.com/en/geolite2/signup
+  accountId: ""
+  # -- sign up under https://www.maxmind.com/en/geolite2/signup
+  licenseKey: ""
+  ## use existing secret instead of values above
+  existingSecret:
+    # -- name of an existing secret to use instead of values above
+    secretName: ""
+    # -- key in the secret containing the account ID
+    accountId: "account_id"
+    # -- key in the secret containing the license key
+    licenseKey: "license_key"
+
+  image:
+    # -- If defined, a repository for GeoIP images
+    repository: ghcr.io/maxmind/geoipupdate
+    # -- If defined, a tag for GeoIP images
+    tag: v7.1.0
+    # -- If defined, an image digest for GeoIP images
+    digest: ""
+    # -- If defined, an imagePullPolicy for GeoIP images
+    pullPolicy: IfNotPresent
+
+  # -- Environment variables to pass to the GeoIP containers
+  # @default -- `[]` (See [values.yaml])
+  env: []
+    # - name: GEOIPUPDATE_VAR_NAME
+    #   value: VALUE
+    # - name: GEOIPUPDATE_VAR_OTHER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: secret-key
+    # - name: GEOIPUPDATE_VAR_ANOTHER
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: config-map-name
+    #       key: config-map-key
+
+  # -- envFrom to pass to the GeoIP containers
+  # @default -- `[]` (See [values.yaml])
+  envFrom: []
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+    #     name: secret-name
+
+  # -- Additional volumeMounts to the GeoIP containers. Make sure the volumes exists for the server and the worker.
+  volumeMounts: []
+    # - name: custom
+    #   mountPath: /custom
+
+  # -- Resource limits and requests for GeoIP containers
+  resources: {}
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # limits:
+    #   memory: 128Mi
+
+  # -- GeoIP container-level security context
+  # @default -- See [values.yaml]
+  containerSecurityContext: {}
+    # Not all of the following has been tested. Use at your own risk.
+    # runAsNonRoot: true
+    # readOnlyRootFilesystem: true
+    # allowPrivilegeEscalation: false
+    # seccomProfile:
+    #   type: RuntimeDefault
+    # capabilities:
+    #   drop:
+    #     - ALL
+
+
+prometheus:
+  rules:
+    enabled: false
+    # -- PrometheusRule namespace
+    namespace: ""
+    # -- PrometheusRule selector
+    selector: {}
+      # prometheus: kube-prometheus
+
+    # -- PrometheusRule labels
+    labels: {}
+    # -- PrometheusRule annotations
+    annotations: {}
+
+
+postgresql:
+  # -- enable the Bitnami PostgreSQL chart. Refer to https://github.com/bitnami/charts/blob/main/bitnami/postgresql/ for possible values.
+  enabled: false
+  auth:
+    username: authentik
+    database: authentik
+    # password: ""
+  primary:
+    extendedConfiguration: |
+      max_connections = 500
+    resourcesPreset: "none"
+    # persistence:
+    #   enabled: true
+    #   storageClass:
+    #   accessModes:
+    #     - ReadWriteOnce
+  readReplicas:
+    resourcesPreset: "none"
+  backup:
+    resourcesPreset: "none"
+  passwordUpdateJob:
+    resourcesPreset: "none"
+  volumePermissions:
+    resourcesPreset: "none"
+  metrics:
+    resourcesPreset: "none"
+
+
+redis:
+  # -- enable the Bitnami Redis chart. Refer to https://github.com/bitnami/charts/blob/main/bitnami/redis/ for possible values.
+  enabled: false
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    resourcesPreset: "none"
+  replica:
+    resourcesPreset: "none"
+  sentinel:
+    resourcesPreset: "none"
+  metrics:
+    resourcesPreset: "none"
+  volumePermissions:
+    resourcesPreset: "none"
+  sysctl:
+    resourcesPreset: "none"
+
+
+# -- additional resources to deploy. Those objects are templated.
+additionalObjects: []
