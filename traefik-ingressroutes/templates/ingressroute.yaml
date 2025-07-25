@@ -23,6 +23,7 @@ spec:
       {{- if (default true .authentik) }}
         - name: middleware-authentik-forwardauth
       {{- end }}
+      {{- end }}
       
       services:
         - name: {{ .serviceName }}
