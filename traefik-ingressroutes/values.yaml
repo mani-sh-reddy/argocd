@@ -38,6 +38,7 @@ ingressRoutes:
     servicePort: 80
     podPort: 8081
     podProtocol: TCP
+    authentik: false
 
   - id: authentik
     namespace: authentik
