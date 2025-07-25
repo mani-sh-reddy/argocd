@@ -9,7 +9,6 @@ ingressRoutes:
     serversTransport: true
     podPort: 8080
     podProtocol: TCP
-    authentik: false
 
   - id: kasten
     namespace: kasten-io
@@ -20,6 +19,7 @@ ingressRoutes:
     redirectPath: "k10/"
     podPort: 8000
     podProtocol: TCP
+    
 
   - id: longhorn
     namespace: longhorn-system
@@ -31,6 +31,7 @@ ingressRoutes:
       - X-Forwarded-Proto: "https"
     podPort: 8000
     podProtocol: TCP
+    authentik: true
 
   - id: hubble
     namespace: kube-system
@@ -39,7 +40,7 @@ ingressRoutes:
     servicePort: 80
     podPort: 8081
     podProtocol: TCP
-    authentik: false
+
 
   - id: authentik
     namespace: authentik
@@ -65,6 +66,7 @@ ingressRoutes:
     servicePort: 3000
     podPort: 3000
     podProtocol: TCP
+    authentik: true
 
   # - id: prometheus
   #   namespace: monitoring-system
