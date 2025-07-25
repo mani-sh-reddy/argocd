@@ -13,10 +13,13 @@ global:
 
 authentik:
   secret_key: "env://AUTHENTIK_SECRET_KEY"
+  password: "env://AUTHENTIK_POSTGRESQL_USER_PASSWORD"
 
 postgresql:
     enabled: true
     auth:
+      username: authentik
+      database: authentik
       existingSecret: authentik-postgres-auth
       secretKeys:
         adminPasswordKey: AUTHENTIK_POSTGRESQL_ADMIN_PASSWORD
