@@ -9,6 +9,7 @@ ingressRoutes:
     serversTransport: true
     podPort: 8080
     podProtocol: TCP
+    authentik: false
 
   - id: kasten
     namespace: kasten-io
