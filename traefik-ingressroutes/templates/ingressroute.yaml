@@ -12,7 +12,7 @@ spec:
     - match: {{ printf "Host(`%s.talos.manishreddy.uk`)" .id | quote }}
       kind: Rule
       
-      {{- if or (or .redirectPath .headers) .authentikMiddleware }}
+      {{- if or (or .redirectPath .headers) (default true .authentik) }}
       middlewares:
       {{- if .redirectPath }}
         - name: {{ .id }}-redirect
