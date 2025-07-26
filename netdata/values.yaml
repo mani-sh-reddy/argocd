@@ -17,6 +17,20 @@ parent:
   claiming:
     enabled: true
     rooms: "1197d4e3-4d17-4ce2-a678-31c4363e4571"
+  extraInitContainers:
+    - name: disable-telemetry
+      image: busybox
+      command:
+        ["sh", "-c", "touch /etc/netdata/.opt-out-from-anonymous-statistics"]
+      volumeMounts:
+        - name: etc-netdata
+          mountPath: /etc/netdata
+  extraVolumeMounts:
+    - name: etc-netdata
+      mountPath: /etc/netdata
+  extraVolumes:
+    - name: etc-netdata
+      emptyDir: {}
 
 child:
   env:
