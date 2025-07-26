@@ -41,6 +41,7 @@ ingressRoutes:
     servicePort: 80
     podPort: 8081
     podProtocol: TCP
+    authentik: true
 
 
   - id: authentik
@@ -61,12 +62,13 @@ ingressRoutes:
     podProtocol: TCP
     authentik: true
 
-  # - id: prometheus
-  #   namespace: monitoring-system
-  #   serviceName: prometheus-kube-prometheus-prometheus
-  #   servicePort: 9090
-  #   appName: prometheus
-  #   headers:
-  #     - X-Forwarded-Proto: "https"
-  #   podPort: 9090
-  #   podProtocol: TCP
+  - id: prometheus
+    namespace: monitoring-system
+    serviceName: prometheus-kube-prometheus-prometheus
+    servicePort: 9090
+    appName: prometheus
+    headers:
+      - X-Forwarded-Proto: "https"
+    podPort: 9090
+    podProtocol: TCP
+    authentik: true
