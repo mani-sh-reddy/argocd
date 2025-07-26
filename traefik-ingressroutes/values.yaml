@@ -27,7 +27,7 @@ ingressRoutes:
     serviceName: longhorn-frontend
     app: longhorn-ui
     servicePort: 80
-    redirectPath: "#/dashboard"
+    # redirectPath: "#/dashboard"
     # headers:
       # - X-Forwarded-Proto: "https"
     podPort: 8000
