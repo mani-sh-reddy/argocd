@@ -34,12 +34,6 @@ infisicalSecrets:
       - client_id
       - client_secret
 
-  - name: netdata
-    path: netdata
-    namespace: monitoring-system
-    keys:
-      - NETDATA_CLAIM_TOKEN
-
   - name: whole-cluster-migration-token
     path: kasten
     namespace: kasten-io
@@ -59,3 +53,9 @@ infisicalSecrets:
     keys:
       - GRAFANA_ADMIN_USERNAME
       - GRAFANA_ADMIN_PASSWORD
+
+  - name: netdata
+    path: netdata
+    namespace: monitoring-system
+    keys:
+      - NETDATA_CLAIM_TOKEN
