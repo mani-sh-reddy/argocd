@@ -9,6 +9,7 @@ ingressRoutes:
     serversTransport: true
     podPort: 8080
     podProtocol: TCP
+    # authentik: true
 
   - id: kasten
     namespace: kasten-io
@@ -19,7 +20,7 @@ ingressRoutes:
     redirectPath: "k10/"
     podPort: 8000
     podProtocol: TCP
-    
+    authentik: true
 
   - id: longhorn
     namespace: longhorn-system
@@ -27,8 +28,8 @@ ingressRoutes:
     app: longhorn-ui
     servicePort: 80
     redirectPath: "#/dashboard"
-    headers:
-      - X-Forwarded-Proto: "https"
+    # headers:
+      # - X-Forwarded-Proto: "https"
     podPort: 8000
     podProtocol: TCP
     authentik: true
@@ -50,14 +51,6 @@ ingressRoutes:
     serversTransport: true
     podPort: 9443
     podProtocol: TCP
-
-  # - id: velero
-  #   namespace: velero
-  #   serviceName: velero-velero-ui
-  #   appName: velero
-  #   servicePort: 80
-  #   podPort: 3000
-  #   podProtocol: TCP
 
   - id: grafana
     namespace: monitoring-system
