@@ -21,7 +21,7 @@ spec:
         - name: {{ .id }}-headers
       {{- end }}
       {{- if .authentik }}
-        - name: middleware-authentik-forwardauth
+        - name: ak-outpost-authentik-embedded-outpost
       {{- end }}
       {{- end }}
       
