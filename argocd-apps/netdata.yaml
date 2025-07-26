@@ -16,9 +16,9 @@ spec:
       helm:
         valueFiles:
           - $values/netdata/values.yaml # Path to values file in this repo
-    # - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-    #   targetRevision: main
-    #   ref: values
+    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+      targetRevision: main
+      ref: values
     # - repoURL: https://github.com/mani-sh-reddy/argocd.git
     #   path: grafana-operator-manifests/
     #   targetRevision: HEAD
