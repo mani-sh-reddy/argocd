@@ -1,8 +1,61 @@
 infisicalSecrets:
-  - name: authentik-postgres-auth
-    namespace: authentik
+  - name: authentik-secret-key
     path: authentik
+    namespace: authentik
+    keys:
+      - AUTHENTIK_SECRET_KEY
+
+  - name: authentik-postgres-auth
+    path: authentik
+    namespace: authentik
     keys:
       - AUTHENTIK_POSTGRESQL_ADMIN_PASSWORD
       - AUTHENTIK_POSTGRESQL_USER_PASSWORD
       - AUTHENTIK_POSTGRESQL_REPLICATION_PASSWORD
+
+  - name: traefik-dns-acme-secret
+    path: traefik
+    namespace: traefik
+    keys:
+      - CLOUDFLARE_EMAIL
+      - CLOUDFLARE_DNS_API_TOKEN
+      - CLOUDFLARE_ZONE_API_TOKEN
+
+  - name: telegram-apollobot-token
+    path: monitoring-system
+    namespace: monitoring-system
+    keys:
+      - TELEGRAM_APOLLOBOT_TOKEN
+
+  - name: operator-oauth
+    path: tailscale-operator
+    namespace: tailscale
+    keys:
+      - client_id
+      - client_secret
+
+  - name: netdata
+    path: netdata
+    namespace: monitoring-system
+    keys:
+      - NETDATA_CLAIM_TOKEN
+
+  - name: whole-cluster-migration-token
+    path: kasten
+    namespace: kasten-io
+    keys:
+      - migrationToken
+
+  - name: kasten-apollo-minio-accesskey
+    path: kasten
+    namespace: kasten-io
+    keys:
+      - aws_access_key_id
+      - aws_secret_access_key
+
+  - name: grafana-admin-credentials
+    path: monitoring-system
+    namespace: monitoring-system
+    keys:
+      - GRAFANA_ADMIN_USERNAME
+      - GRAFANA_ADMIN_PASSWORD
