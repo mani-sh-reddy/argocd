@@ -1,0 +1,7 @@
+infisicalSecrets:
+  - name: authentik-postgres-auth
+    path: authentik
+    keys:
+      - AUTHENTIK_POSTGRESQL_ADMIN_PASSWORD
+      - AUTHENTIK_POSTGRESQL_USER_PASSWORD
+      - AUTHENTIK_POSTGRESQL_REPLICATION_PASSWORD

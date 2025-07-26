@@ -20,8 +20,11 @@ spec:
       targetRevision: main
       ref: values
     - repoURL: https://github.com/mani-sh-reddy/argocd.git
-      path: infisical-secrets/
       targetRevision: HEAD
+      path: infisical-secrets/
+      helm:
+        valueFiles:
+          - values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: infisical # Where components live
