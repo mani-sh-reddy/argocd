@@ -1,0 +1,16 @@
+# {{- range .Values.ingressRoutes }}
+# {{- if .headers }}
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: {{ .id }}-forwarduath
+#   namespace: {{ .namespace }}
+# spec:
+#   headers:
+#     customRequestHeaders:
+#       {{- range $key, $value := .headers }}
+#       {{ $key }}: {{ $value | quote }}
+#       {{- end }}
+# ---
+# {{- end }}
+# {{- end }}
