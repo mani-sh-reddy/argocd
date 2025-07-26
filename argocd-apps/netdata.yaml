@@ -24,7 +24,7 @@ spec:
     #   targetRevision: HEAD
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: monitoring-system # Where components live
+    namespace: netdata # Where components live
   syncPolicy:
     automated:
       selfHeal: true
