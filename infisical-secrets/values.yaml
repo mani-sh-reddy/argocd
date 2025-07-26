@@ -1,5 +1,6 @@
 infisicalSecrets:
   - name: authentik-postgres-auth
+    namespace: authentik
     path: authentik
     keys:
       - AUTHENTIK_POSTGRESQL_ADMIN_PASSWORD
