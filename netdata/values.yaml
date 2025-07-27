@@ -25,12 +25,12 @@ child:
   env:
     DO_NOT_TRACK: 1
   hostNetwork: false
-  # envFrom:
-  #   - secretRef:
-  #       name: netdata
-  # claiming:
-  #   enabled: true
-  #   rooms: "1197d4e3-4d17-4ce2-a678-31c4363e4571"
+  envFrom:
+    - secretRef:
+        name: netdata
+  claiming:
+    enabled: true
+    rooms: "1197d4e3-4d17-4ce2-a678-31c4363e4571"
 
 k8sState:
   env:
