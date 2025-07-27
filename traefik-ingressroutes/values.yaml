@@ -81,4 +81,4 @@ ingressRoutes:
     servicePort: 80
     podPort: 19999
     podProtocol: TCP
-    authentik: true
+    # authentik: true
