@@ -78,7 +78,7 @@ ingressRoutes:
     serviceName: netdata
     app: netdata
     role: parent
-    servicePort: 80
-    podPort: 19999
+    servicePort: 19999
+    podPort: 80
     podProtocol: TCP
-    # authentik: true
+    authentik: true
