@@ -1098,35 +1098,6 @@ spec:
             "refresh": 1,
             "regex": "",
             "type": "query"
-          },
-          {
-            "allValue": "",
-            "current": {
-              "text": "All",
-              "value": [
-                "$__all"
-              ]
-            },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${datasource}"
-            },
-            "definition": "label_values(longhorn_volume_state,volume)",
-            "description": "",
-            "includeAll": true,
-            "label": "Volume",
-            "multi": true,
-            "name": "volume",
-            "options": [],
-            "query": {
-              "qryType": 1,
-              "query": "label_values(longhorn_volume_state,volume)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
-            "refresh": 2,
-            "regex": "",
-            "sort": 1,
-            "type": "query"
           }
         ]
       },
