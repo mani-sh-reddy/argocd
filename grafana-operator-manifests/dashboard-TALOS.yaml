@@ -744,26 +744,27 @@ spec:
           "type": "row"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
+          "id": 14,
+          "type": "table",
+          "title": "Volume Capacity",
           "description": "The capacity of each Longhorn volume",
+          "gridPos": {
+            "x": 0,
+            "y": 18,
+            "h": 7,
+            "w": 16
+          },
           "fieldConfig": {
             "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
               "custom": {
                 "align": "auto",
                 "cellOptions": {
                   "type": "auto",
                   "wrapText": false
                 },
-                "filterable": false,
-                "inspect": false
+                "inspect": false,
+                "filterable": false
               },
-              "decimals": 1,
               "mappings": [
                 {
                   "options": {
@@ -774,12 +775,12 @@ spec:
                   "type": "value"
                 }
               ],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -795,6 +796,11 @@ spec:
                   }
                 ]
               },
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 1,
+              "min": 0,
               "unit": "decbytes"
             },
             "overrides": [
@@ -840,82 +846,6 @@ spec:
               }
             ]
           },
-          "gridPos": {
-            "h": 7,
-            "w": 16,
-            "x": 0,
-            "y": 18
-          },
-          "id": 14,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 4,
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "Usage"
-              }
-            ]
-          },
-          "pluginVersion": "12.0.2",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "avg by (volume) (longhorn_volume_capacity_bytes{volume=~\"$volume\"})",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{volume}}",
-              "refId": "capacity"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "avg by (volume, name) (label_replace(kubelet_volume_stats_used_bytes, \"name\", \"$1\", \"persistentvolumeclaim\", \"(.*)\") * on(name) group_left(volume) (label_replace(kube_persistentvolume_claim_ref{persistentvolume=~\"$volume\"}, \"volume\", \"$1\", \"persistentvolume\", \"(.*)\")))",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "legendFormat": "{{volume}}",
-              "range": false,
-              "refId": "used"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "100 / avg by (volume) (longhorn_volume_capacity_bytes{volume=~\"$volume\"})\r\n*\r\navg by (volume) (label_replace(kubelet_volume_stats_used_bytes, \"name\", \"$1\", \"persistentvolumeclaim\", \"(.*)\") * on(name) group_left(volume, persistentvolume) (label_replace(kube_persistentvolume_claim_ref{persistentvolume=~\"$volume\"}, \"volume\", \"$1\", \"persistentvolume\", \"(.*)\")))",
-              "format": "table",
-              "hide": false,
-              "instant": true,
-              "legendFormat": "{{volume}}",
-              "range": false,
-              "refId": "usage-percentage"
-            }
-          ],
-          "title": "Volume Capacity",
           "transformations": [
             {
               "id": "merge",
@@ -952,7 +882,78 @@ spec:
               }
             }
           ],
-          "type": "table"
+          "pluginVersion": "12.0.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "avg by (volume) (longhorn_volume_capacity_bytes)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{volume}}",
+              "refId": "capacity"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "avg by (volume, name) (\n  label_replace(kubelet_volume_stats_used_bytes, \"name\", \"$1\", \"persistentvolumeclaim\", \"(.*)\")\n  * on(name) group_left(volume)\n  (\n    label_replace(kube_persistentvolume_claim_ref, \"volume\", \"$1\", \"persistentvolume\", \"(.*)\")\n  )\n)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "{{volume}}",
+              "range": false,
+              "refId": "used"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "100 / avg by (volume) (longhorn_volume_capacity_bytes)\r\n*\r\navg by (volume) (\r\n  label_replace(kubelet_volume_stats_used_bytes, \"name\", \"$1\", \"persistentvolumeclaim\", \"(.*)\")\r\n  * on(name) group_left(volume, persistentvolume)\r\n  (\r\n    label_replace(kube_persistentvolume_claim_ref, \"volume\", \"$1\", \"persistentvolume\", \"(.*)\")\r\n  )\r\n)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "{{volume}}",
+              "range": false,
+              "refId": "usage-percentage"
+            }
+          ],
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "options": {
+            "showHeader": true,
+            "cellHeight": "sm",
+            "footer": {
+              "show": false,
+              "reducer": [
+                "sum"
+              ],
+              "countRows": false,
+              "fields": "",
+              "enablePagination": false
+            },
+            "frameIndex": 4,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Usage"
+              }
+            ]
+          }
         },
         {
           "datasource": {
