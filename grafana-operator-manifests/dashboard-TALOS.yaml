@@ -35,7 +35,7 @@ spec:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 17,
+      "id": 21,
       "links": [],
       "panels": [
         {
@@ -184,8 +184,8 @@ spec:
         },
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Mixed --"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -243,6 +243,7 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
+              "editorMode": "code",
               "expr": "1 - sum(:node_memory_MemAvailable_bytes:sum{cluster=\"$cluster\"}) / sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=\"$cluster\"})",
               "instant": true,
               "refId": "A"
@@ -254,7 +255,7 @@ spec:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -336,14 +337,20 @@ spec:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$datasource"
+                "uid": "${datasource}"
               },
-              "editorMode": "code",
-              "expr": "prometheus_tsdb_storage_blocks_bytes",
+              "disableTextWrap": false,
+              "editorMode": "builder",
+              "exemplar": false,
+              "expr": "avg(prometheus_tsdb_storage_blocks_bytes)",
               "format": "time_series",
+              "fullMetaSearch": false,
+              "includeNullMetadata": true,
+              "instant": false,
               "legendFormat": "{{cluster}} {{job}} {{instance}} head series",
               "range": true,
-              "refId": "A"
+              "refId": "A",
+              "useBackend": false
             }
           ],
           "title": "Prometheus TSDB Usage",
@@ -351,8 +358,8 @@ spec:
         },
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Mixed --"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -402,12 +409,13 @@ spec:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "28101340-1155-4fe2-9266-ba1422adff9f"
+                "uid": "${datasource}"
               },
               "editorMode": "code",
               "expr": "prometheus_tsdb_head_samples_appended_total",
-              "instant": true,
+              "instant": false,
               "legendFormat": "__auto",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -479,7 +487,9 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
+              "editorMode": "code",
               "expr": "sum(kubelet_running_containers{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
+              "format": "table",
               "instant": true,
               "refId": "A"
             }
@@ -609,8 +619,8 @@ spec:
         },
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Mixed --"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "fieldConfig": {
             "defaults": {
@@ -654,21 +664,21 @@ spec:
                 }
               },
               "mappings": [],
-              "max": 32000000000,
+              "max": 36000000000,
               "min": 0,
               "thresholds": {
-                "mode": "percentage",
+                "mode": "absolute",
                 "steps": [
                   {
                     "color": "green"
                   },
                   {
                     "color": "red",
-                    "value": 80
+                    "value": 32000000000
                   }
                 ]
               },
-              "unit": "bytes"
+              "unit": "decbytes"
             },
             "overrides": []
           },
@@ -705,9 +715,16 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
-              "expr": "sum(container_memory_rss{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", container!=\"\"}) by (namespace)",
+              "disableTextWrap": false,
+              "editorMode": "builder",
+              "expr": "sum by(namespace) (container_memory_rss{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", container!=\"\"})",
+              "fullMetaSearch": true,
+              "includeNullMetadata": true,
+              "interval": "",
               "legendFormat": "__auto",
-              "refId": "A"
+              "range": true,
+              "refId": "A",
+              "useBackend": false
             }
           ],
           "title": "Memory",
@@ -1013,15 +1030,13 @@ spec:
       ],
       "preload": false,
       "schemaVersion": 41,
-      "tags": [
-        "Talos K8s"
-      ],
+      "tags": [],
       "templating": {
         "list": [
           {
             "current": {
               "text": "Prometheus",
-              "value": "28101340-1155-4fe2-9266-ba1422adff9f"
+              "value": "4519b089-84a2-47be-afbd-d6adfa933210"
             },
             "description": "",
             "hide": 1,
@@ -1082,7 +1097,6 @@ spec:
             "type": "query"
           },
           {
-            "allValue": "",
             "current": {
               "text": "All",
               "value": [
@@ -1113,13 +1127,13 @@ spec:
         ]
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-2d",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Talos K8s",
-      "uid": "aac52efd-2e37-419b-bb76-a59b9c424d17",
-      "version": 29,
+      "title": "Talos K8s Copy",
+      "uid": "2b6ff69a-b341-4562-bb56-0f0ea625b284",
+      "version": 8,
       "weekStart": "monday"
     }
