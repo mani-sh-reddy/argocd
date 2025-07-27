@@ -16,3 +16,6 @@ spec:
     jsonData:
       "tlsSkipVerify": true
       "timeInterval": "5s"
+      "cacheLevel": "High"  
+      "incrementalQuerying": true  
+      "queryOverlapWindow": "10m"
