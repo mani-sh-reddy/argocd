@@ -24,6 +24,7 @@ parent:
 child:
   env:
     DO_NOT_TRACK: 1
+  hostNetwork: false
   # envFrom:
   #   - secretRef:
   #       name: netdata
