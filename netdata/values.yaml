@@ -35,9 +35,9 @@ child:
 k8sState:
   env:
     DO_NOT_TRACK: 1
-  # envFrom:
-  #   - secretRef:
-  #       name: netdata
-  # claiming:
-  #   enabled: true
-  #   rooms: "1197d4e3-4d17-4ce2-a678-31c4363e4571"
+  envFrom:
+    - secretRef:
+        name: netdata
+  claiming:
+    enabled: true
+    rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
