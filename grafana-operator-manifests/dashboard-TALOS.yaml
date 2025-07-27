@@ -1051,54 +1051,6 @@ spec:
             "refresh": 1,
             "regex": "",
             "type": "datasource"
-          },
-          {
-            "current": {
-              "text": "",
-              "value": ""
-            },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${datasource}"
-            },
-            "definition": "label_values(up{node=\"talos-m0u-9b2\"},cluster)",
-            "description": "",
-            "hide": 1,
-            "label": "Cluster",
-            "name": "cluster",
-            "options": [],
-            "query": {
-              "qryType": 1,
-              "query": "label_values(up{node=\"talos-m0u-9b2\"},cluster)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
-            "refresh": 2,
-            "regex": "",
-            "sort": 1,
-            "type": "query"
-          },
-          {
-            "current": {
-              "text": "10.0.0.10:10250",
-              "value": "10.0.0.10:10250"
-            },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${datasource}"
-            },
-            "definition": "label_values(up{instance=\"10.0.0.10:10250\"},instance)",
-            "hide": 1,
-            "label": "Instance",
-            "name": "instance",
-            "options": [],
-            "query": {
-              "qryType": 1,
-              "query": "label_values(up{instance=\"10.0.0.10:10250\"},instance)",
-              "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            },
-            "refresh": 1,
-            "regex": "",
-            "type": "query"
           }
         ]
       },
