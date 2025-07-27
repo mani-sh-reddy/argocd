@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: netdata-parent-alarms
+  namespace: netdata
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn  # Must match the PV
+  volumeName: pvc-5b3529f6-d1be-4c70-b9e6-9fb3d01e28c5  # The existing PV name

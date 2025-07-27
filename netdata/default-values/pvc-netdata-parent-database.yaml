@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: netdata-parent-database
+  namespace: netdata
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: longhorn  # Must match the PV
+  volumeName: pvc-ea1a209d-c1a9-4101-ba47-04a7c6592663  # The existing PV name
