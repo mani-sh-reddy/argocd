@@ -12,8 +12,8 @@ parent:
     persistence: true
     storageclass: "longhorn"
     volumesize: 50Gi
-  env:
-    DO_NOT_TRACK: 1
+  # env:
+  #   DO_NOT_TRACK: 1
   envFrom:
     - secretRef:
         name: netdata
