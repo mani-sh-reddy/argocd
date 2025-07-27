@@ -1,5 +1,5 @@
 image:
-  tag: stable
+  tag: edge
 
 restarter:
   enabled: true
