@@ -18,6 +18,9 @@ spec:
         {{- if .component }}
         component: {{ .component }}
         {{- end }}
+        {{- if .role }}
+        role: {{ .role }}
+        {{- end }}
   ingress:
   - fromEndpoints:
     - matchLabels: {}
