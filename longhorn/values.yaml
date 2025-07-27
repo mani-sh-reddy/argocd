@@ -11,7 +11,7 @@ defaultSettings:
   concurrentReplicaRebuildPerNodeLimit: 2
 
 persistence:
-  reclaimPolicy: Retain
+  reclaimPolicy: Delete
   defaultClassReplicaCount: 1
   recurringJobSelector:
     enable: true
