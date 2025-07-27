@@ -12,8 +12,8 @@ parent:
     persistence: true
     storageclass: "longhorn"
     volumesize: 50Gi
-  # env:
-    # DO_NOT_TRACK: 1
+  env:
+    DO_NOT_TRACK: 1
   envFrom:
     - secretRef:
         name: netdata
@@ -24,9 +24,9 @@ parent:
 child:
   env:
     DO_NOT_TRACK: 1
-  envFrom:
-    - secretRef:
-        name: netdata
+  # envFrom:
+  #   - secretRef:
+  #       name: netdata
   # claiming:
   #   enabled: true
   #   rooms: "1197d4e3-4d17-4ce2-a678-31c4363e4571"
@@ -34,9 +34,9 @@ child:
 k8sState:
   env:
     DO_NOT_TRACK: 1
-  envFrom:
-    - secretRef:
-        name: netdata
+  # envFrom:
+  #   - secretRef:
+  #       name: netdata
   # claiming:
   #   enabled: true
   #   rooms: "1197d4e3-4d17-4ce2-a678-31c4363e4571"
