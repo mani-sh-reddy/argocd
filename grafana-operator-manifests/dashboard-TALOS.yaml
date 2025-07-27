@@ -1132,8 +1132,8 @@ spec:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Talos K8s Copy",
+      "title": "Talos K8s",
       "uid": "2b6ff69a-b341-4562-bb56-0f0ea625b284",
-      "version": 8,
+      "version": 30,
       "weekStart": "monday"
     }
