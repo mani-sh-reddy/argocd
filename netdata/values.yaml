@@ -19,7 +19,7 @@ parent:
         name: netdata
   claiming:
     enabled: true
-    rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+    rooms: "c76cb402-1f1d-4cfc-bcb3-585dc9ec5281"
 
 child:
   env:
@@ -30,7 +30,7 @@ child:
         name: netdata
   claiming:
     enabled: true
-    rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+    rooms: "c76cb402-1f1d-4cfc-bcb3-585dc9ec5281"
 
 k8sState:
   env:
