@@ -1,8 +1,8 @@
 image:
-  tag: edge
+  tag: stable
 
 restarter:
-  enabled: true
+  enabled: false
 
 ingress:
   enabled: false
