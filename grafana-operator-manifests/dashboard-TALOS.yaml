@@ -35,7 +35,7 @@ spec:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 21,
+      "id": 17,
       "links": [],
       "panels": [
         {
@@ -1030,13 +1030,15 @@ spec:
       ],
       "preload": false,
       "schemaVersion": 41,
-      "tags": [],
+      "tags": [
+        "Talos K8s"
+      ],
       "templating": {
         "list": [
           {
             "current": {
               "text": "Prometheus",
-              "value": "4519b089-84a2-47be-afbd-d6adfa933210"
+              "value": "28101340-1155-4fe2-9266-ba1422adff9f"
             },
             "description": "",
             "hide": 1,
@@ -1097,6 +1099,7 @@ spec:
             "type": "query"
           },
           {
+            "allValue": "",
             "current": {
               "text": "All",
               "value": [
@@ -1127,13 +1130,13 @@ spec:
         ]
       },
       "time": {
-        "from": "now-2d",
+        "from": "now-6h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Talos K8s",
-      "uid": "2b6ff69a-b341-4562-bb56-0f0ea625b284",
-      "version": 30,
+      "uid": "aac52efd-2e37-419b-bb76-a59b9c424d17",
+      "version": 29,
       "weekStart": "monday"
     }
