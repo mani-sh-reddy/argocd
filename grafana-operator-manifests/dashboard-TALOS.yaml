@@ -103,7 +103,7 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
-              "expr": "sum(kubelet_running_pods{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
+              "expr": "sum(kubelet_running_pods)",
               "instant": true,
               "refId": "A"
             }
@@ -174,7 +174,7 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
-              "expr": "cluster:node_cpu:ratio_rate5m{cluster=\"$cluster\"}",
+              "expr": "cluster:node_cpu:ratio_rate5m",
               "instant": true,
               "refId": "A"
             }
@@ -244,7 +244,7 @@ spec:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "1 - sum(:node_memory_MemAvailable_bytes:sum{cluster=\"$cluster\"}) / sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=\"$cluster\"})",
+              "expr": "1 - sum(:node_memory_MemAvailable_bytes:sum) / sum(node_memory_MemTotal_bytes)",
               "instant": true,
               "refId": "A"
             }
@@ -488,7 +488,7 @@ spec:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(kubelet_running_containers{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
+              "expr": "sum(kubelet_running_containers)",
               "format": "table",
               "instant": true,
               "refId": "A"
@@ -609,8 +609,9 @@ spec:
                 "type": "prometheus",
                 "uid": "${datasource}"
               },
-              "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m{cluster=\"$cluster\"}) by (namespace)",
+              "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m) by (namespace)",
               "legendFormat": "__auto",
+              "range": true,
               "refId": "A"
             }
           ],
@@ -717,7 +718,7 @@ spec:
               },
               "disableTextWrap": false,
               "editorMode": "builder",
-              "expr": "sum by(namespace) (container_memory_rss{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", cluster=\"$cluster\", container!=\"\"})",
+              "expr": "sum by(namespace) (container_memory_rss{container!=\"\"})",
               "fullMetaSearch": true,
               "includeNullMetadata": true,
               "interval": "",
