@@ -1,0 +1,62 @@
+apiVersion: grafana.integreatly.org/v1beta1  
+kind: GrafanaAlertRuleGroup  
+metadata:  
+  name: kube-pod-crash-looping-alerts  
+spec:  
+  instanceSelector:  
+    matchLabels:  
+      dashboards: "grafana"  
+  folderRef: monitoring-system  # or use folderUID if you have the UID  
+  interval: 1m  
+  rules:  
+    - uid: cet7e6lr7lekge  
+      title: KubePodCrashLooping  
+      condition: C  
+      data:  
+        - refId: A  
+          relativeTimeRange:  
+            from: 600  
+            to: 0  
+          datasourceUid: 4519b089-84a2-47be-afbd-d6adfa933210  
+          model:  
+            editorMode: code  
+            expr: max_over_time(kube_pod_container_status_waiting_reason{job="kube-state-metrics",namespace=~".*",reason="CrashLoopBackOff"}[5m]) >= 1  
+            instant: true  
+            intervalMs: 1000  
+            legendFormat: __auto  
+            maxDataPoints: 43200  
+            range: false  
+            refId: A  
+        - refId: C  
+          datasourceUid: __expr__  
+          model:  
+            conditions:  
+              - evaluator:  
+                  params:  
+                    - 0  
+                  type: gt  
+                operator:  
+                  type: and  
+                query:  
+                  params:  
+                    - C  
+                reducer:  
+                  params: []  
+                  type: last  
+                type: query  
+            datasource:  
+              type: __expr__  
+              uid: __expr__  
+            expression: A  
+            intervalMs: 1000  
+            maxDataPoints: 43200  
+            refId: C  
+            type: threshold  
+      noDataState: NoData  
+      execErrState: Error  
+      for: 1m  
+      annotations: {}  
+      labels: {}  
+      isPaused: false  
+      notificationSettings:  
+        receiver: Telegram
