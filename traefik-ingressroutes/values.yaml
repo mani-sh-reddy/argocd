@@ -73,11 +73,11 @@ ingressRoutes:
     podProtocol: TCP
     authentik: true
 
-  - id: netdata
-    namespace: netdata
-    serviceName: netdata
-    app: netdata
-    servicePort: 80
-    podPort: 19999
-    podProtocol: TCP
-    authentik: true
+  # - id: netdata
+  #   namespace: netdata
+  #   serviceName: netdata
+  #   app: netdata
+  #   servicePort: 80
+  #   podPort: 19999
+  #   podProtocol: TCP
+  #   authentik: true
