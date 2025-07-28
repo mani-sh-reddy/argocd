@@ -1,7 +1,7 @@
 namespaceOverride: monitoring-system
 cleanPrometheusOperatorObjectNames: false
 
-pometheus:
+prometheus:
   prometheusSpec:
     retention: 5y
     storageSpec:
