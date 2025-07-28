@@ -1,5 +1,5 @@
 namespaceOverride: monitoring-system
-cleanPrometheusOperatorObjectNames: true
+cleanPrometheusOperatorObjectNames: false
 
 pometheus:
   prometheusSpec:
