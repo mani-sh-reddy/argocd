@@ -35,7 +35,7 @@ spec:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 17,
+      "id": 22,
       "links": [],
       "panels": [
         {
@@ -745,27 +745,26 @@ spec:
           "type": "row"
         },
         {
-          "id": 14,
-          "type": "table",
-          "title": "Volume Capacity",
-          "description": "The capacity of each Longhorn volume",
-          "gridPos": {
-            "x": 0,
-            "y": 18,
-            "h": 7,
-            "w": 16
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
+          "description": "The capacity of each Longhorn volume",
           "fieldConfig": {
             "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
               "custom": {
                 "align": "auto",
                 "cellOptions": {
                   "type": "auto",
                   "wrapText": false
                 },
-                "inspect": false,
-                "filterable": false
+                "filterable": false,
+                "inspect": false
               },
+              "decimals": 1,
               "mappings": [
                 {
                   "options": {
@@ -776,12 +775,12 @@ spec:
                   "type": "value"
                 }
               ],
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -797,11 +796,6 @@ spec:
                   }
                 ]
               },
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 1,
-              "min": 0,
               "unit": "decbytes"
             },
             "overrides": [
@@ -847,42 +841,33 @@ spec:
               }
             ]
           },
-          "transformations": [
-            {
-              "id": "merge",
-              "options": {}
+          "gridPos": {
+            "h": 7,
+            "w": 16,
+            "x": 0,
+            "y": 18
+          },
+          "id": 14,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "enablePagination": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
             },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "Value #capacity": false,
-                  "Value #used": false,
-                  "volume": true
-                },
-                "includeByName": {},
-                "indexByName": {
-                  "Time": 0,
-                  "Value #capacity": 5,
-                  "Value #usage-percentage": 3,
-                  "Value #used": 4,
-                  "name": 1,
-                  "volume": 2
-                },
-                "renameByName": {
-                  "Value": "Capacity",
-                  "Value #A": "Usage",
-                  "Value #B": "Used",
-                  "Value #capacity": "Capacity",
-                  "Value #usage-percentage": "Usage",
-                  "Value #used": "Used",
-                  "name": "PVC",
-                  "volume": "Volume"
-                }
+            "frameIndex": 4,
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "Usage"
               }
-            }
-          ],
+            ]
+          },
           "pluginVersion": "12.0.2",
           "targets": [
             {
@@ -931,30 +916,44 @@ spec:
               "refId": "usage-percentage"
             }
           ],
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "options": {
-            "showHeader": true,
-            "cellHeight": "sm",
-            "footer": {
-              "show": false,
-              "reducer": [
-                "sum"
-              ],
-              "countRows": false,
-              "fields": "",
-              "enablePagination": false
+          "title": "Volume Capacity",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
             },
-            "frameIndex": 4,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "Usage"
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Value #capacity": false,
+                  "Value #used": false,
+                  "volume": true
+                },
+                "includeByName": {},
+                "indexByName": {
+                  "Time": 0,
+                  "Value #capacity": 5,
+                  "Value #usage-percentage": 3,
+                  "Value #used": 4,
+                  "name": 1,
+                  "volume": 2
+                },
+                "renameByName": {
+                  "Value": "Capacity",
+                  "Value #A": "Usage",
+                  "Value #B": "Used",
+                  "Value #capacity": "Capacity",
+                  "Value #usage-percentage": "Usage",
+                  "Value #used": "Used",
+                  "name": "PVC",
+                  "volume": "Volume"
+                }
               }
-            ]
-          }
+            }
+          ],
+          "type": "table"
         },
         {
           "datasource": {
@@ -1062,6 +1061,6 @@ spec:
       "timezone": "browser",
       "title": "Talos K8s",
       "uid": "aac52efd-2e37-419b-bb76-a59b9c424d17",
-      "version": 29,
+      "version": 9,
       "weekStart": "monday"
     }

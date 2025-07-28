@@ -1,0 +1,22 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: netpol-cilium-test-1-common
+  namespace: cilium-test-1
+spec:
+  endpointSelector:
+    matchLabels: {}
+  ingress:
+  - fromEndpoints:
+    - matchLabels: {}
+  egress:
+  - toEndpoints:
+    - matchLabels: {}
+  - toFQDNs:
+      - matchName: one.one.one.one
+    toPorts:
+      - ports:
+          - port: "443"
+            protocol: TCP
+          - port: "80"
+            protocol: TCP
