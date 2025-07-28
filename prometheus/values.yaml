@@ -37,7 +37,7 @@ prometheus-node-exporter:
   namespaceOverride: monitoring-node-exporter
 
 alertmanager:
-  enabled: true
+  enabled: false
 kubeControllerManager:
   enabled: false
 kubeEtcd:

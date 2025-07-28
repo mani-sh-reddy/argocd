@@ -24,7 +24,7 @@ prometheus:
   rbac:
     create: true
   server:
-    enabled: true
+    enabled: false
     retention: 120d
     persistentVolume:
       storageClass: longhorn
