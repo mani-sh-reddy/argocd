@@ -21,14 +21,28 @@ parent:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
   configs:
-    exporting:
+    netdata:
       enabled: true
-      path: /etc/netdata/exporting.conf
+      path: /etc/netdata/netdata.conf
       data: |
-        [prometheus_remote_write:prometheus]
-          enabled = yes
-          destination = 10.11.14.2:2003
-          remote write URL path = /receive
+        [global]
+          hostname = {{ .Values.parent.hostname }}
+        [db]
+          mode = dbengine
+
+        [plugins]
+          cgroups = yes
+          tc = no
+          enable running new plugins = no
+          check for new plugins every = 72000
+          python.d = no
+          charts.d = yes
+          go.d = yes
+          node.d = yes
+          apps = yes
+          proc = yes
+          idlejitter = yes
+          diskspace = yes
 
 child:
   dnsPolicy: ClusterFirst
