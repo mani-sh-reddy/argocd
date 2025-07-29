@@ -77,7 +77,7 @@ ingressRoutes:
     namespace: netdata
     serviceName: netdata
     app: netdata
-    role: parent
+    role: child
     servicePort: 19999
     podPort: 80
     podProtocol: TCP
