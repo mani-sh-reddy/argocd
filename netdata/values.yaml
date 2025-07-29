@@ -9,6 +9,7 @@ ingress:
 
 parent:
   enabled: true
+  hostname: "talos"
   database:
     persistence: true
     storageclass: "longhorn"
