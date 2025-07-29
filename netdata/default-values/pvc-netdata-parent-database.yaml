@@ -8,6 +8,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 100Gi
   storageClassName: longhorn  # Must match the PV
   volumeName: pvc-1cdf2328-bc2d-4de3-abe2-b448efbfa93a  # The existing PV name

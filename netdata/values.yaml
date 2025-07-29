@@ -11,7 +11,7 @@ parent:
   database:
     persistence: true
     storageclass: "longhorn"
-    volumesize: 50Gi
+    volumesize: 100Gi
   # env:
   #   DO_NOT_TRACK: 1
   envFrom:
