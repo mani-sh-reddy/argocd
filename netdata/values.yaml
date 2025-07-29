@@ -51,7 +51,6 @@ parent:
           getmntinfo = yes
 
 child:
-  enabled: false
   dnsPolicy: ClusterFirst
   env:
     DO_NOT_TRACK: 1
