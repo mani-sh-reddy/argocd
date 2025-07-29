@@ -50,6 +50,7 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: netdata
             app: netdata
+            role: child
       toPorts:
         - ports:
             - port: "9153"
@@ -70,6 +71,7 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: netdata
             app: netdata
+            role: child
       toPorts:
         - ports:
             - port: "9100"

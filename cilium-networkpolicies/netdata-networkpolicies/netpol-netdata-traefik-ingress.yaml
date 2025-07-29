@@ -7,6 +7,7 @@ spec:
   endpointSelector:
     matchLabels:
       app: netdata
+      role: parent
   ingress:
     - fromEndpoints:
         - matchLabels:
@@ -32,6 +33,7 @@ spec:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: netdata
             app: netdata
+            role: parent
       toPorts:
         - ports:
             - port: "19999"

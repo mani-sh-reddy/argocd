@@ -1,18 +1,18 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: svc-netdata-ui
-  namespace: netdata
-  labels:
-    app: netdata
-    release: netdata
-    role: child
-spec:
-  selector:
-    app: netdata
-  ports:
-    - name: http
-      protocol: TCP
-      port: 19999
-      targetPort: 19999
-  type: ClusterIP
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: svc-netdata-ui
+#   namespace: netdata
+#   labels:
+#     app: netdata
+#     release: netdata
+#     role: child
+# spec:
+#   selector:
+#     app: netdata
+#   ports:
+#     - name: http
+#       protocol: TCP
+#       port: 19999
+#       targetPort: 19999
+#   type: ClusterIP
