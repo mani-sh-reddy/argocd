@@ -51,18 +51,18 @@ parent:
           devstat = yes
           getmntinfo = yes
 
-child:
-  port: 19999
-  dnsPolicy: ClusterFirst
-  env:
-    DO_NOT_TRACK: 1
-  hostNetwork: false
-  podsMetadata:
-    useKubelet: true
-    kubeletUrl: "https://localhost:10250"
-  envFrom:
-    - secretRef:
-        name: netdata
+# child:
+#   port: 19999
+#   dnsPolicy: ClusterFirst
+#   env:
+#     DO_NOT_TRACK: 1
+#   hostNetwork: false
+#   podsMetadata:
+#     useKubelet: true
+#     kubeletUrl: "https://localhost:10250"
+#   envFrom:
+#     - secretRef:
+#         name: netdata
   # claiming:
     # enabled: true
     # rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
