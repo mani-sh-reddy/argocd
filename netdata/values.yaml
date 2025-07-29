@@ -9,6 +9,7 @@ ingress:
 
 parent:
   enabled: true
+  hostname: talos
   database:
     persistence: true
     storageclass: "longhorn"
@@ -50,6 +51,17 @@ parent:
           diskspace = yes
           devstat = yes
           getmntinfo = yes
+    go.d:
+      enabled: true
+      path: /etc/netdata/go.d.conf
+      data: |
+        modules:
+          pulsar: no
+          prometheus: yes
+          traefik: yes
+          k8s_kubelet: yes
+          k8s_kubeproxy: yes
+          k8s_state: yes
 
 # child:
 #   port: 19999
