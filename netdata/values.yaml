@@ -72,9 +72,9 @@ child:
 #   env:
 #     DO_NOT_TRACK: 1
   hostNetwork: false
-  podsMetadata:
-    useKubelet: true
-    kubeletUrl: "https://localhost:10250"
+  # podsMetadata:
+  #   useKubelet: true
+  #   kubeletUrl: "https://localhost:10250"
 #   envFrom:
 #     - secretRef:
 #         name: netdata
