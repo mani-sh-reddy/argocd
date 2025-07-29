@@ -8,7 +8,7 @@ ingress:
   enabled: false
 
 parent:
-  enabled: false
+  enabled: true
   database:
     persistence: true
     storageclass: "longhorn"
@@ -68,7 +68,7 @@ child:
       path: /etc/netdata/netdata.conf
       data: |
         [global]
-          hostname = {{ .Values.parent.hostname }}
+          hostname = talos
         [db]
           mode = dbengine
           storage tiers = 3
@@ -103,6 +103,7 @@ child:
           traefik: yes
           k8s_kubelet: yes
           k8s_kubeproxy: yes
+          k8s_state: yes
 
 # k8sState:
 #   dnsPolicy: ClusterFirst
