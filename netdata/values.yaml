@@ -37,7 +37,7 @@ parent:
           dbengine tier 2 retention size = 10GiB
           dbengine tier 2 retention time = 4y
         [plugins]
-          cgroups = no
+          cgroups = yes
           tc = no
           enable running new plugins = no
           check for new plugins every = 72000
