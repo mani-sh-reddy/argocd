@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: netdata-shell
+  namespace: netdata
+spec:
+  containers:
+    - name: netdata-shell
+      image: busybox:1.35.0-uclibc
+      command:
+        - "sleep"
+        - "3600" # Keeps the pod running for 1 hour, adjust as needed
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "160Mi"
+        limits:
+          cpu: "100m"
+          memory: "400Mi"
+      volumeMounts:
+        - name: alarms
+          mountPath: /var/lib/netdata # Mount the same directory
+      securityContext:
+        runAsUser: 0 # Run as root (if needed for access)
+  volumes:
+    - name: alarms
+      persistentVolumeClaim:
+        claimName: netdata-parent-alarms # PVC used by the original deployment
+  restartPolicy: Always

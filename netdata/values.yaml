@@ -12,8 +12,8 @@ parent:
     persistence: true
     storageclass: "longhorn"
     volumesize: 100Gi
-  # env:
-  #   DO_NOT_TRACK: 1
+  env:
+    DISABLE_TELEMETRY: 1
   envFrom:
     - secretRef:
         name: netdata
@@ -63,6 +63,17 @@ child:
   claiming:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+  configs:
+    go.d:
+      enabled: true
+      path: /etc/netdata/go.d.conf
+      data: |
+        modules:
+          pulsar: no
+          prometheus: yes
+          traefik: yes
+          k8s_kubelet: yes
+          k8s_kubeproxy: yes
 
 k8sState:
   dnsPolicy: ClusterFirst
