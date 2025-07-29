@@ -10,4 +10,4 @@ spec:
     requests:
       storage: 100Gi
   storageClassName: longhorn  # Must match the PV
-  volumeName: pvc-1cdf2328-bc2d-4de3-abe2-b448efbfa93a  # The existing PV name
+  volumeName: pvc-90b1d68e-431e-4235-9e5c-ce888e23735b  # The existing PV name
