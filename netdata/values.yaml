@@ -52,78 +52,64 @@ parent:
           getmntinfo = yes
 
 child:
-  enabled: false
-#   database:
-#     persistence: true
-#     storageclass: "longhorn"
-#     volumesize: 100Gi
-#   port: 19999
-#   dnsPolicy: ClusterFirst
-#   env:
-#     DO_NOT_TRACK: 1
-#   hostNetwork: false
-#   podsMetadata:
-#     useKubelet: true
-#     kubeletUrl: "https://localhost:10250"
-#   envFrom:
-#     - secretRef:
-#         name: netdata
-#   claiming:
-#     enabled: true
-#     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
-#   configs:
-#     stream:
-#       enabled: false
-#     netdata:
-#       enabled: true
-#       path: /etc/netdata/netdata.conf
-#       data: |
-#         [global]
-#           hostname = talos
-#         [db]
-#           mode = dbengine
-#           storage tiers = 3
-#           dbengine tier 0 retention size = 40GiB
-#           dbengine tier 0 retention time = 3Mo
-#           dbengine tier 1 retention size = 30GiB
-#           dbengine tier 1 retention time = 12mo
-#           dbengine tier 2 retention size = 10GiB
-#           dbengine tier 2 retention time = 4y
-#         [plugins]
-#           cgroups = yes
-#           tc = no
-#           enable running new plugins = no
-#           check for new plugins every = 72000
-#           python.d = no
-#           charts.d = yes
-#           go.d = yes
-#           node.d = yes
-#           apps = yes
-#           proc = yes
-#           idlejitter = no
-#           diskspace = yes
-#           devstat = yes
-#           getmntinfo = yes
-#     go.d:
-#       enabled: true
-#       path: /etc/netdata/go.d.conf
-#       data: |
-#         modules:
-#           pulsar: no
-#           prometheus: yes
-#           traefik: yes
-#           k8s_kubelet: yes
-#           k8s_kubeproxy: yes
-#           k8s_state: yes
+  dnsPolicy: ClusterFirst
+  env:
+    DO_NOT_TRACK: 1
+  hostNetwork: false
+  podsMetadata:
+    useKubelet: true
+    kubeletUrl: "https://localhost:10250"
+  envFrom:
+    - secretRef:
+        name: netdata
+  configs:
+    netdata:
+      enabled: true
+      path: /etc/netdata/netdata.conf
+      data: |
+        [global]
+          hostname = talos-worker
+        [db]
+          mode = dbengine
+          storage tiers = 3
+          dbengine tier 0 retention size = 40GiB
+          dbengine tier 0 retention time = 3Mo
+          dbengine tier 1 retention size = 30GiB
+          dbengine tier 1 retention time = 12mo
+          dbengine tier 2 retention size = 10GiB
+          dbengine tier 2 retention time = 4y
+        [plugins]
+          cgroups = yes
+          tc = no
+          enable running new plugins = no
+          check for new plugins every = 72000
+          python.d = no
+          charts.d = yes
+          go.d = yes
+          node.d = yes
+          apps = yes
+          proc = yes
+          idlejitter = no
+          diskspace = yes
+          devstat = yes
+          getmntinfo = yes
+    go.d:
+      enabled: true
+      path: /etc/netdata/go.d.conf
+      data: |
+        modules:
+          pulsar: no
+          prometheus: yes
+          traefik: yes
+          k8s_kubelet: yes
+          k8s_kubeproxy: yes
+          k8s_state: yes
 
 k8sState:
-  enabled: false
-  # dnsPolicy: ClusterFirst
-  # env:
-  #   DO_NOT_TRACK: 1
-  # envFrom:
-  #   - secretRef:
-  #       name: netdata
-  # claiming:
-  #   enabled: true
-  #   rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+  hostname: talos-k8s-state
+  dnsPolicy: ClusterFirst
+  env:
+    DO_NOT_TRACK: 1
+  envFrom:
+    - secretRef:
+        name: netdata
