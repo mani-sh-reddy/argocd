@@ -63,6 +63,8 @@ child:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
   configs:
+    stream:
+      enabled: false
     netdata:
       enabled: true
       path: /etc/netdata/netdata.conf
