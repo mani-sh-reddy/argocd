@@ -75,7 +75,7 @@ ingressRoutes:
 
   - id: netdata
     namespace: netdata
-    serviceName: netdata
+    serviceName: svc-netdata-ui
     app: netdata
     role: child
     servicePort: 19999
