@@ -12,8 +12,6 @@ parent:
     persistence: true
     storageclass: "longhorn"
     volumesize: 100Gi
-  env:
-    DISABLE_TELEMETRY: 1
   envFrom:
     - secretRef:
         name: netdata
