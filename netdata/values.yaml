@@ -19,9 +19,9 @@ parent:
 #   claiming:
 #     enabled: true
 #     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
-  configs:
-    netdata:
-      enabled: false
+#   configs:
+#     netdata:
+#       enabled: true
 #       path: /etc/netdata/netdata.conf
 #       data: |
 #         [global]
@@ -52,6 +52,10 @@ parent:
 #           getmntinfo = yes
 
 child:
+  database:
+    persistence: true
+    storageclass: "longhorn"
+    volumesize: 100Gi
   port: 19999
   dnsPolicy: ClusterFirst
   env:
