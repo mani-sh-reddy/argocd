@@ -27,6 +27,8 @@ parent:
       data: |
         [global]
           hostname = {{ .Values.parent.hostname }}
+        [ml]
+          enabled = yes
         [db]
           mode = dbengine
           storage tiers = 3
