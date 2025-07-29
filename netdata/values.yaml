@@ -63,11 +63,6 @@ child:
   claiming:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
-  configs:
-    exporting:
-      enabled: true
-      path: /etc/netdata/exporting.conf
-      data: ""
 
 k8sState:
   dnsPolicy: ClusterFirst
@@ -79,8 +74,3 @@ k8sState:
   claiming:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
-  configs:
-    exporting:
-      enabled: true
-      path: /etc/netdata/exporting.conf
-      data: ""

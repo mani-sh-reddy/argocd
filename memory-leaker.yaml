@@ -1,0 +1,67 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: memory-leaker
+#   namespace: default
+#   uid: 25148347-82dc-43c1-8202-981095ddd34b
+#   resourceVersion: '8964694'
+#   generation: 1
+#   creationTimestamp: '2025-07-29T18:44:59Z'
+#   labels:
+#     k8slens-edit-resource-version: v1
+# spec:
+#   replicas: 6
+#   selector:
+#     matchLabels:
+#       app: memory-leaker
+#   template:
+#     metadata:
+#       creationTimestamp: null
+#       labels:
+#         app: memory-leaker
+#     spec:
+#       containers:
+#         - name: leaker
+#           image: polinux/stress
+#           command:
+#             - stress
+#           args:
+#             - '--vm'
+#             - '1'
+#             - '--vm-bytes'
+#             - 5G
+#             - '--vm-hang'
+#             - '0'
+#           resources:
+#             limits:
+#               cpu: 100m
+#               memory: 9000Mi
+#             requests:
+#               cpu: 50m
+#               memory: 5000Mi
+#           terminationMessagePath: /dev/termination-log
+#           terminationMessagePolicy: File
+#           imagePullPolicy: Always
+#           securityContext:
+#             capabilities:
+#               drop:
+#                 - ALL
+#             readOnlyRootFilesystem: true
+#             allowPrivilegeEscalation: false
+#       restartPolicy: Always
+#       terminationGracePeriodSeconds: 30
+#       dnsPolicy: ClusterFirst
+#       securityContext:
+#         runAsUser: 1001
+#         runAsGroup: 1001
+#         runAsNonRoot: true
+#         seccompProfile:
+#           type: RuntimeDefault
+#       schedulerName: default-scheduler
+#   strategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       maxUnavailable: 25%
+#       maxSurge: 25%
+#   revisionHistoryLimit: 10
+#   progressDeadlineSeconds: 600

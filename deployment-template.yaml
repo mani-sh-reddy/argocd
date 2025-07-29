@@ -1,0 +1,43 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: memory-leaker
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: memory-leaker
+#   template:
+#     metadata:
+#       labels:
+#         app: memory-leaker
+#     spec:
+#       securityContext:
+#         runAsUser: 1001
+#         runAsGroup: 1001
+#         runAsNonRoot: true
+#         seccompProfile:
+#           type: RuntimeDefault
+#       containers:
+#       - name: leaker
+#         image: python:3.9-slim
+#         command: ["python"]
+#         args:
+#           - -c
+#           - |
+#             leaky = []
+#             while True:
+#                 leaky.append('x' * 10**6)
+#         securityContext:
+#           allowPrivilegeEscalation: false
+#           readOnlyRootFilesystem: true
+#           capabilities:
+#             drop: ["ALL"]
+#         resources:
+#           limits:
+#             memory: "500Mi"
+#             cpu: "100m"
+#           requests:
+#             memory: "100Mi"
+#             cpu: "50m"
