@@ -20,8 +20,18 @@ parent:
   claiming:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+  configs:
+    exporting:
+      enabled: true
+      path: /etc/netdata/exporting.conf
+      data: |
+        [prometheus_remote_write:prometheus]
+          enabled = yes
+          destination = 10.11.14.2:2003
+          remote write URL path = /receive
 
 child:
+  dnsPolicy: ClusterFirst
   env:
     DO_NOT_TRACK: 1
   hostNetwork: false
@@ -31,8 +41,14 @@ child:
   claiming:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+  configs:
+    exporting:
+      enabled: true
+      path: /etc/netdata/exporting.conf
+      data: ""
 
 k8sState:
+  dnsPolicy: ClusterFirst
   env:
     DO_NOT_TRACK: 1
   envFrom:
@@ -41,3 +57,8 @@ k8sState:
   claiming:
     enabled: true
     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
+  configs:
+    exporting:
+      enabled: true
+      path: /etc/netdata/exporting.conf
+      data: ""

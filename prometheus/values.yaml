@@ -16,6 +16,7 @@ prometheus:
     persistentVolumeClaimRetentionPolicy:
       whenDeleted: Retain
       whenScaled: Retain
+    enableRemoteWriteReceiver: false
 
 grafana:
   enabled: false
