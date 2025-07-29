@@ -1,35 +1,35 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: netdata
-#   namespace: argocd # This manifest's namespace
-#   finalizers:
-#     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
-#   labels:
-#     app.kubernetes.io/managed-by: argocd
-# spec:
-#   project: default
-#   sources:
-#     - repoURL: "https://netdata.github.io/helmchart"
-#       chart: netdata
-#       targetRevision: 3.*.*
-#       helm:
-#         valueFiles:
-#           - $values/netdata/values.yaml # Path to values file in this repo
-#     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-#       targetRevision: main
-#       ref: values
-#     # - repoURL: https://github.com/mani-sh-reddy/argocd.git
-#     #   path: grafana-operator-manifests/
-#     #   targetRevision: HEAD
-#   destination:
-#     server: "https://kubernetes.default.svc"
-#     namespace: netdata # Where components live
-#   syncPolicy:
-#     automated:
-#       selfHeal: true
-#       prune: true
-#       allowEmpty: true
-#     syncOptions:
-#       - CreateNamespace=true
-#       - ServerSideApply=true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: netdata
+  namespace: argocd # This manifest's namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+  labels:
+    app.kubernetes.io/managed-by: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://netdata.github.io/helmchart"
+      chart: netdata
+      targetRevision: 3.*.*
+      helm:
+        valueFiles:
+          - $values/netdata/values.yaml # Path to values file in this repo
+    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+      targetRevision: main
+      ref: values
+    # - repoURL: https://github.com/mani-sh-reddy/argocd.git
+    #   path: grafana-operator-manifests/
+    #   targetRevision: HEAD
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: netdata # Where components live
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
