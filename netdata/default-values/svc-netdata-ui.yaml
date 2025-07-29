@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: svc-netdata-ui
   namespace: netdata
+  labels:
+    app: netdata
+    release: netdata
+    role: child
 spec:
   selector:
     app: netdata
