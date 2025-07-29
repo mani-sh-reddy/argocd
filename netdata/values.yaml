@@ -30,12 +30,12 @@ parent:
         [db]
           mode = dbengine
           storage tiers = 3
-          dbengine tier 0 retention size = 20GiB
-          dbengine tier 0 retention time = 120d
-          dbengine tier 1 retention size = 10GiB
-          dbengine tier 1 retention time = 24mo
+          dbengine tier 0 retention size = 40GiB
+          dbengine tier 0 retention time = 3Mo
+          dbengine tier 1 retention size = 30GiB
+          dbengine tier 1 retention time = 12mo
           dbengine tier 2 retention size = 10GiB
-          dbengine tier 2 retention time = 5y
+          dbengine tier 2 retention time = 4y
         [plugins]
           cgroups = yes
           tc = yes
