@@ -56,9 +56,6 @@ child:
   env:
     DO_NOT_TRACK: 1
   hostNetwork: false
-  podsMetadata:
-    useKubelet: true
-    kubeletUrl: "https://localhost:10250"
   envFrom:
     - secretRef:
         name: netdata
@@ -68,7 +65,7 @@ child:
       path: /etc/netdata/netdata.conf
       data: |
         [global]
-          hostname = talos-worker
+          hostname = talos-collector
         [db]
           mode = dbengine
           storage tiers = 3
@@ -106,7 +103,7 @@ child:
           k8s_state: yes
 
 k8sState:
-  hostname: talos-k8s-state
+  hostname: talos-collector-k8s
   dnsPolicy: ClusterFirst
   env:
     DO_NOT_TRACK: 1
