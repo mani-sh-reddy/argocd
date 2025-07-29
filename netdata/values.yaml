@@ -19,9 +19,9 @@ parent:
 #   claiming:
 #     enabled: true
 #     rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
-#   configs:
-#     netdata:
-#       enabled: true
+  configs:
+    netdata:
+      enabled: false
 #       path: /etc/netdata/netdata.conf
 #       data: |
 #         [global]
