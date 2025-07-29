@@ -8,11 +8,11 @@ ingress:
   enabled: false
 
 parent:
-  enabled: true
-  database:
-    persistence: true
-    storageclass: "longhorn"
-    volumesize: 100Gi
+  enabled: false
+  # database:
+  #   persistence: true
+  #   storageclass: "longhorn"
+  #   volumesize: 100Gi
 #   envFrom:
 #     - secretRef:
 #         name: netdata
