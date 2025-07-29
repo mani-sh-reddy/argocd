@@ -66,25 +66,34 @@ parent:
           k8s_kubeproxy: yes
           k8s_state: yes
 
-# child:
+child:
 #   port: 19999
-#   dnsPolicy: ClusterFirst
+  dnsPolicy: ClusterFirst
 #   env:
 #     DO_NOT_TRACK: 1
-#   hostNetwork: false
-#   podsMetadata:
-#     useKubelet: true
-#     kubeletUrl: "https://localhost:10250"
+  hostNetwork: false
+  podsMetadata:
+    useKubelet: true
+    kubeletUrl: "https://localhost:10250"
 #   envFrom:
 #     - secretRef:
 #         name: netdata
   # claiming:
     # enabled: true
     # rooms: "55384689-a02b-45d6-81aa-3614cf7c9f16"
-  # configs:
+  configs:
+      data: |
+        [db]
+          mode = ram
+        [web]
+          bind to = localhost:19999
+        [health]
+          enabled = no
+        [ml]
+          enabled = no
   #   stream:
   #     enabled: false
-  #   netdata:
+    # netdata:
   #     enabled: true
   #     path: /etc/netdata/netdata.conf
   #     data: |
