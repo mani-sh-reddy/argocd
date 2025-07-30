@@ -69,13 +69,6 @@ child:
           hostname = talos-collector
         [db]
           mode = dbengine
-          storage tiers = 3
-          dbengine tier 0 retention size = 40GiB
-          dbengine tier 0 retention time = 3Mo
-          dbengine tier 1 retention size = 30GiB
-          dbengine tier 1 retention time = 12mo
-          dbengine tier 2 retention size = 10GiB
-          dbengine tier 2 retention time = 4y
         [plugins]
           cgroups = yes
           tc = no
@@ -91,6 +84,18 @@ child:
           diskspace = yes
           devstat = yes
           getmntinfo = yes
+    stream:
+      enabled: true
+      path: /etc/netdata/stream.conf
+      data: |
+        [stream]
+          enabled = {{ ternary "yes" "no" .Values.parent.enabled }}
+          destination = talos:{{ .Values.service.port }}
+          api key = 11111111-2222-3333-4444-555555555555
+          timeout seconds = 60
+          buffer size bytes = 1048576
+          reconnect delay seconds = 5
+          initial clock resync iterations = 60
     go.d:
       enabled: true
       path: /etc/netdata/go.d.conf
@@ -109,6 +114,18 @@ k8sState:
     - secretRef:
         name: netdata
   configs:
+    stream:
+      enabled: true
+      path: /etc/netdata/stream.conf
+      data: |
+        [stream]
+          enabled = {{ ternary "yes" "no" .Values.parent.enabled }}
+          destination = talos:{{ .Values.service.port }}
+          api key = 11111111-2222-3333-4444-555555555555
+          timeout seconds = 60
+          buffer size bytes = 1048576
+          reconnect delay seconds = 5
+          initial clock resync iterations = 60
     go.d:
       enabled: true
       path: /etc/netdata/go.d.conf
