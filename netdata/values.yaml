@@ -90,7 +90,7 @@ child:
       data: |
         [stream]
           enabled = {{ ternary "yes" "no" .Values.parent.enabled }}
-          destination = talos:{{ .Values.service.port }}
+          destination = netdata:{{ .Values.service.port }}
           api key = 11111111-2222-3333-4444-555555555555
           timeout seconds = 60
           buffer size bytes = 1048576
@@ -120,7 +120,7 @@ k8sState:
       data: |
         [stream]
           enabled = {{ ternary "yes" "no" .Values.parent.enabled }}
-          destination = talos:{{ .Values.service.port }}
+          destination = netdata:{{ .Values.service.port }}
           api key = 11111111-2222-3333-4444-555555555555
           timeout seconds = 60
           buffer size bytes = 1048576
