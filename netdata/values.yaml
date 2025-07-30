@@ -99,9 +99,6 @@ child:
           pulsar: no
           prometheus: yes
           traefik: yes
-          k8s_kubelet: yes
-          k8s_kubeproxy: yes
-          k8s_state: yes
 
 k8sState:
   hostname: talos-collector-k8s
@@ -111,3 +108,34 @@ k8sState:
   envFrom:
     - secretRef:
         name: netdata
+  configs:
+    go.d:
+      enabled: true
+      path: /etc/netdata/go.d.conf
+      data: |
+        default_run: no
+        modules:
+          k8s_state: yes
+          k8s_kubelet: yes
+          k8s_kubeproxy: yes
+    go.d-k8s_state:
+      enabled: true
+      path: /etc/netdata/go.d/k8s_state.conf
+      data: |
+        jobs:
+          - name: k8s_state
+            update_every: 1
+    go.d-k8s_kubelet:
+      enabled: true
+      path: /etc/netdata/go.d/k8s_kubelet.conf
+      data: |
+        jobs:
+          - name: k8s_kubelet
+            update_every: 1
+    go.d-k8s_kubeproxy:
+      enabled: true
+      path: /etc/netdata/go.d/k8s_state.conf
+      data: |
+        jobs:
+          - name: k8s_kubeproxy
+            update_every: 1
