@@ -134,7 +134,7 @@ k8sState:
             update_every: 1
     go.d-k8s_kubeproxy:
       enabled: true
-      path: /etc/netdata/go.d/k8s_state.conf
+      path: /etc/netdata/go.d/k8s_kubeproxy.conf
       data: |
         jobs:
           - name: k8s_kubeproxy
