@@ -10,21 +10,12 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: "oci://ghcr.io/immich-app/immich-charts/immich"
-      chart: immich
-      targetRevision: 0.*.*
+    - repoURL: https://github.com/mani-sh-reddy/argocd.git
+      targetRevision: HEAD
+      path: immich/
       helm:
         valueFiles:
-          - $values/immich/values.yaml # Path to values file in this repo
-    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-      targetRevision: main
-      ref: values
-    # - repoURL: https://github.com/mani-sh-reddy/argocd.git
-    #   targetRevision: HEAD
-    #   path: infisical-secrets/
-    #   helm:
-    #     valueFiles:
-    #       - values.yaml
+          - values.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: immich # Where components live
