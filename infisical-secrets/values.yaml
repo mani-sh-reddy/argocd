@@ -59,3 +59,10 @@ infisicalSecrets:
     namespace: netdata
     keys:
       - NETDATA_CLAIM_TOKEN
+
+  - name: immich-postgres-user
+    path: immich
+    namespace: immich
+    keys:
+      - username
+      - password

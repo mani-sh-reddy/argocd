@@ -12,14 +12,14 @@ spec:
 
   managed:
     roles:
-      - name: immich
+      - name: immich-pg-user-adm
         superuser: true
         login: true
 
   bootstrap:
     initdb:
       database: immich
-      owner: immich
+      owner: immich-pg-user-adm
       secret:
         name: immich-postgres-user
       postInitSQL:
