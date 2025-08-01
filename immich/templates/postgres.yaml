@@ -4,13 +4,16 @@ metadata:
   name: immich-postgres
   namespace: immich
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5-0.4.2
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.3.0
   instances: 1
 
   postgresql:
+    # parameters:
+      # huge_pages: "off"
     shared_preload_libraries:
       - "vectors.so"
 
+      
   managed:
     roles:
       - name: immich
@@ -19,6 +22,7 @@ spec:
 
   bootstrap:
     initdb:
+      # options: ['--set', 'huge_pages=off']
       database: immich
       owner: immich
       secret:
