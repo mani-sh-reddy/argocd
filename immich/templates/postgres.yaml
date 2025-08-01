@@ -31,4 +31,5 @@ spec:
   storage:
     size: 20Gi
     storageClass: longhorn
-    volumeName: immich-postgres-data
+    accessModes:
+      - ReadWriteOnce
