@@ -29,6 +29,8 @@ spec:
 
   storage:
     pvcTemplate:
+      volumeMode: Filesystem
+      volumeName: pvc-dca4ecde-84a2-41d8-9f8e-d9dbf5cbb645
       accessModes:
         - ReadWriteOnce
       resources:
