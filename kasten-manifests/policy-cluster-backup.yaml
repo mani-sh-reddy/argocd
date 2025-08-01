@@ -37,3 +37,5 @@ spec:
           - tailscale
           - traefik
           - netdata
+          - immich
+          - cnpg-system
