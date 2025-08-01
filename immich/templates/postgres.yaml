@@ -35,5 +35,3 @@ spec:
   storage:
     size: 20Gi
     storageClass: longhorn
-    accessModes:
-      - ReadWriteOnce
