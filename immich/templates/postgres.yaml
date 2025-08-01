@@ -28,5 +28,5 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   storage:
-    size: 20Gi
-    storageClass: longhorn
+    persistentVolumeClaim:
+      claimName: pvc-immich-db

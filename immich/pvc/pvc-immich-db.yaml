@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-immich-db
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: longhorn  # Must match the PV
+  volumeName: pvc-dca4ecde-84a2-41d8-9f8e-d9dbf5cbb645  # The existing PV name
