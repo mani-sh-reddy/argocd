@@ -29,12 +29,10 @@ spec:
 
   storage:
     pvcTemplate:
-      metadata:
-        name: pvc-immich-postgres
-      spec:
-        volumeName: pvc-dca4ecde-84a2-41d8-9f8e-d9dbf5cbb645  # <- Must match the PV backing your PVC
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 20Gi
+      volumeName: pvc-dca4ecde-84a2-41d8-9f8e-d9dbf5cbb645
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: longhorn
