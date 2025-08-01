@@ -30,7 +30,7 @@ immich:
       enabled: false
       days: 60
 
-      postgresql:
+postgresql:
   enabled: false
 
 redis:
