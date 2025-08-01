@@ -1,26 +1,26 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: cnpg
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
-  labels:
-    app.kubernetes.io/managed-by: argocd
-spec:
-  project: default
-  sources:
-    - repoURL: "https://cloudnative-pg.github.io/charts"
-      chart: cloudnative-pg
-      targetRevision: 0.*.*
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: cnpg-system
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: cnpg
+#   namespace: argocd
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+#   labels:
+#     app.kubernetes.io/managed-by: argocd
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: "https://cloudnative-pg.github.io/charts"
+#       chart: cloudnative-pg
+#       targetRevision: 0.*.*
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: cnpg-system
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#       allowEmpty: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - ServerSideApply=true
