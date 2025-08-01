@@ -29,5 +29,6 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   storage:
-    size: 4Gi
-    storageClass: immich-postgres
+    size: 20Gi
+    storageClass: longhorn
+    volumeName: immich-postgres-data
