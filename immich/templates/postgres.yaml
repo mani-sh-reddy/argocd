@@ -28,5 +28,13 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
 
   storage:
-    persistentVolumeClaim:
-      claimName: pvc-immich-db
+    pvcTemplate:
+      metadata:
+        name: pvc-immich-postgres
+      spec:
+        volumeName: pvc-dca4ecde-84a2-41d8-9f8e-d9dbf5cbb645  # <- Must match the PV backing your PVC
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi
