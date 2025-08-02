@@ -15,8 +15,12 @@ spec:
       labels:
         io.kompose.service: audiobookshelf
     spec:
+      securityContext:
+        runAsGroup: 65532
+        runAsUser: 65532
+        fsGroup: 65532
+        runAsNonRoot: true
       containers:
-      
         - env:
             - name: PORT
               value: "53723"
@@ -28,9 +32,6 @@ spec:
             - containerPort: 53723
               name: http
           securityContext:
-            runAsGroup: 65532
-            runAsUser: 65532
-            runAsNonRoot: true
             allowPrivilegeEscalation: false
             capabilities:
               drop:

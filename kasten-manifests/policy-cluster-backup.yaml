@@ -39,3 +39,4 @@ spec:
           - netdata
           - immich
           - cnpg-system
+          - apps
