@@ -7,20 +7,27 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-        k8s:io.kubernetes.pod.namespace: {{ .namespace }}
-        {{- if .appName }}
-        app.kubernetes.io/name: {{ .appName }}
-        {{- else if .k8sAppName }}
-        k8s:k8s-app: {{ .k8sAppName }}
-        {{- else }}
-        app: {{ .app }}
-        {{- end }}
-        {{- if .component }}
-        component: {{ .component }}
-        {{- end }}
-        {{- if .role }}
-        role: {{ .role }}
-        {{- end }}
+      k8s:io.kubernetes.pod.namespace: {{ .namespace }}
+      
+      {{- if .appName }}
+      app.kubernetes.io/name: {{ .appName }}
+      {{- else if .k8sAppName }}
+      k8s:k8s-app: {{ .k8sAppName }}
+      {{- else }}
+      app: {{ .app }}
+      {{- end }}
+      
+      {{- if .component }}
+      component: {{ .component }}
+      {{- end }}
+      
+      {{- if .role }}
+      role: {{ .role }}
+      {{- end }}
+      
+      {{- if .instance }}
+      app.kubernetes.io/instance: {{ .instance }}
+      {{- end }}
   ingress:
   - fromEndpoints:
     - matchLabels: {}

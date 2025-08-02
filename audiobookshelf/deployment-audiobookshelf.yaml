@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     io.kompose.service: audiobookshelf
+    app.kubernetes.io/name: audiobookshelf
   name: audiobookshelf
   namespace: apps
 spec:
@@ -14,6 +15,7 @@ spec:
     metadata:
       labels:
         io.kompose.service: audiobookshelf
+        app.kubernetes.io/name: audiobookshelf
     spec:
       securityContext:
         runAsGroup: 65532

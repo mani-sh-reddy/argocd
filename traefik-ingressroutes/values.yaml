@@ -82,3 +82,22 @@ ingressRoutes:
     podPort: 80
     podProtocol: TCP
     authentik: true
+
+  - id: immich
+    namespace: immich
+    serviceName: immich-server
+    instance: immich
+    appName: server
+    servicePort: 2283
+    podPort: 80
+    podProtocol: TCP
+    authentik: true
+
+  - id: abs
+    namespace: apps
+    serviceName: svc-audiobookshelf
+    appName: audiobookshelf
+    servicePort: 80
+    podPort: 53723
+    podProtocol: TCP
+    authentik: true

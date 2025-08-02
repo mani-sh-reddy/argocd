@@ -18,6 +18,7 @@ spec:
   - toEndpoints:
       - matchLabels:
           k8s:io.kubernetes.pod.namespace: {{ .namespace }}
+          
           {{- if .appName }}
           app.kubernetes.io/name: {{ .appName }}
           {{- else if .k8sAppName }}
@@ -25,8 +26,17 @@ spec:
           {{- else }}
           app: {{ .app }}
           {{- end }}
+          
           {{- if .component }}
           component: {{ .component }}
+          {{- end }}
+          
+          {{- if .role }}
+          role: {{ .role }}
+          {{- end }}
+          
+          {{- if .instance }}
+          app.kubernetes.io/instance: {{ .instance }}
           {{- end }}
     toPorts:
       - ports:

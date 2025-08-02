@@ -5,6 +5,7 @@ metadata:
   namespace: apps
   labels:
     io.kompose.service: audiobookshelf
+    app.kubernetes.io/name: audiobookshelf
 spec:
   selector:
     io.kompose.service: audiobookshelf
