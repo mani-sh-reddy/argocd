@@ -25,7 +25,7 @@ env:
         key: password
 
 image:
-  tag: v1.137.1
+  tag: v1.137.3
 
 immich:
   metrics:

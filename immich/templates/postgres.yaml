@@ -30,3 +30,4 @@ spec:
   storage:
     storageClass: longhorn
     size: 20Gi
+    
