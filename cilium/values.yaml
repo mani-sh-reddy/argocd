@@ -1,17 +1,17 @@
 # helm upgrade --install cilium cilium/cilium \
-#   --version 1.17.5 \
+#   --version 1.18.0 \
 #   --namespace kube-system \
 #   -f values.yaml
 
 # cilium connectivity test --connect-timeout 0s
+
+MTU: 1380
 
 operator:
   replicas: 1
 
 hostPort:
   enabled: false
-bpf:
-  hostLegacyRouting: true
 
 ipam:
   mode: kubernetes
@@ -39,7 +39,7 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 
-kubeProxyReplacement: true
+kubeProxyReplacement: false
 k8sServiceHost: "localhost"
 k8sServicePort: "7445"
 

@@ -86,8 +86,8 @@ ingressRoutes:
   - id: immich
     namespace: immich
     serviceName: immich-server
-    instance: immich
     appName: server
+    instance: immich
     servicePort: 2283
     podPort: 80
     podProtocol: TCP
