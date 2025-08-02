@@ -4,7 +4,7 @@ preUpgradeChecker:
 defaultSettings:
   defaultReplicaCount: 1
   defaultDataPath: /var/lib/longhorn
-  storageOverProvisioningPercentage: 200
+  storageOverProvisioningPercentage: 1000
   storageMinimalAvailablePercentage: 5
   allowRecurringJobWhileVolumeDetached: true
   autoSalvage: true
