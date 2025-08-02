@@ -54,4 +54,4 @@ kastenDisasterRecovery:
     enabled: true
 
 logging:
-  internal: false
+  internal: true
