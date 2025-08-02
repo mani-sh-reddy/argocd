@@ -125,7 +125,7 @@ experimental:
   abortOnPluginFailure: false
   fastProxy:
     # -- Enables the FastProxy implementation.
-    enabled: false
+    enabled: true
     # -- Enable debug mode for the FastProxy implementation.
     debug: false
   kubernetesGateway:

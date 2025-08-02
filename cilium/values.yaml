@@ -5,9 +5,6 @@
 
 # cilium connectivity test --connect-timeout 0s
 
-MTU: 1370
-l7Proxy: false
-
 operator:
   replicas: 1
 
@@ -45,11 +42,11 @@ k8sServiceHost: "localhost"
 k8sServicePort: "7445"
 
 hubble:
-  enabled: false
+  enabled: true
   relay:
-    enabled: false
+    enabled: true
   ui:
-    enabled: false
+    enabled: true
   metrics:
     enabled:
       - dns:query;ignoreAAAA
