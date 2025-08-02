@@ -5,7 +5,8 @@
 
 # cilium connectivity test --connect-timeout 0s
 
-MTU: 1380
+MTU: 1370
+l7Proxy: false
 
 operator:
   replicas: 1
