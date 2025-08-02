@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: audiobookshelf
+  name: audiobookshelf
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: audiobookshelf
+  template:
+    metadata:
+      labels:
+        io.kompose.service: audiobookshelf
+    spec:
+      containers:
+      
+        - env:
+            - name: PORT
+              value: "53723"
+            - name: TZ
+              value: Europe/London
+          image: ghcr.io/advplyr/audiobookshelf:latest
+          name: audiobookshelf
+          ports:
+            - containerPort: 53723
+              name: http
+          securityContext:
+            runAsGroup: 65532
+            runAsUser: 65532
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          volumeMounts:
+            - mountPath: /audiobooks
+              name: pvc-audiobooks
+            - mountPath: /podcasts
+              name: pvc-podcasts
+            - mountPath: /podcasts-podgrab
+              name: pvc-podgrab-downloads
+            - mountPath: /config
+              name: pvc-audiobookshelf-config
+            - mountPath: /metadata
+              name: pvc-audiobookshelf-metadata
+      hostname: audiobookshelf
+      restartPolicy: Always
+      volumes:
+        - name: pvc-audiobooks
+          persistentVolumeClaim:
+            claimName: pvc-audiobooks
+        - name: pvc-podcasts
+          persistentVolumeClaim:
+            claimName: pvc-podcasts
+        - name: pvc-podgrab-downloads
+          persistentVolumeClaim:
+            claimName: pvc-podgrab-downloads
+        - name: pvc-audiobookshelf-config
+          persistentVolumeClaim:
+            claimName: pvc-audiobookshelf-config
+        - name: pvc-audiobookshelf-metadata
+          persistentVolumeClaim:
+            claimName:  pvc-audiobookshelf-metadata
