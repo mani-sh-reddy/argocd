@@ -5,8 +5,11 @@
 
 # cilium connectivity test --connect-timeout 0s
 
-routingMode: native
-autoDirectNodeRoutes: true
+cni:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 200Mi
 
 operator:
   replicas: 1
@@ -41,23 +44,21 @@ cgroup:
   hostRoot: /sys/fs/cgroup
 
 kubeProxyReplacement: false
-k8sServiceHost: "localhost"
-k8sServicePort: "7445"
 
 hubble:
-  enabled: true
+  enabled: false
   relay:
-    enabled: true
+    enabled: false
   ui:
-    enabled: true
-  metrics:
-    enabled:
-      - dns:query;ignoreAAAA
-      - drop
-      - tcp
-      - flow
-      - icmp
-      - http
+    enabled: false
+  # metrics:
+  #   enabled:
+  #     - dns:query;ignoreAAAA
+  #     - drop
+  #     - tcp
+  #     - flow
+  #     - icmp
+  #     - http
   tls:
     auto:
       enabled: true
