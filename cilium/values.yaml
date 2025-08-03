@@ -5,6 +5,9 @@
 
 # cilium connectivity test --connect-timeout 0s
 
+routingMode: native
+autoDirectNodeRoutes: true
+
 operator:
   replicas: 1
 
