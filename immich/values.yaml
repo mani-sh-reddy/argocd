@@ -59,13 +59,14 @@ server:
     pullPolicy: IfNotPresent
   ingress:
     main:
-      enabled: true
+      enabled: false
       annotations:
         # proxy-body-size is set to 0 to remove the body limit on file uploads
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         tailscale.com/expose: "true"
         tailscale.com/tailnet-ip: "100.100.9.9"
         tailscale.com/hostname: "immich"
+      ingressClassName: tailscale
       hosts:
         - host: immich.local
           paths:
