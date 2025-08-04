@@ -68,7 +68,7 @@ server:
         tailscale.com/hostname: "immich"
       ingressClassName: tailscale
       hosts:
-        - host: immich.local
+        - host: immich.typhon-neon.ts.net
           paths:
             - path: "/"
       tls: []
