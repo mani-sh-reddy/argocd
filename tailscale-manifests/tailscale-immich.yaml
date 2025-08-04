@@ -2,10 +2,12 @@
 # kind: Ingress
 # metadata:
 #   name: tailscale-immich
+#   annotations:
+
 # spec:
 #   ingressClassName: tailscale
 #   defaultBackend:
 #     service:
-#       name: nginx
+#       name: immich-server
 #       port:
-#         name: https
+#         number: 2283

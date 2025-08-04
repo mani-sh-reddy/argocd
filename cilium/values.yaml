@@ -5,6 +5,8 @@
 
 # cilium connectivity test --connect-timeout 0s
 
+MTU: 1420
+
 cni:
   resources:
     requests:
@@ -46,19 +48,19 @@ cgroup:
 kubeProxyReplacement: false
 
 hubble:
-  enabled: false
+  enabled: true
   relay:
-    enabled: false
+    enabled: true
   ui:
-    enabled: false
-  # metrics:
-  #   enabled:
-  #     - dns:query;ignoreAAAA
-  #     - drop
-  #     - tcp
-  #     - flow
-  #     - icmp
-  #     - http
+    enabled: true
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
   tls:
     auto:
       enabled: true

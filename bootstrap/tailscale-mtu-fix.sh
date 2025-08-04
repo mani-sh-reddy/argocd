@@ -1,0 +1,1 @@
+ip link set dev tailscale0 mtu 1420
