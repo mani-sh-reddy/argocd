@@ -68,7 +68,7 @@ server:
         tailscale.com/hostname: "immich"
       ingressClassName: tailscale
       hosts:
-        - host: immich.local
+        - host: immich
           paths:
             - path: "/"
       tls: []
