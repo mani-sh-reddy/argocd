@@ -6,7 +6,7 @@ metadata:
   annotations:
     tailscale.com/expose: "true"
     tailscale.com/tailnet-ip: "100.100.9.9"
-    tailscale.com/hostname: "immich"
+    tailscale.com/hostname: "immich.typhon-neon.ts.net"
 spec:
   ingressClassName: tailscale
   defaultBackend:
