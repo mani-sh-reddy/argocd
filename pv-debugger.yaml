@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pv-debugger
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pv-debugger
+  template:
+    metadata:
+      labels:
+        app: pv-debugger
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: pv-debugger
+          image: alpine:3.20
+          command: ["sleep", "infinity"]
+          volumeMounts:
+            - name: data
+              mountPath: /mnt/data
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "100m"
+            requests:
+              memory: "100Mi"
+              cpu: "50m"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName:  pvc-a7642ddd-5742-4f48-8cc6-f4e0bcaad93b
