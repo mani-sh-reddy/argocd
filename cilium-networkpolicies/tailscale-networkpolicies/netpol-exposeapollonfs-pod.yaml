@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: netpol-exposeapollonfs-pod
+  namespace: tailscale
+spec:
+  endpointSelector:
+    matchLabels:
+      tailscale.com/parent-resource: expose-apollo-nfs
+  egress:
+    - toEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "3478"
+              protocol: UDP
+            - port: "1900"
+              protocol: UDP

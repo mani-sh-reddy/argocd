@@ -5,7 +5,7 @@ metadata:
     tailscale.com/tailnet-fqdn: apollo.typhon-neon.ts.net
     tailscale.com/tags: "tag:k8s-apps"
   name: expose-apollo-nfs   # service name
-  namespace: apps
+  namespace: immich
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
