@@ -14,8 +14,9 @@ spec:
         app: pv-debugger
     spec:
       securityContext:
-        runAsUser: 1001
-        runAsGroup: 1001
+        runAsGroup: 65532
+        runAsUser: 65532
+        fsGroup: 65532
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
@@ -41,4 +42,4 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName:  pvc-a7642ddd-5742-4f48-8cc6-f4e0bcaad93b
+            claimName:  pvc-podcasts
