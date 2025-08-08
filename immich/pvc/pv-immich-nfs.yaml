@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-immich-nfs
+spec:
+  capacity:
+    storage: 500Gi               # Adjust size as needed
+  accessModes:
+    - ReadWriteMany             # NFS supports multiple readers/writers
+  nfs:
+    server: expose-apollo-nfs.immich.svc.cluster.local            # Replace with your Synology NAS IP
+    path: /volume2/photos  # Replace with your NFS shared folder path
+  persistentVolumeReclaimPolicy: Retain

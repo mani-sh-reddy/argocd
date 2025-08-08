@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pv-debugger
-  namespace: apps
+  namespace: immich
 spec:
   replicas: 1
   selector:
@@ -24,9 +24,9 @@ spec:
         - name: pv-debugger
           image: alpine:3.20
           command: ["sleep", "infinity"]
-          volumeMounts:
-            - name: data
-              mountPath: /mnt/data
+          # volumeMounts:
+          #   - name: data
+          #     mountPath: /mnt/data
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -39,7 +39,7 @@ spec:
             requests:
               memory: "100Mi"
               cpu: "50m"
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName:  pvc-podcasts
+      # volumes:
+      #   - name: data
+      #     persistentVolumeClaim:
+      #       claimName:  pvc-immich-nfs    # PVC NAME
