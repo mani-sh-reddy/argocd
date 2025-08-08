@@ -1,0 +1,18 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: netpol-immich-server
+  namespace: immich
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: immich
+      app.kubernetes.io/name: server
+  egress:
+    - toFQDNs:
+        - matchName: auth.manishreddy.uk
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+
