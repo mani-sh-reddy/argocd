@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-audiobookshelf-config
+  name: audiobooks-pvc
   namespace: apps
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 100Gi
   storageClassName: longhorn
-
+  volumeName: audiobooks-pv

@@ -49,30 +49,30 @@ spec:
               cpu: "1"
           volumeMounts:
             - mountPath: /audiobooks
-              name: pvc-audiobooks
+              name: audiobooks-pvc
             - mountPath: /podcasts
-              name: pvc-podcasts
+              name: podcasts-pvc
             - mountPath: /podcasts-podgrab
-              name: pvc-podgrab-downloads
+              name: podgrab-downloads-pvc
             - mountPath: /config
-              name: pvc-audiobookshelf-config
+              name: audiobookshelf-config-pvc
             - mountPath: /metadata
-              name: pvc-audiobookshelf-metadata
+              name: audiobookshelf-metadata-pvc
       hostname: audiobookshelf
       restartPolicy: Always
       volumes:
-        - name: pvc-audiobooks
+        - name: audiobooks-pvc
           persistentVolumeClaim:
-            claimName: pvc-audiobooks
-        - name: pvc-podcasts
+            claimName: audiobooks-pvc
+        - name: podcasts-pvc
           persistentVolumeClaim:
-            claimName: pvc-podcasts
-        - name: pvc-podgrab-downloads
+            claimName: podcasts-pvc
+        - name: podgrab-downloads-pvc
           persistentVolumeClaim:
-            claimName: pvc-podgrab-downloads
-        - name: pvc-audiobookshelf-config
+            claimName: podgrab-downloads-pvc
+        - name: audiobookshelf-config-pvc
           persistentVolumeClaim:
-            claimName: pvc-audiobookshelf-config
-        - name: pvc-audiobookshelf-metadata
+            claimName: audiobookshelf-config-pvc
+        - name: audiobookshelf-metadata-pvc
           persistentVolumeClaim:
-            claimName:  pvc-audiobookshelf-metadata
+            claimName:  audiobookshelf-metadata-pvc
