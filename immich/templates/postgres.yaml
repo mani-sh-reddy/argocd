@@ -25,10 +25,11 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
   storage:
+    size: 20Gi
     persistentVolumeClaimSpec:
       accessModes:
         - ReadWriteOnce
       resources:
         requests:
           storage: 20Gi
-      volumeName: immich-db-pv
+      volumeName: 
