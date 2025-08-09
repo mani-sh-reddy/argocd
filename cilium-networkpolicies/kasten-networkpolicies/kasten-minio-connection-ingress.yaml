@@ -1,18 +1,16 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-exposeapollo-pod
+  name: kasten-minio-connection-ingress
   namespace: tailscale
 spec:
   endpointSelector:
     matchLabels:
       tailscale.com/parent-resource: expose-apollo
-  egress:
-    - toEntities:
-        - world
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kasten-io
       toPorts:
         - ports:
-            - port: "3478"
-              protocol: UDP
-            - port: "1900"
-              protocol: UDP
+            - port: "9090"

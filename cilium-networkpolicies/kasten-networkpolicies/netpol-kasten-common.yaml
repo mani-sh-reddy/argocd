@@ -12,12 +12,6 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels: {}
-    - toEntities:
-        - host
-      toPorts:
-        - ports:
-            - port: "6443"
-              protocol: TCP
     - toEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: kube-system

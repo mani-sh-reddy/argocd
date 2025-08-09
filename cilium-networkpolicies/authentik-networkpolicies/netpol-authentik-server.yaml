@@ -12,6 +12,7 @@ spec:
   egress:
     - toFQDNs:
         - matchName: auth.manishreddy.uk
+        - matchName: www.gravatar.com
       toPorts:
         - ports:
             - port: "443"

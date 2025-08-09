@@ -1,12 +1,13 @@
-apiVersion: cilium.io/v2
+apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-tailscale-operator
-  namespace: tailscale
+  name: netpol-kasten-common
+  namespace: kasten-io
 spec:
   endpointSelector:
     matchLabels:
-      app: operator
+      app.kubernetes.io/instance: k10
+      app.kubernetes.io/name: k10
   egress:
     - toEntities:
         - host
@@ -14,3 +15,4 @@ spec:
         - ports:
             - port: "6443"
               protocol: TCP
+

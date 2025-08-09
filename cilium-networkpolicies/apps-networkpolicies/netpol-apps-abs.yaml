@@ -1,20 +1,17 @@
-apiVersion: cilium.io/v2
+apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-netdata-common
-  namespace: netdata
+  name: netpol-apps-abs
+  namespace: apps
 spec:
   endpointSelector:
-    matchLabels: {}
-  ingress:
-    - fromEndpoints:
-        - {}
+    matchLabels:
+      app.kubernetes.io/name: audiobookshelf
   egress:
-    - toEndpoints:
-        - {}
     - toEntities:
         - world
       toPorts:
         - ports:
             - port: "443"
               protocol: TCP
+

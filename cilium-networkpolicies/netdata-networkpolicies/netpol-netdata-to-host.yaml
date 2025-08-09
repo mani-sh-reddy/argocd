@@ -1,13 +1,12 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-netdata-parent
+  name: netpol-netdata-to-host
   namespace: netdata
 spec:
   endpointSelector:
     matchLabels: 
       app: netdata
-      role: parent
   egress:
     - toEntities:
         - host
@@ -15,4 +14,3 @@ spec:
         - ports:
             - port: "6443"
               protocol: TCP
-

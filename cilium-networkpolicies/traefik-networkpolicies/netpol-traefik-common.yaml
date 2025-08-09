@@ -1,8 +1,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-tailscale-common
-  namespace: tailscale
+  name: netpol-traefik-common
+  namespace: traefik
 spec:
   endpointSelector:
     matchLabels: {}
@@ -12,5 +12,3 @@ spec:
   egress:
     - toEndpoints:
         - {}
-    - toEntities:
-        - world

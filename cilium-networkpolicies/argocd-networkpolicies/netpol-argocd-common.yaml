@@ -1,16 +1,14 @@
-apiVersion: cilium.io/v2
+apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-tailscale-common
-  namespace: tailscale
+  name: netpol-argocd-common
+  namespace: argocd
 spec:
   endpointSelector:
     matchLabels: {}
   ingress:
     - fromEndpoints:
-        - {}
+        - matchLabels: {}
   egress:
     - toEndpoints:
-        - {}
-    - toEntities:
-        - world
+        - matchLabels: {}

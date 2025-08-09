@@ -1,0 +1,19 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: netpol-immich-tailscale-egress
+  namespace: tailscale
+spec:
+  endpointSelector:
+    matchLabels:
+      tailscale.com/parent-resource: tailscale-immich
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: immich
+            app.kubernetes.io/instance: immich
+            app.kubernetes.io/name: server
+      toPorts:
+        - ports:
+            - port: "2283"
+              protocol: TCP

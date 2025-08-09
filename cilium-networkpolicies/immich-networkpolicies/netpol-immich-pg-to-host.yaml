@@ -1,13 +1,12 @@
-apiVersion: cilium.io/v2
+apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-netdata-k8sstate
-  namespace: netdata
+  name: netpol-immich-pg-to-host
+  namespace: immich
 spec:
   endpointSelector:
-    matchLabels: 
-      app: netdata
-      role: k8sState
+    matchLabels:
+      cnpg.io/cluster: immich-postgres
   egress:
     - toEntities:
         - host
@@ -15,4 +14,3 @@ spec:
         - ports:
             - port: "6443"
               protocol: TCP
-

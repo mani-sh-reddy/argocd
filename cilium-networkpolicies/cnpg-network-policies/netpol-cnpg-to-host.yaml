@@ -1,12 +1,12 @@
-apiVersion: cilium.io/v2
+apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: netpol-tailscale-operator
-  namespace: tailscale
+  name: netpol-cnpg-to-host
+  namespace: cnpg-system
 spec:
   endpointSelector:
     matchLabels:
-      app: operator
+      app.kubernetes.io/name: cloudnative-pg 
   egress:
     - toEntities:
         - host
