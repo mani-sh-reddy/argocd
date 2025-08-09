@@ -33,3 +33,4 @@ spec:
         requests:
           storage: 20Gi
       volumeName: immich-db-pv
+      storageClassName: longhorn
