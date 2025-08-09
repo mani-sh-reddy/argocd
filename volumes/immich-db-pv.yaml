@@ -6,7 +6,7 @@ metadata:
     - manishreddy.uk/finalizer
 spec:
   capacity:
-    storage: 20Gi
+    storage: 22362Mi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
