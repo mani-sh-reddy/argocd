@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-immich-library
+  name: immich-library-pvc
   namespace: immich
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 200Gi
+      storage: 500Gi
   storageClassName: longhorn
-  volumeName: pvc-d578484d-8d27-4aca-b507-dd8f3b12b596
+  volumeName: immich-library-pv
