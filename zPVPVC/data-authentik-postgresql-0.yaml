@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-authentik-postgresql-0
+  namespace: authentik
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: longhorn
+  volumeName: data-authentik-postgresql-0
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-authentik-postgresql-0
+  finalizers:
+    - manishreddy.uk/finalizer
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: longhorn
+  volumeMode: Filesystem
+  csi:
+    driver: driver.longhorn.io
+    fsType: ext4
+    volumeHandle: data-authentik-postgresql-0
