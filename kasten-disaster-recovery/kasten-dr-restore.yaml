@@ -1,0 +1,13 @@
+# CLUSTER ID: 50560019-36cc-47ae-a7d1-70b2c0fe9e70
+# MAKE SURE TO STOP ARGOCD AUTOSYNC FOR APP
+apiVersion: dr.kio.kasten.io/v1alpha1
+kind: KastenDRRestore
+metadata:
+  name: kasten-dr-restore
+  namespace: kasten-io
+spec:
+  kastenDRReviewDetails:
+    kastenDRReviewRef:
+      name: kasten-dr-review-bff
+      namespace: kasten-io
+    id: b1ff4f1d8c214d892c24bb9c1259ace8 # id to restore

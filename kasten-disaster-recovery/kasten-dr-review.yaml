@@ -1,0 +1,10 @@
+# lists all restorable artifacts
+apiVersion: dr.kio.kasten.io/v1alpha1
+kind: KastenDRReview
+metadata:
+  name: kasten-dr-review
+  namespace: kasten-io
+spec:
+  sourceClusterInfo:
+    profileName: apollo-minio-s3
+    sourceClusterID: 50560019-36cc-47ae-a7d1-70b2c0fe9e70
