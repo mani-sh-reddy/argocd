@@ -52,8 +52,8 @@ service:
 
 persistence:
   enabled: true
-  # existingClaim: traefik-data
-  storageClass: ceph-filesystem
+  existingClaim: traefik-data
+  storageClass: longhorn
   accessMode: ReadWriteOnce
   size: 128Mi
   path: /data
