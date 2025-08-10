@@ -5,3 +5,5 @@ volumes:
   - name: podcasts-vol
     namespace: apps
     size: 200Gi
+    accessMode: ReadWriteMany
+
