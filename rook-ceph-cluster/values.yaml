@@ -302,19 +302,19 @@ cephClusterSpec:
       limits:
         memory: "1Gi"
       requests:
-        cpu: "500m"
+        cpu: "250m"
         memory: "512Mi"
     mon:
       limits:
         memory: "2Gi"
       requests:
-        cpu: "1000m"
+        cpu: "500m"
         memory: "1Gi"
     osd:
       limits:
         memory: "4Gi"
       requests:
-        cpu: "1000m"
+        cpu: "500m"
         memory: "4Gi"
     prepareosd:
       # limits: It is not recommended to set limits on the OSD prepare job
@@ -326,7 +326,7 @@ cephClusterSpec:
       #         OSDs ; for larger devices 2Gi may be required.
       #         cf. https://github.com/rook/rook/pull/11103
       requests:
-        cpu: "500m"
+        cpu: "250m"
         memory: "50Mi"
     mgr-sidecar:
       limits:
@@ -350,7 +350,7 @@ cephClusterSpec:
       limits:
         memory: "1Gi"
       requests:
-        cpu: "500m"
+        cpu: "250m"
         memory: "100Mi"
     exporter:
       limits:
@@ -554,7 +554,7 @@ cephFileSystems:
           limits:
             memory: "4Gi"
           requests:
-            cpu: "1000m"
+            cpu: "500m"
             memory: "4Gi"
         priorityClassName: system-cluster-critical
     storageClass:
@@ -631,7 +631,7 @@ cephObjectStores:
           limits:
             memory: "2Gi"
           requests:
-            cpu: "1000m"
+            cpu: "500m"
             memory: "1Gi"
         # securePort: 443
         # sslCertificateRef:
