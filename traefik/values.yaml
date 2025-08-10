@@ -52,7 +52,7 @@ service:
 
 persistence:
   enabled: true
-  existingClaim: traefik-data
+  # existingClaim: traefik-data
   storageClass: ceph-filesystem
   accessMode: ReadWriteOnce
   size: 128Mi
