@@ -53,25 +53,25 @@ ingressRoutes:
     podPort: 9443
     podProtocol: TCP
 
-  - id: grafana
-    namespace: monitoring-system
-    serviceName: grafana-service
-    app: grafana
-    servicePort: 3000
-    podPort: 3000
-    podProtocol: TCP
-    authentik: true
+  # - id: grafana
+  #   namespace: monitoring-system
+  #   serviceName: grafana-service
+  #   app: grafana
+  #   servicePort: 3000
+  #   podPort: 3000
+  #   podProtocol: TCP
+  #   authentik: true
 
-  - id: prometheus
-    namespace: monitoring-system
-    serviceName: prometheus-kube-prometheus-prometheus
-    servicePort: 9090
-    appName: prometheus
-    headers:
-      - X-Forwarded-Proto: "https"
-    podPort: 9090
-    podProtocol: TCP
-    authentik: true
+  # - id: prometheus
+  #   namespace: monitoring-system
+  #   serviceName: prometheus-kube-prometheus-prometheus
+  #   servicePort: 9090
+  #   appName: prometheus
+  #   headers:
+  #     - X-Forwarded-Proto: "https"
+  #   podPort: 9090
+  #   podProtocol: TCP
+  #   authentik: true
 
   - id: netdata
     namespace: netdata
@@ -99,5 +99,14 @@ ingressRoutes:
     appName: audiobookshelf
     servicePort: 80
     podPort: 53723
+    podProtocol: TCP
+    authentik: true
+
+  - id: sync
+    namespace: apps
+    serviceName: syncthing
+    appName: audiobookshelf
+    servicePort: 8384
+    podPort: 80
     podProtocol: TCP
     authentik: true
