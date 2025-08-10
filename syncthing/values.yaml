@@ -33,7 +33,4 @@ persistence:
   data:
     enabled: true
     mountPath: /var/syncthing
-    size: 10Gi
-    accessMode: ReadWriteOnce
-    storageClass:  longhorn
     existingClaim: syncthing-vol
