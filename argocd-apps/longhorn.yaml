@@ -1,71 +1,71 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: longhorn
-  namespace: argocd # This manifest's namespace
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
-  labels:
-    app.kubernetes.io/managed-by: argocd
-spec:
-  project: default
-  sources:
-    - repoURL: "https://charts.longhorn.io/"
-      chart: longhorn
-      targetRevision: v1.*.*
-      helm:
-        valueFiles:
-          - $values/longhorn/values.yaml # Path to values file in this repo
-    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
-      targetRevision: main
-      ref: values
-    - repoURL: https://github.com/mani-sh-reddy/argocd.git
-      path: longhorn-manifests/
-      targetRevision: HEAD
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: longhorn-system # Where components live
-  syncPolicy:
-    automated:
-      selfHeal: true
-      prune: true
-      allowEmpty: true
-    syncOptions:
-      - CreateNamespace=true
-      - RespectIgnoreDifferences=true
-  ignoreDifferences:
-    - name: volumes.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
-    - name: settings.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
-    - name: replicas.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
-    - name: nodes.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
-    - name: instancemanagers.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
-    - name: engines.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
-    - name: engineimages.longhorn.io
-      group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      jsonPointers:
-        - /spec/preserveUnknownFields
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: longhorn
+#   namespace: argocd # This manifest's namespace
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+#   labels:
+#     app.kubernetes.io/managed-by: argocd
+# spec:
+#   project: default
+#   sources:
+#     - repoURL: "https://charts.longhorn.io/"
+#       chart: longhorn
+#       targetRevision: v1.*.*
+#       helm:
+#         valueFiles:
+#           - $values/longhorn/values.yaml # Path to values file in this repo
+#     - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+#       targetRevision: main
+#       ref: values
+#     - repoURL: https://github.com/mani-sh-reddy/argocd.git
+#       path: longhorn-manifests/
+#       targetRevision: HEAD
+#   destination:
+#     server: "https://kubernetes.default.svc"
+#     namespace: longhorn-system # Where components live
+#   syncPolicy:
+#     automated:
+#       selfHeal: true
+#       prune: true
+#       allowEmpty: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - RespectIgnoreDifferences=true
+#   ignoreDifferences:
+#     - name: volumes.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
+#     - name: settings.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
+#     - name: replicas.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
+#     - name: nodes.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
+#     - name: instancemanagers.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
+#     - name: engines.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
+#     - name: engineimages.longhorn.io
+#       group: apiextensions.k8s.io
+#       kind: CustomResourceDefinition
+#       jsonPointers:
+#         - /spec/preserveUnknownFields
