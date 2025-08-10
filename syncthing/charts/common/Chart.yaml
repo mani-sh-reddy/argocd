@@ -1,0 +1,13 @@
+apiVersion: v2
+description: Function library for charts that were forked from k8s-at-home after its
+  deprecation
+home: https://github.com/johanneskastl/helm-charts/tree/main/charts/common
+keywords:
+- common
+kubeVersion: '>=1.16.0-0'
+maintainers:
+- email: kastl@b1-systems.de
+  name: johanneskastl
+name: common
+type: library
+version: 5.0.5

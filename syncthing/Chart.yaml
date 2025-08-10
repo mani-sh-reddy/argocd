@@ -1,0 +1,25 @@
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: update appVersion to 1.30.0
+apiVersion: v2
+appVersion: 1.30.0
+dependencies:
+- name: common
+  repository: https://johanneskastl.github.io/helm-charts/
+  version: 5.0.5
+description: Open Source Continuous File Synchronization
+home: https://github.com/johanneskastl/helm-charts/tree/master/charts/stable/syncthing
+icon: https://github.com/syncthing/syncthing/raw/main/assets/logo-128.png
+keywords:
+- syncthing
+- file sync
+kubeVersion: '>=1.16.0-0'
+maintainers:
+- email: git@johannes-kastl.de
+  name: johanneskastl
+name: syncthing
+sources:
+- https://syncthing.net/
+- https://github.com/syncthing/syncthing
+version: 4.12.0
