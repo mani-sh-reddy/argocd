@@ -1,0 +1,57 @@
+{{- range .Values.volumes }}
+
+{{- $sizeStr := .size }}
+{{- $num := regexFind "^[0-9]+" $sizeStr | int }}
+{{- $unit := regexFind "[a-zA-Z]+" $sizeStr }}
+
+apiVersion: longhorn.io/v1beta2
+kind: Volume
+metadata:
+  name: {{ .name }}
+  namespace: longhorn-system
+  labels:
+    longhornvolume: {{ .name }}
+spec:
+  Standby: false
+  {{- if eq (.accessMode | quote) "ReadWriteMany" }}
+  accessMode: rwx
+  {{- else }}
+  accessMode: rwo
+  {{- end }}
+  backingImage: ""
+  backupCompressionMethod: lz4
+  backupTargetName: default
+  dataEngine: v1
+  dataLocality: disabled
+  dataSource: ""
+  disableFrontend: false
+  diskSelector: []
+  encrypted: false
+  freezeFilesystemForSnapshot: ignored
+  fromBackup: ""
+  frontend: blockdev
+  image: longhornio/longhorn-engine:v1.9.1
+  lastAttachedBy: ""
+  migratable: false
+  migrationNodeID: ""
+  nodeID: talos-m0u-9b2
+  nodeSelector: []
+  numberOfReplicas: 1
+  offlineRebuilding: ignored
+  replicaAutoBalance: ignored
+  replicaDiskSoftAntiAffinity: ignored
+  replicaSoftAntiAffinity: ignored
+  replicaZoneSoftAntiAffinity: ignored
+  restoreVolumeRecurringJob: ignored
+  revisionCounterDisabled: true
+  {{- if eq $unit "Gi" }}
+  size: {{ mul $num 1073741824 | quote }}
+  {{- else if eq $unit "Mi" }}
+  size: {{ mul $num 1048576 | quote }}
+  {{- end }}
+  snapshotDataIntegrity: ignored
+  snapshotMaxCount: 250
+  snapshotMaxSize: "0"
+  staleReplicaTimeout: 30
+  unmapMarkSnapChainRemoved: ignored
+{{- end -}}

@@ -1,6 +1,5 @@
 image:
-  repository: docker.io/syncthing/syncthing
-  tag: 1
+  repository: docker.io/syncthing/syncthing:1
   pullPolicy: IfNotPresent
 
 service:
