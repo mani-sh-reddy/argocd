@@ -107,6 +107,6 @@ ingressRoutes:
     serviceName: syncthing
     appName: syncthing
     servicePort: 8384
-    podPort: 80
+    podPort: 8384
     podProtocol: TCP
     authentik: true
