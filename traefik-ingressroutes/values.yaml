@@ -105,7 +105,7 @@ ingressRoutes:
   - id: sync
     namespace: apps
     serviceName: syncthing
-    appName: audiobookshelf
+    appName: syncthing
     servicePort: 8384
     podPort: 80
     podProtocol: TCP
