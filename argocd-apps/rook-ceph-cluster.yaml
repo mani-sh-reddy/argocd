@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph-cluster
+  namespace: argocd # This manifest's namespace
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Ensure child resources are cleaned up before the app is deleted
+  labels:
+    app.kubernetes.io/managed-by: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://charts.rook.io/release"
+      chart: rook-ceph-cluster
+      targetRevision: v1.*.*
+      helm:
+        valueFiles:
+          - $values/rook-ceph-cluster/values.yaml # Path to values file in this repo
+    - repoURL: "https://github.com/mani-sh-reddy/argocd.git"
+      targetRevision: main
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: rook-ceph # Where components live
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true

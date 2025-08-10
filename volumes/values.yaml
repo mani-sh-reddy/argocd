@@ -1,9 +1,4 @@
 volumes:
-  - name: syncthing-vol
+  - name: sync-conf-vol
     namespace: apps
     size: 10Gi
-  - name: podcasts-vol
-    namespace: apps
-    size: 200Gi
-    accessMode: ReadWriteMany
-
