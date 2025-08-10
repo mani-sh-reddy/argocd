@@ -1,18 +1,20 @@
+{{- range .Values.volumes }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: syncthing-pv
+  name: {{ .name }}
   finalizers:
     - manishreddy.uk/finalizer
 spec:
   capacity:
-    storage: 10Gi
+    storage: {{ .size }}
   accessModes:
-    - ReadWriteOnce
+    - {{ .accessMode | default "ReadWriteOnce" }}
   persistentVolumeReclaimPolicy: Retain
   storageClassName: longhorn
   volumeMode: Filesystem
   csi:
     driver: driver.longhorn.io
     fsType: ext4
-    volumeHandle: syncthing-pv
+    volumeHandle: {{ .name }}
+{{- end -}}

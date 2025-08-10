@@ -1,0 +1,4 @@
+volumes:
+  - name: syncthing-vol
+    namespace: apps
+    size: 10Gi
