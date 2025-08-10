@@ -484,7 +484,7 @@ cephBlockPools:
       name: ceph-block
       annotations: {}
       labels: {}
-      isDefault: true
+      isDefault: false
       reclaimPolicy: Retain
       allowVolumeExpansion: true
       volumeBindingMode: "Immediate"
@@ -559,7 +559,7 @@ cephFileSystems:
         priorityClassName: system-cluster-critical
     storageClass:
       enabled: true
-      isDefault: false
+      isDefault: true
       name: ceph-filesystem
       # (Optional) specify a data pool to use, must be the name of one of the data pools above, 'data0' by default
       pool: data0
@@ -588,7 +588,7 @@ cephFileSystems:
 cephFileSystemVolumeSnapshotClass:
   enabled: false
   name: ceph-filesystem
-  isDefault: true
+  isDefault: false
   deletionPolicy: Delete
   annotations: {}
   labels: {}
