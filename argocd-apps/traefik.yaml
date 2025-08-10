@@ -20,12 +20,6 @@ spec:
       targetRevision: main
       ref: values
     - repoURL: https://github.com/mani-sh-reddy/argocd.git
-      targetRevision: HEAD
-      path: traefik-ingressroutes/
-      helm:
-        valueFiles:
-          - values.yaml
-    - repoURL: https://github.com/mani-sh-reddy/argocd.git
       path: traefik-manifests/
       targetRevision: HEAD
   destination:
