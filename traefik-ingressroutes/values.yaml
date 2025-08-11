@@ -5,8 +5,8 @@ ingressRoutes:
     namespace: argocd
     serviceName: argocd-server
     appName: argocd-server
-    servicePort: 443
-    serversTransport: true
+    servicePort: 80
+    # serversTransport: true
     podPort: 8080
     podProtocol: TCP
     # authentik: true

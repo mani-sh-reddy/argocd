@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: argocd-repo-server-egress-443
+  name: netpol-argocd-reposerver
   namespace: argocd
 spec:
   endpointSelector:
