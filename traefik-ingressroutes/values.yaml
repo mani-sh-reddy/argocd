@@ -22,17 +22,17 @@ ingressRoutes:
     podProtocol: TCP
     authentik: true
 
-  # - id: longhorn
-  #   namespace: longhorn-system
-  #   serviceName: longhorn-frontend
-  #   app: longhorn-ui
-  #   servicePort: 80
-  #   # redirectPath: "#/dashboard"
-  #   # headers:
-  #     # - X-Forwarded-Proto: "https"
-  #   podPort: 8000
-  #   podProtocol: TCP
-  #   authentik: true
+  - id: longhorn
+    namespace: longhorn-system
+    serviceName: longhorn-frontend
+    app: longhorn-ui
+    servicePort: 80
+    # redirectPath: "#/dashboard"
+    # headers:
+      # - X-Forwarded-Proto: "https"
+    podPort: 8000
+    podProtocol: TCP
+    authentik: true
 
   - id: hubble
     namespace: kube-system
